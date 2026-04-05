@@ -214,7 +214,7 @@ const LoadingScreen = ({ onComplete, visible }: { onComplete: () => void; visibl
         }
         return prev + 1;
       });
-    }, 40);
+    }, 85);
     return () => clearInterval(interval);
   }, [onComplete]);
 
@@ -599,7 +599,7 @@ export default function Quiz() {
               type="text"
               value={name}
               onChange={e => setName(e.target.value)}
-              placeholder="Tu nombre"
+              placeholder="Ingresa tu nombre para recibir tu plan"
               className="w-full px-4 py-4 rounded-xl border-2 border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors mb-6"
             />
             {name.trim().length >= 2 && (
