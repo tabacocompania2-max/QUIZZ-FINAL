@@ -346,7 +346,7 @@ export default function Quiz() {
               Más de 50,000 personas en Latinoamérica ya iniciaron su proceso con nosotros.
             </h2>
             
-            <div className="my-2 w-full relative bg-[#F4F1FF] rounded-[32px] overflow-hidden border border-[#DED4FA]" style={{ aspectRatio: '1.2/1 shadow-inner' }}>
+            <div className="my-4 w-full relative bg-[#F4F1FF] rounded-[32px] overflow-hidden border border-[#DED4FA] shadow-inner" style={{ aspectRatio: '1.2 / 1' }}>
               {/* BACKRADIAL GRADIENT GRADIENT */}
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_white_0%,_#EBE4FF_100%)] opacity-60" />
 
