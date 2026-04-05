@@ -2,7 +2,7 @@ import React, { useState, useCallback, ReactNode } from 'react';
 import ScratchCard from './ScratchCard';
 import OfferScreen from './OfferScreen';
 
-const TOTAL = 28;
+const TOTAL = 29;
 
 const painQuestions = [
   {
@@ -201,6 +201,56 @@ const Wrapper = ({ children, visible }: { children: ReactNode; visible: boolean 
   </div>
 );
 
+const LoadingScreen = ({ onComplete, visible }: { onComplete: () => void; visible: boolean }) => {
+  const [percent, setPercent] = React.useState(0);
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setPercent(prev => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(onComplete, 500);
+          return 100;
+        }
+        return prev + 1;
+      });
+    }, 40);
+    return () => clearInterval(interval);
+  }, [onComplete]);
+
+  const messages = [
+    "Procesando tus respuestas...",
+    "Analizando patrones emocionales...",
+    "Generando tu perfil personalizado...",
+    "Casi listo..."
+  ];
+  const msgIdx = Math.min(Math.floor(percent / 25), 3);
+
+  return (
+    <Wrapper visible={visible}>
+      <div className="flex flex-col items-center justify-center pt-12">
+        <h2 className="text-xl font-bold text-foreground mb-8 text-center leading-tight">
+          Estamos analizando tus respuestas cuidadosamente
+        </h2>
+        <div className="w-full h-5 bg-secondary rounded-full overflow-hidden mb-4 shadow-inner">
+          <div 
+            className="h-full bg-primary transition-all duration-75 ease-linear" 
+            style={{ width: `${percent}%` }} 
+          />
+        </div>
+        <div className="flex justify-between w-full mb-10">
+           <span className="text-sm font-medium text-muted-foreground">{messages[msgIdx]}</span>
+           <span className="text-sm font-bold text-primary">{percent}%</span>
+        </div>
+        
+        <div className="animate-pulse flex flex-col items-center">
+           <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4" />
+        </div>
+      </div>
+    </Wrapper>
+  );
+};
+
 const CTA = ({ onClick, text = 'Continuar' }: { onClick: () => void; text?: string }) => (
   <button
     onClick={onClick}
@@ -253,7 +303,7 @@ export default function Quiz() {
   };
 
   const renderProgressBar = () =>
-    screen > 0 && screen < 27 ? (
+    screen > 0 && screen < 28 ? (
       <div className="sticky top-0 z-50 bg-background/90 backdrop-blur-sm px-5 py-3">
         <div className="max-w-lg mx-auto">
           <div className="flex justify-between text-xs text-muted-foreground mb-1.5">
@@ -560,8 +610,13 @@ export default function Quiz() {
       );
     }
 
-    // Screen 24: Diagnosis
+    // Screen 24: Processing
     if (screen === 24) {
+      return <LoadingScreen onComplete={goNext} visible={visible} />;
+    }
+
+    // Screen 25: Diagnosis
+    if (screen === 25) {
       const diag = getDiagnosis();
       return (
         <Wrapper visible={visible}>
@@ -605,10 +660,12 @@ export default function Quiz() {
       );
     }
 
-    // Screen 25: Progression chart
-    if (screen === 25) {
+    // Screen 26: Progression chart
+    if (screen === 26) {
       const today = new Date();
-      const future = new Date(today.getTime() + 56 * 24 * 60 * 60 * 1000);
+      const future = new Date();
+      future.setMonth(today.getMonth() + 2);
+
       const formatDate = (d: Date) => d.toLocaleDateString('es-MX', { day: 'numeric', month: 'short' });
 
       return (
@@ -617,17 +674,14 @@ export default function Quiz() {
             <h2 className="text-xl font-bold text-foreground mb-2">
               Así proyectamos tu evolución, {name}
             </h2>
-            <p className="text-xs text-muted-foreground mb-6">
-              Esta proyección se basa en personas con un perfil similar al tuyo.
-            </p>
-            <div className="bg-card rounded-2xl p-5 quiz-shadow mb-8">
-              <svg viewBox="0 0 300 160" className="w-full">
-                {/* Grid lines */}
+            <p className="text-sm text-muted-foreground mb-10">En solo 8 semanas podrías ver estos resultados</p>
+            
+            <div className="bg-card rounded-3xl p-6 quiz-shadow border border-border/50 mb-10">
+               <svg viewBox="0 0 300 160" className="w-full">
                 <line x1="40" y1="20" x2="40" y2="130" stroke="hsl(255 25% 90%)" strokeWidth="1" />
                 <line x1="40" y1="130" x2="280" y2="130" stroke="hsl(255 25% 90%)" strokeWidth="1" />
                 <line x1="40" y1="90" x2="280" y2="90" stroke="hsl(255 25% 90%)" strokeWidth="0.5" strokeDasharray="4" />
                 <line x1="40" y1="50" x2="280" y2="50" stroke="hsl(255 25% 90%)" strokeWidth="0.5" strokeDasharray="4" />
-                {/* Gradient fill */}
                 <defs>
                   <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor="hsl(255 45% 53%)" stopOpacity="0.2" />
@@ -635,44 +689,44 @@ export default function Quiz() {
                   </linearGradient>
                 </defs>
                 <path d="M40,120 C80,115 120,100 160,80 S240,35 280,25 L280,130 L40,130 Z" fill="url(#chartGrad)" />
-                {/* Line */}
                 <path d="M40,120 C80,115 120,100 160,80 S240,35 280,25" fill="none" stroke="hsl(255 45% 53%)" strokeWidth="2.5" strokeLinecap="round" />
-                {/* Dots */}
                 <circle cx="40" cy="120" r="4" fill="hsl(255 45% 53%)" />
                 <circle cx="280" cy="25" r="4" fill="hsl(255 45% 53%)" />
-                {/* Labels */}
                 <text x="40" y="148" fill="hsl(255 12% 50%)" fontSize="10" textAnchor="middle">Hoy</text>
                 <text x="280" y="148" fill="hsl(255 12% 50%)" fontSize="10" textAnchor="middle">Semana 8</text>
                 <text x="30" y="124" fill="hsl(255 12% 50%)" fontSize="8" textAnchor="end">😔</text>
                 <text x="30" y="30" fill="hsl(255 12% 50%)" fontSize="8" textAnchor="end">✨</text>
               </svg>
-              <div className="flex justify-between text-xs text-muted-foreground mt-2">
+              <div className="flex justify-between text-xs text-muted-foreground mt-4">
                 <span>{formatDate(today)}</span>
                 <span>{formatDate(future)}</span>
               </div>
             </div>
-            <CTA onClick={goNext} text="Ver mi guía" />
+            
+            <CTA onClick={goNext} />
           </div>
         </Wrapper>
       );
     }
 
-    // Screen 26: Scratch card
-    if (screen === 26) {
+    // Screen 27: Scratch card
+    if (screen === 27) {
       return (
         <Wrapper visible={visible}>
           <div className="text-center pt-4">
             <h2 className="text-xl font-bold text-foreground mb-2">¡Tienes una sorpresa!</h2>
             <p className="text-sm text-muted-foreground mb-8">Raspa la tarjeta para descubrir tu descuento</p>
-            <div className="flex justify-center mb-8">
+            
+            <div className="mb-10 mx-auto max-w-[320px]">
               <ScratchCard width={320} height={200} onReveal={() => setScratched(true)}>
-                <div className="flex flex-col items-center justify-center gap-2">
-                  <span className="text-4xl">🎉</span>
-                  <p className="text-2xl font-bold text-primary">¡70% de descuento!</p>
-                  <p className="text-sm text-muted-foreground">Conseguiste un descuento especial</p>
+                <div className="flex flex-col items-center justify-center p-6 text-center">
+                  <span className="text-4xl mb-2">🎉</span>
+                  <p className="text-2xl font-bold text-primary mb-1">¡Sorpresa!</p>
+                  <p className="text-sm text-foreground font-medium">Has desbloqueado un 70% de descuento</p>
                 </div>
               </ScratchCard>
             </div>
+
             {scratched && (
               <div className="animate-slide-up">
                 <CTA onClick={goNext} text="Ver mi precio especial" />
@@ -683,8 +737,8 @@ export default function Quiz() {
       );
     }
 
-    // Screen 27: Offer
-    if (screen === 27) {
+    // Screen 28: Offer
+    if (screen === 28) {
       const diag = getDiagnosis();
       const goalAnswer = (answers['dream_0'] as string) || 'Sentirme en paz';
       return (
