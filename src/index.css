@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 255 100% 98%;
+    --foreground: 260 25% 16%;
+
+    --card: 252 100% 96%;
+    --card-foreground: 260 25% 16%;
+
+    --popover: 252 100% 96%;
+    --popover-foreground: 260 25% 16%;
+
+    --primary: 255 45% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 252 100% 96%;
+    --secondary-foreground: 260 25% 16%;
+
+    --muted: 252 40% 93%;
+    --muted-foreground: 255 12% 50%;
+
+    --accent: 255 80% 95%;
+    --accent-foreground: 255 45% 35%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 255 25% 90%;
+    --input: 255 25% 90%;
+    --ring: 255 45% 53%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer utilities {
+  .quiz-shadow {
+    box-shadow: 0 2px 12px -2px hsl(255 45% 53% / 0.08);
+  }
+
+  .quiz-shadow-lg {
+    box-shadow: 0 8px 30px -8px hsl(255 45% 53% / 0.15);
+  }
+
+  .quiz-gradient {
+    background: linear-gradient(135deg, hsl(255 45% 53%), hsl(270 55% 62%));
+  }
+
+  .quiz-gradient-light {
+    background: linear-gradient(180deg, hsl(252 100% 96%), hsl(255 100% 98%));
+  }
+}
+
+@keyframes float-dot {
+  0%, 100% { opacity: 0.4; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.animate-float-dot {
+  animation: float-dot 2s ease-in-out infinite;
+}
+
+@keyframes slide-up-fade {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slide-up-fade 0.4s ease-out forwards;
+}
+
+@keyframes count-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.animate-count-pulse {
+  animation: count-pulse 1s ease-in-out infinite;
+}
+
+@keyframes latam-float {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+  50% { transform: translate(-50%, -50%) translateY(-5px); }
+}
+
+@keyframes latam-pulse {
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+
+@keyframes latam-card-in {
+  from { opacity: 0; transform: translateY(-50%) scale(0.85); }
+  to { opacity: 1; transform: translateY(-50%) scale(1); }
+}
+
+.latam-avatar {
+  animation: latam-float 3s ease-in-out infinite;
+}
+
+.latam-pulse {
+  animation: latam-pulse 2.5s ease-out infinite;
+}
+
+.latam-card {
+  animation: latam-card-in 0.5s ease-out both;
+}
