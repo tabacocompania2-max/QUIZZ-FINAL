@@ -163,15 +163,26 @@
   border: 1px solid rgba(0,0,0,0.05);
 }
 
-@keyframes wave-pulse {
-  0% { transform: scale(0.5); opacity: 1; }
-  100% { transform: scale(2); opacity: 0; }
+@keyframes depth-pulse {
+  0%, 100% { transform: scale(1); z-index: 10; }
+  50% { transform: scale(1.2); z-index: 50; }
 }
 
-.animate-wave-pulse {
-  animation: wave-pulse 2s ease-out infinite;
+.animate-depth-pulse {
+  animation: depth-pulse 4s ease-in-out infinite;
 }
 
-.map-outline {
-  filter: drop-shadow(0 0 10px rgba(100,60,180,0.1));
+.glow-line {
+  filter: drop-shadow(0 0 4px rgba(147, 112, 219, 0.8));
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw-line 3s linear forwards;
+}
+
+@keyframes draw-line {
+  to { stroke-dashoffset: 0; }
+}
+
+.avatar-ring {
+  box-shadow: 0 0 20px rgba(147, 112, 219, 0.4);
 }

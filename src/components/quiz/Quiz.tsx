@@ -330,114 +330,113 @@ export default function Quiz() {
     // Screen 2: Social proof
     if (screen === 2) {
       const people = [
-        { name: 'Sofía', x: 22, y: 26, img: '/portrait_latam_1.png', delay: 0 },
-        { name: 'Valeria', x: 70, y: 32, img: '/portrait_latam_2.png', delay: 0.8 },
-        { name: 'Carlos', x: 55, y: 38, img: '/portrait_latam_3.png', delay: 1.6 },
-        { name: 'Luisa', x: 78, y: 52, img: '/portrait_latam_4.png', delay: 2.4 },
-        { name: 'Mateo', x: 28, y: 56, img: '/portrait_latam_5.png', delay: 3.2 },
-        { name: 'Elena', x: 42, y: 72, img: '/portrait_latam_6.png', delay: 4.0 },
-        { name: 'Ana', x: 58, y: 88, img: '/portrait_latam_7.png', delay: 4.8 },
-      ];
-
-      const waveNodes = [
-        { x: 55, y: 18 }, { x: 72, y: 44 }, { x: 34, y: 58 }, { x: 68, y: 74 }, { x: 45, y: 25 }
+        { name: 'Sofía', x: 25, y: 15, img: '/portrait_latam_1.png', delay: 0, scale: 1 },
+        { name: 'Valeria', x: 74, y: 18, img: '/portrait_latam_2.png', delay: 1, scale: 0.9 },
+        { name: 'Carlos', x: 62, y: 35, img: '/portrait_latam_3.png', delay: 2, scale: 1.1 },
+        { name: 'Luisa', x: 80, y: 55, img: '/portrait_latam_4.png', delay: 0.5, scale: 1.2 },
+        { name: 'Mateo', x: 38, y: 30, img: '/portrait_latam_5.png', delay: 1.5, scale: 1 },
+        { name: 'Elena', x: 45, y: 75, img: '/portrait_latam_6.png', delay: 2.5, scale: 0.9 },
+        { name: 'Ana', x: 58, y: 65, img: '/portrait_latam_7.png', delay: 3, scale: 1.1 },
       ];
 
       return (
         <Wrapper>
           <div className="text-center pt-2">
-            <h2 className="text-xl font-bold text-foreground mb-6 leading-tight max-w-[280px] mx-auto">
+            <h2 className="text-xl font-bold text-foreground mb-4 leading-tight max-w-[280px] mx-auto">
               Más de 50,000 personas en Latinoamérica ya iniciaron su proceso con nosotros.
             </h2>
             
-            <div className="my-4 w-full relative bg-[#F6F3FF] rounded-[24px] overflow-hidden border border-[#E0D9F5]" style={{ aspectRatio: '1.25/1' }}>
-              {/* LARGE BACKGROUND NETWORK (Purple paths) */}
-              <div className="absolute inset-0 opacity-40">
+            <div className="my-2 w-full relative bg-[#F4F1FF] rounded-[32px] overflow-hidden border border-[#DED4FA]" style={{ aspectRatio: '1.2/1 shadow-inner' }}>
+              {/* BACKRADIAL GRADIENT GRADIENT */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_white_0%,_#EBE4FF_100%)] opacity-60" />
+
+              {/* BACKGROUND NETWORK (Subtle purple lines) */}
+              <div className="absolute inset-0 opacity-20 pointer-events-none">
                  <svg width="100%" height="100%" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
-                   <g stroke="#D1C4EF" strokeWidth="0.8">
-                     {/* Outer network nodes and lines */}
-                     {Array.from({length: 12}).map((_, i) => (
+                   <g stroke="#9370DB" strokeWidth="0.5">
+                     {/* Web of lines similar to reference */}
+                     <circle cx="200" cy="150" r="100" fill="none" strokeDasharray="4 4" />
+                     <circle cx="200" cy="150" r="150" fill="none" strokeDasharray="4 4" />
+                     {Array.from({length: 15}).map((_, i) => (
                        <g key={i}>
-                         <circle cx={Math.random() * 400} cy={Math.random() * 300} r="4" fill="#E9E2FF" />
-                         <line 
-                          x1={Math.random() * 400} y1={Math.random() * 300} 
-                          x2={Math.random() * 400} y2={Math.random() * 300} 
-                          opacity="0.5" 
-                         />
+                         <circle cx={Math.random() * 400} cy={Math.random() * 300} r="3" fill="#D1C2FF" />
                        </g>
                      ))}
                    </g>
                  </svg>
               </div>
 
-              {/* LATAM MAP (Green/Yellow with outline) */}
-              <div className="absolute inset-0 flex items-center justify-center p-8 z-10">
-                <svg viewBox="0 0 300 420" className="h-[95%] w-auto map-outline drop-shadow-md">
+              {/* LATAM MAP */}
+              <div className="absolute inset-0 flex items-center justify-center p-6 opacity-80 mix-blend-multiply">
+                <svg viewBox="0 0 300 420" className="h-[95%] w-auto filter drop-shadow-xl">
                   <path 
                     d="M 95,18 L 75,28 L 58,44 L 52,60 L 63,74 L 77,80 L 90,87 L 100,98 L 107,112 L 112,128 L 116,142 L 122,140 L 144,135 L 170,133 L 200,136 L 232,142 L 255,150 L 268,165 L 274,188 L 274,215 L 267,244 L 254,272 L 240,300 L 226,328 L 212,355 L 202,378 L 196,405 L 188,395 L 178,375 L 167,352 L 156,325 L 147,298 L 140,270 L 134,242 L 128,214 L 122,187 L 116,162 L 114,148 L 110,132 L 104,116 L 95,100 L 83,90 L 70,83 L 60,75 L 52,62 L 58,46 L 68,32 Z"
-                    fill="#C6D68C" stroke="#223344" strokeWidth="1.5"
+                    fill="#BBD76B" stroke="#1A2B3D" strokeWidth="1.2"
                   />
-                  {/* Subtle inner details/regions */}
-                  <path d="M120,160 Q140,180 150,220" fill="none" stroke="#223344" strokeWidth="0.5" opacity="0.4" />
-                  <path d="M160,280 Q180,310 170,360" fill="none" stroke="#223344" strokeWidth="0.5" opacity="0.4" />
+                  <path d="M120,162 Q142,185 152,225" fill="none" stroke="#1A2B3D" strokeWidth="0.5" opacity="0.3" />
                 </svg>
               </div>
 
-              {/* WIFI WAVE NODES */}
-              {waveNodes.map((w, i) => (
-                <div key={`wave-${i}`} className="absolute z-10" style={{ left: `${w.x}%`, top: `${w.y}%` }}>
-                  <div className="relative">
-                     {/* Core dot */}
-                     <div className="w-2.5 h-2.5 bg-[#9370DB] rounded-full" />
-                     {/* Waves (arcs) */}
-                     <div className="absolute -top-3 -left-3">
-                        <svg width="30" height="30" viewBox="0 0 30 30">
-                           <path d="M10 10 A 15 15 0 0 1 20 10" stroke="#9370DB" fill="none" strokeWidth="1.5" className="animate-wave-pulse" opacity="0.6" />
-                           <path d="M8 8 A 18 18 0 0 1 22 8" stroke="#9370DB" fill="none" strokeWidth="1.5" className="animate-wave-pulse" style={{ animationDelay: '0.4s' }} opacity="0.4" />
-                        </svg>
-                     </div>
-                  </div>
-                </div>
-              ))}
+              {/* GLOWING CONNECTION LINES */}
+              <div className="absolute inset-0 z-10 pointer-events-none">
+                 <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path d="M50 50 L25 15" stroke="white" strokeWidth="0.4" className="glow-line opacity-60" />
+                    <path d="M50 50 L74 18" stroke="white" strokeWidth="0.4" className="glow-line opacity-60" />
+                    <path d="M50 50 L80 55" stroke="white" strokeWidth="0.4" className="glow-line opacity-60" />
+                    <path d="M50 50 L58 65" stroke="white" strokeWidth="0.4" className="glow-line opacity-60" />
+                    <path d="M50 50 L38 30" stroke="white" strokeWidth="0.4" className="glow-line opacity-60" />
+                 </svg>
+              </div>
 
-              {/* PEOPLE NODES (Avatars + Labels) */}
-              {people.map((p, i) => (
-                <div 
-                  key={`person-${i}`} 
-                  className="absolute z-20 flex items-center gap-1.5 animate-float-gentle" 
-                  style={{ left: `${p.x}%`, top: `${p.y}%`, animationDelay: `-${p.delay}s` }}
-                >
-                  <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-white shadow-md bg-muted/20">
-                    <img src={p.img} alt={p.name} className="w-full h-full object-cover" />
-                  </div>
-                  <div className="bg-white px-2 py-0.5 rounded shadow-sm flex flex-col items-start border border-[#E0D9F5]">
-                    <div className="w-8 h-1.5 bg-[#6C4FBF]/20 rounded-full mb-0.5"></div>
-                    <div className="w-5 h-1.5 bg-muted/30 rounded-full"></div>
-                  </div>
-                </div>
-              ))}
-
-              {/* CENTRAL MAIN CARD (Paper-like card) */}
-              <div className="absolute left-[40%] top-[40%] translate-x-[-50%] translate-y-[-50%] z-30">
-                <div className="bg-white p-2 pt-3 pb-4 rounded-lg shadow-xl border border-border/50 animate-float-gentle" style={{ transform: 'rotate(-2deg)' }}>
-                   <div className="w-[100px] h-[100px] rounded-full overflow-hidden mb-3 border-4 border-white/50 bg-[#F3F0FF] mx-auto ring-1 ring-[#6C4FBF]/20">
+              {/* CENTRAL MAIN AVATAR (Large with glowing ring) */}
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-40">
+                <div className="relative group">
+                   {/* Main Photo */}
+                   <div className="w-[120px] h-[120px] rounded-full overflow-hidden border-4 border-white shadow-2xl relative z-10 bg-white">
                       <img src="/portrait_center.png" alt="Featured" className="w-full h-full object-cover" />
                    </div>
-                   <div className="space-y-2 px-1">
-                      <div className="h-2 w-full bg-[#6C4FBF]/10 rounded-full"></div>
-                      <div className="h-2 w-3/4 bg-muted/20 rounded-full"></div>
-                      <div className="h-2 w-1/2 bg-muted/10 rounded-full"></div>
-                   </div>
-                   {/* Connection point behind it */}
-                   <div className="absolute top-1/2 right-0 w-8 h-[1px] bg-[#6C4FBF]/30 -z-10 translate-x-full"></div>
+                   {/* Glowing Purple Ring */}
+                   <div className="absolute inset-[-12px] rounded-full border-[6px] border-[#9370DB]/40 avatar-ring animate-pulse" />
+                   <div className="absolute inset-[-6px] rounded-full border-[3px] border-white/60" />
+                   
+                   {/* Purple wave background behind it */}
+                   <div className="absolute inset-[-20%] bg-[#9370DB]/5 rounded-full blur-3xl -z-10 animate-pulse" />
                 </div>
-                {/* Glow ring in background */}
-                <div className="absolute inset-0 -z-10 bg-primary/5 rounded-full scale-[1.8] blur-2xl animate-pulse" />
               </div>
+
+              {/* FLOATING AVATARS (With depth animation) */}
+              {people.map((p, i) => (
+                <div 
+                  key={`p-${i}`} 
+                  className="absolute z-20 animate-depth-pulse" 
+                  style={{ 
+                    left: `${p.x}%`, 
+                    top: `${p.y}%`, 
+                    animationDelay: `-${p.delay}s`,
+                    transform: `scale(${p.scale})`
+                  }}
+                >
+                  <div className="group relative">
+                    {/* The Avatar */}
+                    <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-lg bg-white relative z-10 transition-transform group-hover:scale-110">
+                      <img src={p.img} alt={p.name} className="w-full h-full object-cover" />
+                    </div>
+                    {/* Connector dot */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-[#9370DB]/10 rounded-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    
+                    {/* Small wave arcs from reference */}
+                    <div className="absolute -top-1 -right-1 opacity-60">
+                      <svg width="20" height="20" viewBox="0 0 20 20">
+                        <path d="M5 5 A 8 8 0 0 1 15 5" fill="none" stroke="#9370DB" strokeWidth="1.5" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
 
-            <p className="text-sm text-muted-foreground mb-8 max-w-[300px] mx-auto leading-relaxed">
-              Unimos historias en todo el continente para sanar en comunidad.
+            <p className="text-sm text-muted-foreground mb-10 max-w-[280px] mx-auto leading-relaxed italic">
+              "Finalmente entendí que mi proceso es compartido."
             </p>
             
             <CTA onClick={goNext} text="Continuar" />
