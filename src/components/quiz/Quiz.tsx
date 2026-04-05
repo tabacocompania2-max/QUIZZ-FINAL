@@ -330,64 +330,97 @@ export default function Quiz() {
     // Screen 2: Social proof
     if (screen === 2) {
       const people = [
-        { initials: 'MG', name: 'María G.', country: 'México',    x: 17, y: 22, color: '#7C5CBF', delay: 0,   cardLeft: false },
-        { initials: 'VS', name: 'Valeria S.', country: 'Venezuela', x: 72, y: 30, color: '#9B59B6', delay: 0.8, cardLeft: true  },
-        { initials: 'CR', name: 'Carlos R.', country: 'Colombia',  x: 68, y: 46, color: '#6C3483', delay: 1.6, cardLeft: true  },
-        { initials: 'LM', name: 'Luisa M.', country: 'Brasil',    x: 78, y: 63, color: '#8E44AD', delay: 2.4, cardLeft: true  },
-        { initials: 'JP', name: 'Jorge P.', country: 'Perú',      x: 14, y: 60, color: '#7D3C98', delay: 3.2, cardLeft: false },
-        { initials: 'EB', name: 'Eduardo B.', country: 'Ecuador', x: 20, y: 77, color: '#A569BD', delay: 4.0, cardLeft: false },
-        { initials: 'AP', name: 'Ana P.',    country: 'Argentina', x: 50, y: 91, color: '#5B2C6F', delay: 4.8, cardLeft: false },
+        { name: 'Sofía', country: 'México', x: 18, y: 22, img: '/portrait_latam_1.png', delay: 0, cardLeft: false },
+        { name: 'Valeria', country: 'Venezuela', x: 74, y: 28, img: '/portrait_latam_2.png', delay: 0.8, cardLeft: true },
+        { name: 'Carlos', country: 'Colombia', x: 72, y: 46, img: '/portrait_latam_3.png', delay: 1.6, cardLeft: true },
+        { name: 'Luisa', country: 'Brasil', x: 78, y: 63, img: '/portrait_latam_4.png', delay: 2.4, cardLeft: true },
+        { name: 'Mateo', country: 'Perú', x: 14, y: 60, img: '/portrait_latam_5.png', delay: 3.2, cardLeft: false },
+        { name: 'Elena', country: 'Ecuador', x: 20, y: 77, img: '/portrait_latam_6.png', delay: 4.0, cardLeft: false },
+        { name: 'Ana', country: 'Argentina', x: 50, y: 91, img: '/portrait_latam_7.png', delay: 4.8, cardLeft: false },
       ];
+
       return (
         <Wrapper>
-          <div className="text-center pt-8">
-            <h2 className="text-xl font-bold text-foreground mb-4 leading-relaxed">
+          <div className="text-center pt-4">
+            <h2 className="text-xl font-bold text-foreground mb-4 leading-relaxed px-2">
               Más de 50,000 personas en Latinoamérica ya iniciaron su proceso con nosotros.
             </h2>
-            <div className="my-6 w-full" style={{ aspectRatio: '4/3', position: 'relative', borderRadius: '20px', background: 'hsl(255 80% 95%)', overflow: 'hidden' }}>
-              {/* Background network grid */}
-              <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
-                {Array.from({ length: 5 }, (_, row) =>
-                  Array.from({ length: 7 }, (_, col) => {
-                    const x = col * 65 + 15; const y = row * 65 + 15;
-                    return (
-                      <g key={`${row}-${col}`}>
-                        <circle cx={x} cy={y} r="3" fill="hsl(255 45% 53%)" opacity="0.18" />
-                        {col < 6 && <line x1={x} y1={y} x2={x+65} y2={y} stroke="hsl(255 45% 53%)" strokeWidth="0.5" opacity="0.12" />}
-                        {row < 4 && <line x1={x} y1={y} x2={x} y2={y+65} stroke="hsl(255 45% 53%)" strokeWidth="0.5" opacity="0.12" />}
-                      </g>
-                    );
-                  })
-                )}
-              </svg>
-              {/* Latin America map */}
-              <svg viewBox="0 0 300 420" style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', height: '92%', width: 'auto' }}>
-                <defs>
-                  <linearGradient id="mapGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="hsl(258 35% 72%)" />
-                    <stop offset="100%" stopColor="hsl(270 45% 65%)" />
-                  </linearGradient>
-                </defs>
-                <path d="M 95,18 L 75,28 L 58,44 L 52,60 L 63,74 L 77,80 L 90,87 L 100,98 L 107,112 L 112,128 L 116,142 L 122,140 L 144,135 L 170,133 L 200,136 L 232,142 L 255,150 L 268,165 L 274,188 L 274,215 L 267,244 L 254,272 L 240,300 L 226,328 L 212,355 L 202,378 L 196,405 L 188,395 L 178,375 L 167,352 L 156,325 L 147,298 L 140,270 L 134,242 L 128,214 L 122,187 L 116,162 L 114,148 L 110,132 L 104,116 L 95,100 L 83,90 L 70,83 L 60,75 L 52,62 L 58,46 L 68,32 Z"
-                  fill="url(#mapGrad)" opacity="0.45" />
-                <path d="M 95,18 L 75,28 L 58,44 L 52,60 L 63,74 L 77,80 L 90,87 L 100,98 L 107,112 L 112,128 L 116,142 L 122,140 L 144,135 L 170,133 L 200,136 L 232,142 L 255,150 L 268,165 L 274,188 L 274,215 L 267,244 L 254,272 L 240,300 L 226,328 L 212,355 L 202,378 L 196,405 L 188,395 L 178,375 L 167,352 L 156,325 L 147,298 L 140,270 L 134,242 L 128,214 L 122,187 L 116,162 L 114,148 L 110,132 L 104,116 L 95,100 L 83,90 L 70,83 L 60,75 L 52,62 L 58,46 L 68,32 Z"
-                  fill="none" stroke="hsl(255 45% 53%)" strokeWidth="1.5" opacity="0.55" />
-              </svg>
-              {/* People avatars */}
-              {people.map((p, i) => (
-                <div key={i} className="latam-avatar" style={{ position: 'absolute', left: `${p.x}%`, top: `${p.y}%`, animationDelay: `${p.delay}s`, zIndex: 10 }}>
-                  <div className="latam-pulse" style={{ position: 'absolute', inset: '-10px', borderRadius: '50%', border: `2px solid ${p.color}`, animationDelay: `${p.delay}s` }} />
-                  <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: p.color, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '10px', fontWeight: 700, border: '2.5px solid white', boxShadow: '0 3px 10px rgba(0,0,0,0.22)', position: 'relative', zIndex: 2 }}>
-                    {p.initials}
+            
+            <div className="my-8 w-full relative" style={{ aspectRatio: '4/3' }}>
+              {/* Background Network/Dots */}
+              <div className="absolute inset-0 opacity-20 pointer-events-none">
+                <svg width="100%" height="100%" viewBox="0 0 400 300">
+                  <defs>
+                    <pattern id="dotPattern" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+                      <circle cx="2" cy="2" r="1.5" fill="currentColor" className="text-primary/40" />
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill="url(#dotPattern)" />
+                  <g className="animate-line-flow opacity-30">
+                    <line x1="80" y1="60" x2="200" y2="150" stroke="currentColor" strokeWidth="1" />
+                    <line x1="320" y1="80" x2="200" y2="150" stroke="currentColor" strokeWidth="1" />
+                    <line x1="280" y1="240" x2="200" y2="150" stroke="currentColor" strokeWidth="1" />
+                    <line x1="100" y1="220" x2="200" y2="150" stroke="currentColor" strokeWidth="1" />
+                  </g>
+                </svg>
+              </div>
+
+              {/* Map Shadow/Base */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-30">
+                <svg viewBox="0 0 300 420" className="h-full w-auto text-primary">
+                  <path 
+                    d="M 95,18 L 75,28 L 58,44 L 52,60 L 63,74 L 77,80 L 90,87 L 100,98 L 107,112 L 112,128 L 116,142 L 122,140 L 144,135 L 170,133 L 200,136 L 232,142 L 255,150 L 268,165 L 274,188 L 274,215 L 267,244 L 254,272 L 240,300 L 226,328 L 212,355 L 202,378 L 196,405 L 188,395 L 178,375 L 167,352 L 156,325 L 147,298 L 140,270 L 134,242 L 128,214 L 122,187 L 116,162 L 114,148 L 110,132 L 104,116 L 95,100 L 83,90 L 70,83 L 60,75 L 52,62 L 58,46 L 68,32 Z"
+                    fill="currentColor" stroke="currentColor" strokeWidth="1.5" fillOpacity="0.05"
+                  />
+                </svg>
+              </div>
+
+              {/* Central Profile Card (Reference Style) */}
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                <div className="animate-float-gentle">
+                  <div className="glass-card p-2 rounded-2xl shadow-2xl relative border-primary/20">
+                    <div className="relative w-24 h-32 rounded-xl overflow-hidden mb-2 bg-muted/20">
+                      <img src="/portrait_center.png" alt="Featured" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="text-center px-1">
+                      <div className="h-1.5 w-full bg-primary/20 rounded-full mb-1"></div>
+                      <div className="h-1.5 w-2/3 bg-muted/40 rounded-full mx-auto"></div>
+                    </div>
+                    <div className="absolute inset-0 -z-10 animate-pulse-dot bg-primary/10 rounded-2xl" />
                   </div>
-                  <div className="latam-card" style={{ position: 'absolute', ...(p.cardLeft ? { right: '44px' } : { left: '44px' }), top: '50%', background: 'white', borderRadius: '8px', padding: '3px 7px', whiteSpace: 'nowrap', boxShadow: '0 2px 10px rgba(100,60,180,0.15)', animationDelay: `${p.delay + 0.25}s`, zIndex: 3 }}>
-                    <div style={{ fontWeight: 700, color: '#3d2a6b', fontSize: '10px' }}>{p.name}</div>
-                    <div style={{ color: '#aaa', fontSize: '9px' }}>{p.country}</div>
+                </div>
+              </div>
+
+              {/* Smaller User Cards */}
+              {people.map((p, i) => (
+                <div 
+                  key={i} 
+                  className="absolute animate-float-gentle z-10" 
+                  style={{ left: `${p.x}%`, top: `${p.y}%`, animationDelay: `-${p.delay}s` }}
+                >
+                  <div className="relative group">
+                    <div className="w-2.5 h-2.5 bg-primary rounded-full relative z-20 shadow-glow">
+                      <div className="absolute inset-0 bg-primary rounded-full animate-ping opacity-50" />
+                    </div>
+
+                    <div className={`absolute ${p.cardLeft ? 'right-6' : 'left-6'} top-1/2 -translate-y-1/2 flex items-center gap-2 pointer-events-none`}>
+                       <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-xl bg-white animate-latam-card-in">
+                         <img src={p.img} alt={p.name} className="w-full h-full object-cover" />
+                       </div>
+                       <div className="bg-white/95 backdrop-blur px-2.5 py-1 rounded shadow-md text-[10px] font-bold text-foreground animate-latam-card-in" style={{ animationDelay: '0.1s' }}>
+                         {p.name}
+                       </div>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
-            <CTA onClick={goNext} />
+
+            <p className="text-sm text-muted-foreground mb-10 italic">
+              "Encontré un camino que no sabía que existía."
+            </p>
+            
+            <CTA onClick={goNext} text="Continuar" />
           </div>
         </Wrapper>
       );
