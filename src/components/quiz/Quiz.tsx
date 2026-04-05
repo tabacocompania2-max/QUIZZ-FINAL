@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import React, { useState, useCallback, ReactNode } from 'react';
 import ScratchCard from './ScratchCard';
 import OfferScreen from './OfferScreen';
 
@@ -181,6 +181,35 @@ const triggerLabels: Record<string, string> = {
   propósito: 'La desconexión entre tus valores y tu vida actual',
 };
 
+const OptionBtn = ({ emoji, text, onClick, selected }: { emoji?: string; text: string; onClick: () => void; selected?: boolean }) => (
+  <button
+    onClick={onClick}
+    className={`w-full p-4 rounded-xl border-2 text-left transition-all duration-200 hover:border-primary hover:bg-accent ${
+      selected ? 'border-primary bg-accent' : 'border-border bg-card'
+    } quiz-shadow`}
+  >
+    <span className="flex items-center gap-3">
+      {emoji && <span className="text-xl">{emoji}</span>}
+      <span className="text-foreground font-medium">{text}</span>
+    </span>
+  </button>
+);
+
+const Wrapper = ({ children, visible }: { children: ReactNode; visible: boolean }) => (
+  <div className={`max-w-lg mx-auto px-5 py-8 transition-all duration-300 ease-out ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+    {children}
+  </div>
+);
+
+const CTA = ({ onClick, text = 'Continuar' }: { onClick: () => void; text?: string }) => (
+  <button
+    onClick={onClick}
+    className="w-full py-4 rounded-xl bg-primary text-primary-foreground font-semibold text-lg shadow-lg hover:opacity-90 transition-opacity"
+  >
+    {text}
+  </button>
+);
+
 export default function Quiz() {
   const [screen, setScreen] = useState(0);
   const [visible, setVisible] = useState(true);
@@ -223,35 +252,6 @@ export default function Quiz() {
     };
   };
 
-  const OptionBtn = ({ emoji, text, onClick, selected }: { emoji?: string; text: string; onClick: () => void; selected?: boolean }) => (
-    <button
-      onClick={onClick}
-      className={`w-full p-4 rounded-xl border-2 text-left transition-all duration-200 hover:border-primary hover:bg-accent ${
-        selected ? 'border-primary bg-accent' : 'border-border bg-card'
-      } quiz-shadow`}
-    >
-      <span className="flex items-center gap-3">
-        {emoji && <span className="text-xl">{emoji}</span>}
-        <span className="text-foreground font-medium">{text}</span>
-      </span>
-    </button>
-  );
-
-  const Wrapper = ({ children }: { children: React.ReactNode }) => (
-    <div className={`max-w-lg mx-auto px-5 py-8 transition-all duration-300 ease-out ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-      {children}
-    </div>
-  );
-
-  const CTA = ({ onClick, text = 'Continuar' }: { onClick: () => void; text?: string }) => (
-    <button
-      onClick={onClick}
-      className="w-full py-4 rounded-xl bg-primary text-primary-foreground font-semibold text-lg shadow-lg hover:opacity-90 transition-opacity"
-    >
-      {text}
-    </button>
-  );
-
   const renderProgressBar = () =>
     screen > 0 && screen < 27 ? (
       <div className="sticky top-0 z-50 bg-background/90 backdrop-blur-sm px-5 py-3">
@@ -274,7 +274,7 @@ export default function Quiz() {
     // Screen 0: Welcome
     if (screen === 0) {
       return (
-        <Wrapper>
+        <Wrapper visible={visible}>
           <div className="text-center pt-8">
             <h1 className="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-4">
               ¿Sientes que no eres del todo tú mismo/a, aunque lo tengas todo?
@@ -315,7 +315,7 @@ export default function Quiz() {
     // Screen 1: Age
     if (screen === 1) {
       return (
-        <Wrapper>
+        <Wrapper visible={visible}>
           <p className="text-sm text-muted-foreground mb-2 text-center">Usamos tu edad solo para personalizar tu guía</p>
           <h2 className="text-xl font-bold text-foreground text-center mb-8">¿Cuál es tu rango de edad?</h2>
           <div className="space-y-3">
@@ -340,7 +340,7 @@ export default function Quiz() {
       ];
 
       return (
-        <Wrapper>
+        <Wrapper visible={visible}>
           <div className="text-center pt-2">
             <h2 className="text-xl font-bold text-foreground mb-4 leading-tight max-w-[280px] mx-auto">
               Más de 50,000 personas en Latinoamérica ya iniciaron su proceso con nosotros.
@@ -395,7 +395,7 @@ export default function Quiz() {
       const qi = screen - 3;
       const q = painQuestions[qi];
       return (
-        <Wrapper>
+        <Wrapper visible={visible}>
           <h2 className="text-lg font-bold text-foreground mb-6 leading-relaxed">{q.question}</h2>
           <div className="space-y-3">
             {q.options.map(opt => (
@@ -409,7 +409,7 @@ export default function Quiz() {
     // Screen 13: Normalization
     if (screen === 13) {
       return (
-        <Wrapper>
+        <Wrapper visible={visible}>
           <div className="text-center pt-8">
             <span className="text-5xl mb-6 block">💛</span>
             <h2 className="text-2xl font-bold text-foreground mb-4">Lo que sientes no es una falla tuya.</h2>
@@ -429,7 +429,7 @@ export default function Quiz() {
 
       if (q.multi) {
         return (
-          <Wrapper>
+          <Wrapper visible={visible}>
             <h2 className="text-lg font-bold text-foreground mb-2 leading-relaxed">{q.question}</h2>
             <p className="text-sm text-muted-foreground mb-6">Puedes elegir más de una opción</p>
             <div className="space-y-3 mb-6">
@@ -463,7 +463,7 @@ export default function Quiz() {
       }
 
       return (
-        <Wrapper>
+        <Wrapper visible={visible}>
           <h2 className="text-lg font-bold text-foreground mb-6 leading-relaxed">{q.question}</h2>
           <div className="space-y-3">
             {q.options.map(opt => (
@@ -477,7 +477,7 @@ export default function Quiz() {
     // Screen 20: Credibility
     if (screen === 20) {
       return (
-        <Wrapper>
+        <Wrapper visible={visible}>
           <div className="text-center pt-4">
             <p className="text-muted-foreground leading-relaxed mb-8 text-sm">
               Tu guía está basada en principios de psicología cognitiva, neurociencia del comportamiento y más de 200 historias reales de personas en Latinoamérica.
@@ -503,7 +503,7 @@ export default function Quiz() {
     // Screen 21: Micro-commitment
     if (screen === 21) {
       return (
-        <Wrapper>
+        <Wrapper visible={visible}>
           <h2 className="text-lg font-bold text-foreground mb-6 text-center leading-relaxed">
             ¿Cuántos minutos al día puedes dedicarle a tu proceso?
           </h2>
@@ -519,7 +519,7 @@ export default function Quiz() {
     // Screen 22: Email
     if (screen === 22) {
       return (
-        <Wrapper>
+        <Wrapper visible={visible}>
           <div className="pt-4">
             <h2 className="text-xl font-bold text-foreground mb-2 text-center">¿A dónde enviamos tu guía personalizada?</h2>
             <p className="text-sm text-muted-foreground text-center mb-8">Tu guía está casi lista</p>
@@ -542,7 +542,7 @@ export default function Quiz() {
     // Screen 23: Name
     if (screen === 23) {
       return (
-        <Wrapper>
+        <Wrapper visible={visible}>
           <div className="pt-4">
             <h2 className="text-xl font-bold text-foreground mb-8 text-center">¿Cómo te llamas?</h2>
             <input
@@ -564,7 +564,7 @@ export default function Quiz() {
     if (screen === 24) {
       const diag = getDiagnosis();
       return (
-        <Wrapper>
+        <Wrapper visible={visible}>
           <div className="text-center pt-4">
             <h2 className="text-xl font-bold text-foreground mb-2">
               {name}, identificamos 3 patrones que están bloqueando tu bienestar.
@@ -612,7 +612,7 @@ export default function Quiz() {
       const formatDate = (d: Date) => d.toLocaleDateString('es-MX', { day: 'numeric', month: 'short' });
 
       return (
-        <Wrapper>
+        <Wrapper visible={visible}>
           <div className="text-center pt-4">
             <h2 className="text-xl font-bold text-foreground mb-2">
               Así proyectamos tu evolución, {name}
@@ -660,7 +660,7 @@ export default function Quiz() {
     // Screen 26: Scratch card
     if (screen === 26) {
       return (
-        <Wrapper>
+        <Wrapper visible={visible}>
           <div className="text-center pt-4">
             <h2 className="text-xl font-bold text-foreground mb-2">¡Tienes una sorpresa!</h2>
             <p className="text-sm text-muted-foreground mb-8">Raspa la tarjeta para descubrir tu descuento</p>
