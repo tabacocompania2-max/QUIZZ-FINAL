@@ -618,45 +618,114 @@ export default function Quiz() {
     // Screen 25: Diagnosis
     if (screen === 25) {
       const diag = getDiagnosis();
+      const level = "Alto"; // Forced high for psychological impact as requested
+      const levelPercent = level === "Alto" ? 85 : 55;
+      
       return (
-        <Wrapper visible={visible}>
-          <div className="text-center pt-4">
-            <h2 className="text-xl font-bold text-foreground mb-2">
-              {name}, identificamos 3 patrones que están bloqueando tu bienestar.
-            </h2>
-            <p className="text-sm text-muted-foreground mb-8">No te preocupes, tienen solución.</p>
-            <div className="space-y-4 mb-8">
-              <div className="bg-card rounded-xl p-5 quiz-shadow text-left">
-                <div className="flex items-start gap-3">
-                  <span className="text-2xl">🎯</span>
-                  <div>
-                    <p className="text-xs text-muted-foreground mb-1">Dificultad principal</p>
-                    <p className="font-semibold text-foreground">{themeLabels[diag.main]}</p>
+        <div className="min-h-screen diagnosis-bg pb-12">
+          {renderProgressBar()}
+          <Wrapper visible={visible}>
+            <div className="text-center pt-2 mb-8">
+              <h2 className="text-xl md:text-2xl font-bold text-foreground">
+                Resumen de tu perfil de bienestar
+              </h2>
+            </div>
+
+            {/* Main Result Card */}
+            <div className="bg-white rounded-[32px] p-6 shadow-sm border border-black/5 mb-6 relative overflow-hidden">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="font-bold text-foreground text-lg">Nivel de efectos negativos</h3>
+                <span className="px-3 py-1 bg-orange-50 text-orange-600 text-xs font-bold rounded-full border border-orange-100">
+                  {level}
+                </span>
+              </div>
+
+              {/* Portrait and Gauge */}
+              <div className="flex flex-col items-center mb-8">
+                <div className="relative w-48 h-48 mb-10">
+                  <img 
+                    src="/diagnosis_img.png" 
+                    alt="Perfil de bienestar" 
+                    className="w-full h-full object-contain relative z-10"
+                  />
+                  <div className="absolute top-[75%] left-1/2 -translate-x-1/2 z-20 bg-slate-800 text-white px-4 py-2 rounded-lg text-xs font-bold shadow-xl whitespace-nowrap">
+                    Tu nivel
+                    <div className="absolute -top-1 left-1/2 -translate-x-1/2 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[6px] border-b-slate-800" />
+                  </div>
+                </div>
+
+                {/* The Gauge */}
+                <div className="w-full px-2">
+                  <div className="h-2.5 w-full diagnosis-gauge rounded-full relative mb-2">
+                     {/* Indicator dot */}
+                     <div 
+                      className="absolute top-1/2 -translate-y-1/2 w-5 h-5 bg-white border-2 border-slate-300 rounded-full shadow-md z-30 transition-all duration-1000 ease-out"
+                      style={{ left: `${levelPercent}%` }}
+                     />
+                  </div>
+                  <div className="flex justify-between text-[10px] text-muted-foreground font-medium uppercase tracking-wider">
+                    <span>Bajo</span>
+                    <span>Normal</span>
+                    <span>Medio</span>
+                    <span className="text-orange-600 font-bold">Alto</span>
                   </div>
                 </div>
               </div>
-              <div className="bg-card rounded-xl p-5 quiz-shadow text-left">
-                <div className="flex items-start gap-3">
-                  <span className="text-2xl">⚡</span>
-                  <div>
-                    <p className="text-xs text-muted-foreground mb-1">Desencadenante emocional</p>
-                    <p className="font-semibold text-foreground">{triggerLabels[diag.trigger]}</p>
-                  </div>
+
+              {/* Info Box */}
+              <div className="diagnosis-info-box p-4 rounded-2xl flex gap-3 items-start">
+                <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
+                  <span className="text-orange-600 font-bold">i</span>
                 </div>
-              </div>
-              <div className="bg-card rounded-xl p-5 quiz-shadow text-left">
-                <div className="flex items-start gap-3">
-                  <span className="text-2xl">🚀</span>
-                  <div>
-                    <p className="text-xs text-muted-foreground mb-1">Potencial de cambio</p>
-                    <p className="font-semibold text-primary capitalize">{diag.potential}</p>
-                  </div>
+                <div>
+                  <h4 className="font-bold text-sm text-orange-900 mb-1">Nivel {level}</h4>
+                  <p className="text-xs text-orange-950/70 leading-relaxed font-medium">
+                    Esto significa que estás experimentando niveles de estrés y desconexión significativos que están afectando tu capacidad de disfrutar el presente y tu paz mental a largo plazo.
+                  </p>
                 </div>
               </div>
             </div>
-            <CTA onClick={goNext} text="Ver mi proyección" />
-          </div>
-        </Wrapper>
+
+            {/* Stats Grid */}
+            <div className="grid grid-cols-2 gap-3 mb-10">
+              <div className="bg-white p-4 rounded-2xl shadow-sm border border-black/5 flex gap-3 items-start">
+                <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center text-green-600 text-xl">💥</div>
+                <div>
+                  <p className="text-[10px] text-muted-foreground font-medium mb-0.5">Dificultad principal</p>
+                  <p className="text-xs font-bold text-foreground leading-tight">{themeLabels[diag.main]}</p>
+                </div>
+              </div>
+              <div className="bg-white p-4 rounded-2xl shadow-sm border border-black/5 flex gap-3 items-start">
+                <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 text-xl">📅</div>
+                <div>
+                  <p className="text-[10px] text-muted-foreground font-medium mb-0.5">Época desafiante</p>
+                  <p className="text-xs font-bold text-foreground leading-tight">Varios meses</p>
+                </div>
+              </div>
+              <div className="bg-white p-4 rounded-2xl shadow-sm border border-black/5 flex gap-3 items-start">
+                <div className="w-8 h-8 rounded-lg bg-yellow-50 flex items-center justify-center text-yellow-600 text-xl">⚡</div>
+                <div>
+                  <p className="text-[10px] text-muted-foreground font-medium mb-0.5">Desencadenante</p>
+                  <p className="text-xs font-bold text-foreground leading-tight">{triggerLabels[diag.trigger].split(' ')[0]} {triggerLabels[diag.trigger].split(' ')[1]}</p>
+                </div>
+              </div>
+              <div className="bg-white p-4 rounded-2xl shadow-sm border border-black/5 flex gap-3 items-start">
+                <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center text-red-600 text-xl">🔋</div>
+                <div>
+                  <p className="text-[10px] text-muted-foreground font-medium mb-0.5">Nivel de energía</p>
+                  <p className="text-xs font-bold text-foreground leading-tight">Bajo / Inestable</p>
+                </div>
+              </div>
+            </div>
+
+            <button 
+              onClick={goNext}
+              className="w-full py-4 rounded-full btn-continue-green font-bold text-lg quiz-shadow-lg"
+            >
+              Continuar
+            </button>
+          </Wrapper>
+        </div>
       );
     }
 

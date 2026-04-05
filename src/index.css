@@ -72,6 +72,30 @@
   .quiz-gradient-light {
     background: linear-gradient(180deg, hsl(252 100% 96%), hsl(255 100% 98%));
   }
+
+  .diagnosis-bg {
+    background-color: #f5f3ef;
+  }
+
+  .diagnosis-gauge {
+    background: linear-gradient(90deg, #98e5e5 0%, #ace598 25%, #e1e370 50%, #e3a970 75%, #e37070 100%);
+  }
+
+  .diagnosis-info-box {
+    background-color: #feeddc;
+  }
+
+  .btn-continue-green {
+    background-color: #54a67b;
+    color: white;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .btn-continue-green:hover {
+    background-color: #468c68;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(84, 166, 123, 0.3);
+  }
 }
 
 @keyframes float-dot {
