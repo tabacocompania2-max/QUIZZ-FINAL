@@ -622,7 +622,7 @@ export default function Quiz() {
       const levelPercent = level === "Alto" ? 85 : 55;
       
       return (
-        <div className="min-h-screen diagnosis-bg pb-12">
+        <div className="min-h-screen bg-background pb-12">
           {renderProgressBar()}
           <Wrapper visible={visible}>
             <div className="text-center pt-2 mb-8">
@@ -632,10 +632,10 @@ export default function Quiz() {
             </div>
 
             {/* Main Result Card */}
-            <div className="bg-white rounded-[32px] p-6 shadow-sm border border-black/5 mb-6 relative overflow-hidden">
+            <div className="bg-card rounded-[32px] p-6 shadow-sm border border-border mb-6 relative overflow-hidden">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="font-bold text-foreground text-lg">Nivel de efectos negativos</h3>
-                <span className="px-3 py-1 bg-orange-50 text-orange-600 text-xs font-bold rounded-full border border-orange-100">
+                <span className="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full border border-primary/20">
                   {level}
                 </span>
               </div>
@@ -648,9 +648,9 @@ export default function Quiz() {
                     alt="Perfil de bienestar" 
                     className="w-full h-full object-contain relative z-10"
                   />
-                  <div className="absolute top-[75%] left-1/2 -translate-x-1/2 z-20 bg-slate-800 text-white px-4 py-2 rounded-lg text-xs font-bold shadow-xl whitespace-nowrap">
+                  <div className="absolute top-[75%] left-1/2 -translate-x-1/2 z-20 bg-primary text-primary-foreground px-4 py-2 rounded-lg text-xs font-bold shadow-xl whitespace-nowrap">
                     Tu nivel
-                    <div className="absolute -top-1 left-1/2 -translate-x-1/2 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[6px] border-b-slate-800" />
+                    <div className="absolute -top-1 left-1/2 -translate-x-1/2 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[6px] border-b-primary" />
                   </div>
                 </div>
 
@@ -659,7 +659,7 @@ export default function Quiz() {
                   <div className="h-2.5 w-full diagnosis-gauge rounded-full relative mb-2">
                      {/* Indicator dot */}
                      <div 
-                      className="absolute top-1/2 -translate-y-1/2 w-5 h-5 bg-white border-2 border-slate-300 rounded-full shadow-md z-30 transition-all duration-1000 ease-out"
+                      className="absolute top-1/2 -translate-y-1/2 w-5 h-5 bg-white border-2 border-border rounded-full shadow-md z-30 transition-all duration-1000 ease-out"
                       style={{ left: `${levelPercent}%` }}
                      />
                   </div>
@@ -667,19 +667,19 @@ export default function Quiz() {
                     <span>Bajo</span>
                     <span>Normal</span>
                     <span>Medio</span>
-                    <span className="text-orange-600 font-bold">Alto</span>
+                    <span className="text-primary font-bold">Alto</span>
                   </div>
                 </div>
               </div>
 
               {/* Info Box */}
-              <div className="diagnosis-info-box p-4 rounded-2xl flex gap-3 items-start">
-                <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
-                  <span className="text-orange-600 font-bold">i</span>
+              <div className="bg-muted p-4 rounded-2xl flex gap-3 items-start">
+                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 border border-primary/10">
+                  <span className="text-primary font-bold text-xs italic">i</span>
                 </div>
                 <div>
-                  <h4 className="font-bold text-sm text-orange-900 mb-1">Nivel {level}</h4>
-                  <p className="text-xs text-orange-950/70 leading-relaxed font-medium">
+                  <h4 className="font-bold text-sm text-foreground mb-1">Nivel {level}</h4>
+                  <p className="text-xs text-muted-foreground leading-relaxed font-medium">
                     Esto significa que estás experimentando niveles de estrés y desconexión significativos que están afectando tu capacidad de disfrutar el presente y tu paz mental a largo plazo.
                   </p>
                 </div>
@@ -688,29 +688,29 @@ export default function Quiz() {
 
             {/* Stats Grid */}
             <div className="grid grid-cols-2 gap-3 mb-10">
-              <div className="bg-white p-4 rounded-2xl shadow-sm border border-black/5 flex gap-3 items-start">
-                <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center text-green-600 text-xl">💥</div>
+              <div className="bg-card p-4 rounded-2xl shadow-sm border border-border flex gap-3 items-start">
+                <div className="w-8 h-8 rounded-lg bg-primary/5 flex items-center justify-center text-primary text-xl">💥</div>
                 <div>
                   <p className="text-[10px] text-muted-foreground font-medium mb-0.5">Dificultad principal</p>
                   <p className="text-xs font-bold text-foreground leading-tight">{themeLabels[diag.main]}</p>
                 </div>
               </div>
-              <div className="bg-white p-4 rounded-2xl shadow-sm border border-black/5 flex gap-3 items-start">
-                <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 text-xl">📅</div>
+              <div className="bg-card p-4 rounded-2xl shadow-sm border border-border flex gap-3 items-start">
+                <div className="w-8 h-8 rounded-lg bg-primary/5 flex items-center justify-center text-primary text-xl">📅</div>
                 <div>
                   <p className="text-[10px] text-muted-foreground font-medium mb-0.5">Época desafiante</p>
                   <p className="text-xs font-bold text-foreground leading-tight">Varios meses</p>
                 </div>
               </div>
-              <div className="bg-white p-4 rounded-2xl shadow-sm border border-black/5 flex gap-3 items-start">
-                <div className="w-8 h-8 rounded-lg bg-yellow-50 flex items-center justify-center text-yellow-600 text-xl">⚡</div>
+              <div className="bg-card p-4 rounded-2xl shadow-sm border border-border flex gap-3 items-start">
+                <div className="w-8 h-8 rounded-lg bg-primary/5 flex items-center justify-center text-primary text-xl">⚡</div>
                 <div>
                   <p className="text-[10px] text-muted-foreground font-medium mb-0.5">Desencadenante</p>
                   <p className="text-xs font-bold text-foreground leading-tight">{triggerLabels[diag.trigger].split(' ')[0]} {triggerLabels[diag.trigger].split(' ')[1]}</p>
                 </div>
               </div>
-              <div className="bg-white p-4 rounded-2xl shadow-sm border border-black/5 flex gap-3 items-start">
-                <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center text-red-600 text-xl">🔋</div>
+              <div className="bg-card p-4 rounded-2xl shadow-sm border border-border flex gap-3 items-start">
+                <div className="w-8 h-8 rounded-lg bg-primary/5 flex items-center justify-center text-primary text-xl">🔋</div>
                 <div>
                   <p className="text-[10px] text-muted-foreground font-medium mb-0.5">Nivel de energía</p>
                   <p className="text-xs font-bold text-foreground leading-tight">Bajo / Inestable</p>
@@ -720,7 +720,7 @@ export default function Quiz() {
 
             <button 
               onClick={goNext}
-              className="w-full py-4 rounded-full btn-continue-green font-bold text-lg quiz-shadow-lg"
+              className="w-full py-4 rounded-full bg-primary text-primary-foreground font-bold text-lg quiz-shadow-lg transform active:scale-[0.98] transition-all"
             >
               Continuar
             </button>
@@ -824,7 +824,7 @@ export default function Quiz() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
       {renderProgressBar()}
       {renderScreen()}
     </div>
