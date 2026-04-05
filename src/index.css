@@ -157,7 +157,21 @@
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+@keyframes wave-pulse {
+  0% { transform: scale(0.5); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+.animate-wave-pulse {
+  animation: wave-pulse 2s ease-out infinite;
+}
+
+.map-outline {
+  filter: drop-shadow(0 0 10px rgba(100,60,180,0.1));
 }
