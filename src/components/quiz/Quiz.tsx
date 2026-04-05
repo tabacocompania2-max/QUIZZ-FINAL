@@ -330,13 +330,13 @@ export default function Quiz() {
     // Screen 2: Social proof
     if (screen === 2) {
       const people = [
-        { name: 'Sofía', x: 25, y: 15, img: '/portrait_latam_1.png', delay: 0, scale: 1 },
-        { name: 'Valeria', x: 74, y: 18, img: '/portrait_latam_2.png', delay: 1, scale: 0.9 },
-        { name: 'Carlos', x: 62, y: 35, img: '/portrait_latam_3.png', delay: 2, scale: 1.1 },
-        { name: 'Luisa', x: 80, y: 55, img: '/portrait_latam_4.png', delay: 0.5, scale: 1.2 },
-        { name: 'Mateo', x: 38, y: 30, img: '/portrait_latam_5.png', delay: 1.5, scale: 1 },
-        { name: 'Elena', x: 45, y: 75, img: '/portrait_latam_6.png', delay: 2.5, scale: 0.9 },
-        { name: 'Ana', x: 58, y: 65, img: '/portrait_latam_7.png', delay: 3, scale: 1.1 },
+        { name: 'Sofía', x: 27, y: 12, img: '/portrait_latam_1.png', delay: 0, scale: 0.9 },
+        { name: 'Valeria', x: 53, y: 15, img: '/portrait_latam_2.png', delay: 1.2, scale: 0.8 },
+        { name: 'Carlos', x: 61, y: 26, img: '/portrait_latam_3.png', delay: 2.4, scale: 1.0 },
+        { name: 'Luisa', x: 70, y: 40, img: '/portrait_latam_4.png', delay: 0.6, scale: 1.2 },
+        { name: 'Mateo', x: 37, y: 30, img: '/portrait_latam_5.png', delay: 1.8, scale: 0.9 },
+        { name: 'Elena', x: 55, y: 64, img: '/portrait_latam_6.png', delay: 3.0, scale: 1.1 },
+        { name: 'Ana', x: 50, y: 78, img: '/portrait_latam_7.png', delay: 4.2, scale: 0.85 },
       ];
 
       return (
@@ -346,65 +346,22 @@ export default function Quiz() {
               Más de 50,000 personas en Latinoamérica ya iniciaron su proceso con nosotros.
             </h2>
             
-            <div className="my-4 w-full relative bg-[#F4F1FF] rounded-[32px] overflow-hidden border border-[#DED4FA] shadow-inner" style={{ aspectRatio: '1.2 / 1' }}>
-              {/* BACKRADIAL GRADIENT GRADIENT */}
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_white_0%,_#EBE4FF_100%)] opacity-60" />
-
-              {/* BACKGROUND NETWORK (Subtle purple lines) */}
-              <div className="absolute inset-0 opacity-20 pointer-events-none">
-                 <svg width="100%" height="100%" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
-                   <g stroke="#9370DB" strokeWidth="0.5">
-                     {/* Web of lines similar to reference */}
-                     <circle cx="200" cy="150" r="100" fill="none" strokeDasharray="4 4" />
-                     <circle cx="200" cy="150" r="150" fill="none" strokeDasharray="4 4" />
-                     {Array.from({length: 15}).map((_, i) => (
-                       <g key={i}>
-                         <circle cx={Math.random() * 400} cy={Math.random() * 300} r="3" fill="#D1C2FF" />
-                       </g>
-                     ))}
-                   </g>
-                 </svg>
+            <div className="my-2 w-full relative bg-white rounded-[32px] overflow-hidden shadow-2xl border border-muted/20" style={{ aspectRatio: '1.2 / 1' }}>
+              {/* IMAGE AS EXACT REPRODUCTION BACKGROUND */}
+              <div className="absolute inset-0 z-0">
+                <img src="/social_proof_bg.png" alt="Map Background" className="w-full h-full object-cover" />
               </div>
 
-              {/* LATAM MAP */}
-              <div className="absolute inset-0 flex items-center justify-center p-6 opacity-80 mix-blend-multiply">
-                <svg viewBox="0 0 300 420" className="h-[95%] w-auto filter drop-shadow-xl">
-                  <path 
-                    d="M 95,18 L 75,28 L 58,44 L 52,60 L 63,74 L 77,80 L 90,87 L 100,98 L 107,112 L 112,128 L 116,142 L 122,140 L 144,135 L 170,133 L 200,136 L 232,142 L 255,150 L 268,165 L 274,188 L 274,215 L 267,244 L 254,272 L 240,300 L 226,328 L 212,355 L 202,378 L 196,405 L 188,395 L 178,375 L 167,352 L 156,325 L 147,298 L 140,270 L 134,242 L 128,214 L 122,187 L 116,162 L 114,148 L 110,132 L 104,116 L 95,100 L 83,90 L 70,83 L 60,75 L 52,62 L 58,46 L 68,32 Z"
-                    fill="#BBD76B" stroke="#1A2B3D" strokeWidth="1.2"
-                  />
-                  <path d="M120,162 Q142,185 152,225" fill="none" stroke="#1A2B3D" strokeWidth="0.5" opacity="0.3" />
-                </svg>
+              {/* CENTRAL MAIN AVATAR (Large pulse) */}
+              <div className="absolute left-[46.5%] top-[48.5%] translate-x-[-50%] translate-y-[-50%] z-40">
+                 <div className="w-[120px] h-[120px] rounded-full overflow-hidden border-4 border-white shadow-2xl relative z-10 animate-depth-pulse bg-white">
+                    <img src="/portrait_center.png" alt="Featured" className="w-full h-full object-cover" />
+                 </div>
+                 {/* Glowing Ring already in background, we just add a sbtle glow layer */}
+                 <div className="absolute inset-[-15px] rounded-full bg-primary/5 blur-3xl animate-pulse" />
               </div>
 
-              {/* GLOWING CONNECTION LINES */}
-              <div className="absolute inset-0 z-10 pointer-events-none">
-                 <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-                    <path d="M50 50 L25 15" stroke="white" strokeWidth="0.4" className="glow-line opacity-60" />
-                    <path d="M50 50 L74 18" stroke="white" strokeWidth="0.4" className="glow-line opacity-60" />
-                    <path d="M50 50 L80 55" stroke="white" strokeWidth="0.4" className="glow-line opacity-60" />
-                    <path d="M50 50 L58 65" stroke="white" strokeWidth="0.4" className="glow-line opacity-60" />
-                    <path d="M50 50 L38 30" stroke="white" strokeWidth="0.4" className="glow-line opacity-60" />
-                 </svg>
-              </div>
-
-              {/* CENTRAL MAIN AVATAR (Large with glowing ring) */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-40">
-                <div className="relative group">
-                   {/* Main Photo */}
-                   <div className="w-[120px] h-[120px] rounded-full overflow-hidden border-4 border-white shadow-2xl relative z-10 bg-white">
-                      <img src="/portrait_center.png" alt="Featured" className="w-full h-full object-cover" />
-                   </div>
-                   {/* Glowing Purple Ring */}
-                   <div className="absolute inset-[-12px] rounded-full border-[6px] border-[#9370DB]/40 avatar-ring animate-pulse" />
-                   <div className="absolute inset-[-6px] rounded-full border-[3px] border-white/60" />
-                   
-                   {/* Purple wave background behind it */}
-                   <div className="absolute inset-[-20%] bg-[#9370DB]/5 rounded-full blur-3xl -z-10 animate-pulse" />
-                </div>
-              </div>
-
-              {/* FLOATING AVATARS (With depth animation) */}
+              {/* OVERLAY ANIMATED AVATARS (Placing them on top of static background ones) */}
               {people.map((p, i) => (
                 <div 
                   key={`p-${i}`} 
@@ -416,20 +373,8 @@ export default function Quiz() {
                     transform: `scale(${p.scale})`
                   }}
                 >
-                  <div className="group relative">
-                    {/* The Avatar */}
-                    <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-lg bg-white relative z-10 transition-transform group-hover:scale-110">
-                      <img src={p.img} alt={p.name} className="w-full h-full object-cover" />
-                    </div>
-                    {/* Connector dot */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-[#9370DB]/10 rounded-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    
-                    {/* Small wave arcs from reference */}
-                    <div className="absolute -top-1 -right-1 opacity-60">
-                      <svg width="20" height="20" viewBox="0 0 20 20">
-                        <path d="M5 5 A 8 8 0 0 1 15 5" fill="none" stroke="#9370DB" strokeWidth="1.5" />
-                      </svg>
-                    </div>
+                  <div className="w-11 h-11 rounded-full overflow-hidden border-2 border-white shadow-xl bg-white relative z-10">
+                    <img src={p.img} alt={p.name} className="w-full h-full object-cover" />
                   </div>
                 </div>
               ))}
