@@ -326,7 +326,7 @@ const InteractiveLoading = ({ onComplete, visible }: { onComplete: () => void; v
       name: "Ricardo Méndez",
       stars: 5,
       title: "Información reveladora...",
-      text: "Descargué esta app hace poco, pero tengo mucho tiempo con estos temas. Las herramientas para conocerme han sido fundamentales para mi proceso."
+      text: "Conocí este programa hace poco, pero tengo mucho tiempo con estos temas. Las herramientas para conocerme han sido fundamentales para mi proceso."
     },
     {
       name: "Andrés Castillo",
