@@ -620,9 +620,10 @@ export default function Quiz() {
       const diag = getDiagnosis();
       const level = "Alto"; // Forced high for psychological impact as requested
       const levelPercent = level === "Alto" ? 85 : 55;
+      const diagnosisImg = gender === 'hombre' ? '/diagnosis_hombre.png' : '/diagnosis_mujer.png';
       
       return (
-        <div className="min-h-screen bg-background pb-12">
+        <div className="min-h-screen bg-background pb-12 text-foreground">
           {renderProgressBar()}
           <Wrapper visible={visible}>
             <div className="text-center pt-2 mb-8">
@@ -642,20 +643,30 @@ export default function Quiz() {
 
               {/* Portrait and Gauge */}
               <div className="flex flex-col items-center mb-8">
-                <div className="relative w-48 h-48 mb-10">
-                  <img 
-                    src="/diagnosis_img.png" 
-                    alt="Perfil de bienestar" 
-                    className="w-full h-full object-contain relative z-10"
-                  />
-                  <div className="absolute top-[75%] left-1/2 -translate-x-1/2 z-20 bg-primary text-primary-foreground px-4 py-2 rounded-lg text-xs font-bold shadow-xl whitespace-nowrap">
-                    Tu nivel
-                    <div className="absolute -top-1 left-1/2 -translate-x-1/2 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[6px] border-b-primary" />
+                {gender !== 'otro' && (
+                  <div className="relative w-48 h-48 mb-10">
+                    <img 
+                      src={diagnosisImg}
+                      alt="Perfil de bienestar" 
+                      className="w-full h-full object-contain relative z-10"
+                    />
+                    <div className="absolute top-[75%] left-1/2 -translate-x-1/2 z-20 bg-primary text-primary-foreground px-4 py-2 rounded-lg text-xs font-bold shadow-xl whitespace-nowrap">
+                      Tu nivel
+                      <div className="absolute -top-1 left-1/2 -translate-x-1/2 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[6px] border-b-primary" />
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* The Gauge */}
                 <div className="w-full px-2">
+                  {gender === 'otro' && (
+                    <div className="text-center mb-6">
+                      <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary mb-2">
+                         <span className="text-2xl">👤</span>
+                      </div>
+                      <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Análisis General</p>
+                    </div>
+                  )}
                   <div className="h-2.5 w-full diagnosis-gauge rounded-full relative mb-2">
                      {/* Indicator dot */}
                      <div 
