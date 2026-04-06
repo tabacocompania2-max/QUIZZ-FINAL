@@ -155,6 +155,17 @@ const dreamQuestions = [
   },
 ];
 
+const getGenderedQuestions = (questions: any[], gender: string) => {
+  return questions.map(q => ({
+    ...q,
+    question: genderTexts(q.question, gender),
+    options: q.options?.map((opt: any) => ({
+      ...opt,
+      text: genderTexts(opt.text, gender)
+    }))
+  }));
+};
+
 const themeLabels: Record<string, string> = {
   desconexión: 'Desconexión de ti mismo/a',
   paz: 'Dificultad para encontrar paz interior',
@@ -260,6 +271,32 @@ const CTA = ({ onClick, text = 'Continuar' }: { onClick: () => void; text?: stri
   </button>
 );
 
+const genderTexts = (text: string, gender: string) => {
+  if (gender === 'mujer') {
+    return text
+      .replace(/mismo\/a/g, 'misma')
+      .replace(/mismo\/a\?/g, 'misma?')
+      .replace(/contigo mismo\/a/g, 'contigo misma')
+      .replace(/a ti mismo\/a/g, 'a ti misma')
+      .replace(/en ti mismo\/a/g, 'en ti misma')
+      .replace(/dispuesto\/a/g, 'dispuesta')
+      .replace(/atrapado\/a/g, 'atrapada')
+      .replace(/mismo\/a/g, 'misma');
+  }
+  if (gender === 'hombre') {
+    return text
+      .replace(/mismo\/a/g, 'mismo')
+      .replace(/mismo\/a\?/g, 'mismo?')
+      .replace(/contigo mismo\/a/g, 'contigo mismo')
+      .replace(/a ti mismo\/a/g, 'a ti mismo')
+      .replace(/en ti mismo\/a/g, 'en ti mismo')
+      .replace(/dispuesto\/a/g, 'dispuesto')
+      .replace(/atrapado\/a/g, 'atrapado')
+      .replace(/mismo\/a/g, 'mismo');
+  }
+  return text;
+};
+
 export default function Quiz() {
   const [screen, setScreen] = useState(0);
   const [visible, setVisible] = useState(true);
@@ -327,7 +364,7 @@ export default function Quiz() {
         <Wrapper visible={visible}>
           <div className="text-center pt-8">
             <h1 className="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-4">
-              ¿Sientes que no eres del todo tú mismo/a, aunque lo tengas todo?
+              {genderTexts('¿Sientes que no eres del todo tú mismo/a, aunque lo tengas todo?', gender)}
             </h1>
             <p className="text-muted-foreground mb-10 leading-relaxed">
               Responde 3 minutos de preguntas honestas y recibe una guía personalizada para tu proceso.
@@ -446,10 +483,10 @@ export default function Quiz() {
       const q = painQuestions[qi];
       return (
         <Wrapper visible={visible}>
-          <h2 className="text-lg font-bold text-foreground mb-6 leading-relaxed">{q.question}</h2>
+          <h2 className="text-lg font-bold text-foreground mb-6 leading-relaxed">{genderTexts(q.question, gender)}</h2>
           <div className="space-y-3">
             {q.options.map(opt => (
-              <OptionBtn key={opt.text} emoji={opt.emoji} text={opt.text} onClick={() => handleOption(`pain_${qi}`, opt.text)} />
+              <OptionBtn key={opt.text} emoji={opt.emoji} text={genderTexts(opt.text, gender)} onClick={() => handleOption(`pain_${qi}`, opt.text)} />
             ))}
           </div>
         </Wrapper>
@@ -464,7 +501,7 @@ export default function Quiz() {
             <span className="text-5xl mb-6 block">💛</span>
             <h2 className="text-2xl font-bold text-foreground mb-4">Lo que sientes no es una falla tuya.</h2>
             <p className="text-muted-foreground leading-relaxed mb-8">
-              El 81% de las personas que hacen este test sienten exactamente lo mismo que tú. No estás solo/a. Y tiene solución.
+              {genderTexts('El 81% de las personas que hacen este test sienten exactamente lo mismo que tú. No estás solo/a. Y tiene solución.', gender)}
             </p>
             <CTA onClick={goNext} />
           </div>
@@ -480,14 +517,14 @@ export default function Quiz() {
       if (q.multi) {
         return (
           <Wrapper visible={visible}>
-            <h2 className="text-lg font-bold text-foreground mb-2 leading-relaxed">{q.question}</h2>
+            <h2 className="text-lg font-bold text-foreground mb-2 leading-relaxed">{genderTexts(q.question, gender)}</h2>
             <p className="text-sm text-muted-foreground mb-6">Puedes elegir más de una opción</p>
             <div className="space-y-3 mb-6">
               {q.options.map(opt => (
                 <OptionBtn
                   key={opt.text}
                   emoji={opt.emoji}
-                  text={opt.text}
+                  text={genderTexts(opt.text, gender)}
                   selected={multiSelect.includes(opt.text)}
                   onClick={() => {
                     setMultiSelect(prev =>
@@ -514,10 +551,10 @@ export default function Quiz() {
 
       return (
         <Wrapper visible={visible}>
-          <h2 className="text-lg font-bold text-foreground mb-6 leading-relaxed">{q.question}</h2>
+          <h2 className="text-lg font-bold text-foreground mb-6 leading-relaxed">{genderTexts(q.question, gender)}</h2>
           <div className="space-y-3">
             {q.options.map(opt => (
-              <OptionBtn key={opt.text} emoji={opt.emoji} text={opt.text} onClick={() => handleOption(`dream_${qi}`, opt.text)} />
+              <OptionBtn key={opt.text} emoji={opt.emoji} text={genderTexts(opt.text, gender)} onClick={() => handleOption(`dream_${qi}`, opt.text)} />
             ))}
           </div>
         </Wrapper>
@@ -824,9 +861,10 @@ export default function Quiz() {
       return (
         <OfferScreen
           name={name}
-          mainDifficulty={themeLabels[diag.main]}
+          mainDifficulty={genderTexts(themeLabels[diag.main], gender)}
           mainGoal={goalAnswer}
           commitment={commitment || '10 min'}
+          gender={gender}
         />
       );
     }

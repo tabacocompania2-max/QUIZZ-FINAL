@@ -5,6 +5,7 @@ interface OfferScreenProps {
   mainDifficulty: string;
   mainGoal: string;
   commitment: string;
+  gender: string;
 }
 
 const faqs = [
@@ -47,7 +48,33 @@ const testimonials = [
   },
 ];
 
-export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment }: OfferScreenProps) {
+const genderTexts = (text: string, gender: string) => {
+  if (gender === 'mujer') {
+    return text
+      .replace(/mismo\/a/g, 'misma')
+      .replace(/mismo\/a\?/g, 'misma?')
+      .replace(/contigo mismo\/a/g, 'contigo misma')
+      .replace(/a ti mismo\/a/g, 'a ti misma')
+      .replace(/en ti mismo\/a/g, 'en ti misma')
+      .replace(/dispuesto\/a/g, 'dispuesta')
+      .replace(/atrapado\/a/g, 'atrapada')
+      .replace(/mismo\/a/g, 'misma');
+  }
+  if (gender === 'hombre') {
+    return text
+      .replace(/mismo\/a/g, 'mismo')
+      .replace(/mismo\/a\?/g, 'mismo?')
+      .replace(/contigo mismo\/a/g, 'contigo mismo')
+      .replace(/a ti mismo\/a/g, 'a ti mismo')
+      .replace(/en ti mismo\/a/g, 'en ti mismo')
+      .replace(/dispuesto\/a/g, 'dispuesto')
+      .replace(/atrapado\/a/g, 'atrapado')
+      .replace(/mismo\/a/g, 'mismo');
+  }
+  return text;
+};
+
+export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment, gender }: OfferScreenProps) {
   const [timeLeft, setTimeLeft] = useState(720);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [selectedPlan, setSelectedPlan] = useState(1);
@@ -62,7 +89,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
   const isUrgent = timeLeft < 60;
 
   const getFaqAnswer = (i: number) => {
-    if (i === 1) return `Tú mismo/a elegiste dedicarle ${commitment} al día cuando respondiste el quiz. Con eso es suficiente. La guía está estructurada en bloques cortos y prácticos, no en lecturas interminables. El progreso no depende de cuánto tiempo tienes — depende de que empieces.`;
+    if (i === 1) return genderTexts(`Tú mismo/a elegiste dedicarle ${commitment} al día cuando respondiste el quiz. Con eso es suficiente. La guía está estructurada en bloques cortos y prácticos, no en lecturas interminables. El progreso no depende de cuánto tiempo tienes — depende de que empieces.`, gender);
     if (i === 2) return `Tu guía se genera a partir de las respuestas que diste. Alguien cuya dificultad principal es ansiedad recibe un proceso distinto a alguien cuyo patrón es de relaciones o autoestima. Tu diagnóstico es ${mainDifficulty} — el contenido que recibes está enfocado exactamente en eso.`;
     return faqs[i].a!;
   };
@@ -84,7 +111,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             'Vives en piloto automático sin saber por qué',
             'Repites los mismos patrones una y otra vez',
             'Te cuesta poner límites sin sentirte culpable',
-            'Hay una versión de ti que todavía no has podido ser',
+            genderTexts('Hay una versión de ti que todavía no has podido ser', gender),
           ].map((b, i) => (
             <p key={i} className="text-sm text-foreground/80 flex items-start gap-2"><span className="text-muted-foreground mt-0.5">•</span>{b}</p>
           ))}
@@ -95,9 +122,9 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
           <p className="font-bold text-foreground flex items-center gap-2">☀️ En 8 semanas puedes:</p>
           {[
             'Entender por qué sientes y actúas como lo haces',
-            'Romper los patrones que te tienen atrapado/a',
+            genderTexts('Romper los patrones que te tienen atrapado/a', gender),
             'Poner límites desde la seguridad, no desde el miedo',
-            'Ser la versión de ti que siempre supiste que existía',
+            genderTexts('Ser la versión de ti que siempre supiste que existía', gender),
           ].map((b, i) => (
             <p key={i} className="text-sm text-foreground/80 flex items-start gap-2"><span style={{ color: '#6C4FBF' }} className="mt-0.5">✓</span>{b}</p>
           ))}
@@ -227,11 +254,11 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
         <h2 className="text-xl font-bold text-foreground text-center mb-5">Lo que vas a lograr con tu guía</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {[
-            'Entenderte a ti mismo/a de verdad, no en teoría',
+            genderTexts('Entenderte a ti mismo/a de verdad, no en teoría', gender),
             'Identificar los patrones que te repiten situaciones difíciles',
             'Reducir la ansiedad sin depender de otros para calmarte',
             'Poner límites sin culpa y sin perder relaciones',
-            'Recuperar la confianza en ti mismo/a paso a paso',
+            genderTexts('Recuperar la confianza en ti mismo/a paso a paso', gender),
             'Sentir que estás viviendo tu vida, no la que te tocó',
           ].map((b, i) => (
             <p key={i} className="text-[15px] text-foreground flex items-start gap-2">
@@ -316,7 +343,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
         <p className="text-[32px] mb-2">🛡️</p>
         <h4 className="text-xl font-bold mb-2" style={{ color: '#15803D' }}>Garantía total de 30 días</h4>
         <p className="text-[15px] mb-3" style={{ color: '#166534' }}>
-          Si en 30 días no sientes un cambio real en cómo te entiendes y te relacionas contigo mismo/a, te devolvemos cada peso. Sin preguntas. Sin formularios. Sin procesos complicados. Solo escríbenos y listo.
+          {genderTexts('Si en 30 días no sientes un cambio real en cómo te entienes y te relacionas contigo mismo/a, te devolvemos cada peso. Sin preguntas. Sin formularios. Sin procesos complicados. Solo escríbenos y listo.', gender)}
         </p>
         <p className="text-[13px]" style={{ color: '#16A34A' }}>
           Más de 50,000 personas ya confiaron en este proceso. Ahora es tu turno.
