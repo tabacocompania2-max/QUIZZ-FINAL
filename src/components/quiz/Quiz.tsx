@@ -791,10 +791,10 @@ export default function Quiz() {
         <Wrapper visible={visible}>
           <div className="text-center pt-4">
             <h2 className="text-[22px] font-bold text-foreground mb-4 leading-tight">
-              Un plan diseñado para ayudarte en tu recorrido hacia el bienestar
+              Tu Hoja de Ruta Personalizada para Recuperar tu Equilibrio
             </h2>
             <p className="text-sm text-muted-foreground mb-1 leading-relaxed">
-              Con base en tus respuestas, esperamos que mejores tu bienestar
+              Analizando tu perfil, esta es la progresión estimada para tu proceso de transformación
             </p>
             <p className="text-lg font-bold text-primary mb-10">
               {future.toLocaleDateString('es-MX', { month: 'long', year: 'numeric' })}
@@ -842,7 +842,7 @@ export default function Quiz() {
             </div>
 
             <p className="text-[11px] text-muted-foreground mb-10 italic max-w-[300px] mx-auto leading-relaxed">
-              Este gráfico es una ilustración basada en perfiles similares y los resultados individuales pueden variar.
+              Esta proyección se genera analizando datos de trayectorias similares exitosas. Los resultados individuales pueden variar.
             </p>
             
             <CTA onClick={goNext} text="Continuar" />
