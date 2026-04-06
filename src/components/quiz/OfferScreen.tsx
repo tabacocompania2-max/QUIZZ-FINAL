@@ -116,29 +116,50 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
 
       {/* SECTION 1 — Before / After */}
       <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 items-stretch">
-        <div className="rounded-2xl p-5 space-y-3" style={{ background: '#F3F4F6' }}>
-          <p className="font-bold text-foreground flex items-center gap-2">🌧️ Hoy te sientes así:</p>
-          {[
-            'Vives en piloto automático sin saber por qué',
-            'Repites los mismos patrones una y otra vez',
-            'Te cuesta poner límites sin sentirte culpable',
-            genderTexts('Hay una versión de ti que todavía no has podido ser', gender),
-          ].map((b, i) => (
-            <p key={i} className="text-sm text-foreground/80 flex items-start gap-2"><span className="text-muted-foreground mt-0.5">•</span>{b}</p>
-          ))}
+        <div className="rounded-2xl p-5 space-y-4" style={{ background: '#F3F4F6' }}>
+          <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-white/50 grayscale-[0.3]">
+            <img 
+              src={gender === 'hombre' ? '/diagnosis_hombre.png' : gender === 'mujer' ? '/diagnosis_mujer.png' : '/diagnosis_img.png'} 
+              alt="Antes" 
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black/5" />
+          </div>
+          <div className="space-y-3">
+            <p className="font-bold text-foreground flex items-center gap-2">🌧️ Hoy te sientes así:</p>
+            {[
+              'Vives en piloto automático sin saber por qué',
+              'Repites los mismos patrones una y otra vez',
+              'Te cuesta poner límites sin sentirte culpable',
+              genderTexts('Hay una versión de ti que todavía no has podido ser', gender),
+            ].map((b, i) => (
+              <p key={i} className="text-sm text-foreground/80 flex items-start gap-2"><span className="text-muted-foreground mt-0.5">•</span>{b}</p>
+            ))}
+          </div>
         </div>
-        <div className="hidden md:flex items-center text-2xl text-muted-foreground">→</div>
+        
+        <div className="hidden md:flex items-center text-2xl text-muted-foreground self-center">→</div>
         <div className="flex md:hidden justify-center text-2xl text-muted-foreground">↓</div>
-        <div className="rounded-2xl p-5 space-y-3" style={{ background: '#EDE9FF' }}>
-          <p className="font-bold text-foreground flex items-center gap-2">☀️ En 8 semanas puedes:</p>
-          {[
-            'Entender por qué sientes y actúas como lo haces',
-            genderTexts('Romper los patrones que te tienen atrapado/a', gender),
-            'Poner límites desde la seguridad, no desde el miedo',
-            genderTexts('Ser la versión de ti que siempre supiste que existía', gender),
-          ].map((b, i) => (
-            <p key={i} className="text-sm text-foreground/80 flex items-start gap-2"><span style={{ color: '#6C4FBF' }} className="mt-0.5">✓</span>{b}</p>
-          ))}
+        
+        <div className="rounded-2xl p-5 space-y-4" style={{ background: '#EDE9FF', border: '1px solid #D6BCFA' }}>
+          <div className="relative w-full aspect-square rounded-xl overflow-hidden shadow-md">
+            <img 
+              src={gender === 'hombre' ? '/portrait_latam_7.png' : gender === 'mujer' ? '/portrait_latam_1.png' : '/portrait_center.png'} 
+              alt="Después" 
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="space-y-3">
+            <p className="font-bold text-foreground flex items-center gap-2">☀️ En 8 semanas puedes:</p>
+            {[
+              'Entender por qué sientes y actúas como lo haces',
+              genderTexts('Romper los patrones que te tienen atrapado/a', gender),
+              'Poner límites desde la seguridad, no desde el miedo',
+              genderTexts('Ser la versión de ti que siempre supiste que existía', gender),
+            ].map((b, i) => (
+              <p key={i} className="text-sm text-foreground/80 flex items-start gap-2"><span style={{ color: '#6C4FBF' }} className="mt-0.5">✓</span>{b}</p>
+            ))}
+          </div>
         </div>
       </div>
 
