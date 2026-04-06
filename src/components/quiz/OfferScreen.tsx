@@ -116,7 +116,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
 
       {/* SECTION 1 — Before / After */}
       <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 items-stretch">
-        <div className="rounded-2xl p-5 space-y-4" style={{ background: '#F3F4F6' }}>
+        <div className="rounded-2xl p-5 space-y-4" style={{ background: '#F3F4F6', border: '1px solid #E5E7EB' }}>
           <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-white/50 grayscale-[0.3]">
             <img 
               src={gender === 'hombre' ? '/diagnosis_hombre.png' : gender === 'mujer' ? '/diagnosis_mujer.png' : '/diagnosis_img.png'} 
@@ -141,10 +141,10 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
         <div className="hidden md:flex items-center text-2xl text-muted-foreground self-center">→</div>
         <div className="flex md:hidden justify-center text-2xl text-muted-foreground">↓</div>
         
-        <div className="rounded-2xl p-5 space-y-4" style={{ background: '#EDE9FF', border: '1px solid #D6BCFA' }}>
+        <div className="rounded-2xl p-5 space-y-4" style={{ background: '#F5F3FF', border: '1px solid #C084FC' }}>
           <div className="relative w-full aspect-square rounded-xl overflow-hidden shadow-md">
             <img 
-              src={gender === 'hombre' ? '/portrait_latam_7.png' : gender === 'mujer' ? '/portrait_latam_1.png' : '/portrait_center.png'} 
+              src={gender === 'hombre' ? '/portrait_latam_6.png' : gender === 'mujer' ? '/portrait_latam_1.png' : '/portrait_center.png'} 
               alt="Después" 
               className="w-full h-full object-cover"
             />
