@@ -145,7 +145,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
       {/* SECTION 3 — Timer */}
       <div className="rounded-xl p-4 text-center" style={{ background: '#FFF8E7', border: '1px solid #F5C842' }}>
         <p className="text-[13px] mb-1" style={{ color: '#856404' }}>Lanzamiento especial — precio disponible solo por tiempo limitado</p>
-        <p className="text-sm text-muted-foreground mb-1">Tu descuento del 61% está reservado por:</p>
+        <p className="text-sm text-muted-foreground mb-1">Tu descuento del 73% está reservado por:</p>
         <p className="text-[32px] font-bold" style={{ color: isUrgent ? '#DC2626' : '#1A1A2E' }}>
           {String(mins).padStart(2, '0')}:{String(secs).padStart(2, '0')}
         </p>
