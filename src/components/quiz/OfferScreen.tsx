@@ -153,90 +153,128 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
       </div>
 
       {/* SECTION 4 — Plans */}
-      <div className="space-y-4">
+      <div className="space-y-6">
         <h2 className="text-xl font-bold text-foreground text-center">Elige cómo quieres empezar tu proceso</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* Plan 1 */}
-          <div
-            onClick={() => setSelectedPlan(0)}
-            className={`cursor-pointer rounded-2xl p-5 border-2 transition-all bg-card ${selectedPlan === 0 ? 'border-primary quiz-shadow-lg' : 'border-border'}`}
-          >
-            <p className="font-bold text-foreground text-lg">Guía esencial</p>
-            <div className="flex items-baseline gap-2 mt-2 mb-3">
-              <span className="text-sm text-muted-foreground line-through">$29</span>
-              <span className="text-3xl font-bold" style={{ color: '#6C4FBF' }}>$9</span>
-            </div>
-            <p className="text-xs text-muted-foreground mb-4">/pago único</p>
-            <div className="space-y-2 mb-5">
-              {['Guía PDF completa personalizada (valor $29)', 'Acceso inmediato por correo', 'Tuya para siempre, sin suscripciones'].map((b, i) => (
-                <p key={i} className="text-sm text-foreground flex items-start gap-2"><span className="text-green-500 mt-0.5">✓</span>{b}</p>
-              ))}
-            </div>
-            <button className="w-full py-3 rounded-xl border-2 font-semibold transition-colors" style={{ borderColor: '#6C4FBF', color: '#6C4FBF', background: 'transparent' }}>
-              Empezar con lo esencial
-            </button>
-          </div>
-
-          {/* Plan 2 — Featured */}
+        <div className="flex flex-col md:flex-row gap-4">
+          
+          {/* Plan 2 — Featured (Order 1 on mobile) */}
           <div
             onClick={() => setSelectedPlan(1)}
-            className={`cursor-pointer rounded-2xl p-5 border-2 transition-all relative ${selectedPlan === 1 ? 'quiz-shadow-lg' : ''}`}
+            className={`cursor-pointer rounded-2xl p-5 border-2 transition-all relative flex-1 order-1 md:order-2 scale-105 z-10 quiz-shadow-lg`}
             style={{ borderColor: '#6C4FBF', background: '#FAFAFE' }}
           >
-            <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 text-xs font-semibold rounded-full text-white" style={{ background: '#6C4FBF' }}>
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 text-[11px] font-bold rounded-full text-white whitespace-nowrap shadow-md z-20" style={{ background: '#6C4FBF' }}>
               Lo que más eligen
-            </span>
-            <p className="font-bold text-foreground text-lg mt-2">Guía + comunidad</p>
-            <div className="flex items-baseline gap-2 mt-2 mb-3">
-              <span className="text-sm text-muted-foreground line-through">$67</span>
-              <span className="text-3xl font-bold" style={{ color: '#6C4FBF' }}>$19</span>
             </div>
-            <p className="text-xs text-muted-foreground mb-4">/pago único</p>
-            <div className="space-y-2 mb-5">
+            <p className="font-bold text-foreground text-lg mt-2">Guía + bonos esenciales</p>
+            <div className="flex items-baseline gap-2 mt-2 mb-1">
+              <span className="text-sm text-muted-foreground line-through decoration-gray-400">$37</span>
+              <span className="text-4xl font-bold" style={{ color: '#6C4FBF' }}>$9.97</span>
+            </div>
+            <p className="text-xs text-muted-foreground mb-4">/pago único · acceso inmediato</p>
+            <div className="space-y-3 mb-6">
               {[
-                'Todo lo de Guía esencial (valor $29)',
-                'Acceso a comunidad privada por 3 meses (valor $27)',
-                'Soporte por mensajes ante dudas (valor $15)',
-                'Ejercicios prácticos complementarios (valor $19)',
-                'Valor total: $90 — tú pagas solo $19',
+                'Guía PDF principal personalizada (valor $17)',
+                '🎁 BONO 1: "Diario de los 21 días" — PDF con prompts diarios de autorreflexión guiada (valor $27)',
+                '🎁 BONO 2: "Mapa de mis patrones" — Checklist visual para identificar tus patrones emocionales (valor $19)',
               ].map((b, i) => (
-                <p key={i} className="text-sm text-foreground flex items-start gap-2">
-                  <span className="text-green-500 mt-0.5">{i < 4 ? '✓' : '→'}</span>{b}
+                <p key={i} className="text-[13px] text-foreground leading-tight flex items-start gap-2 font-medium">
+                  <span className="text-green-500 mt-0.5 flex-shrink-0">✓</span>{b}
                 </p>
               ))}
             </div>
-            <button className="w-full py-3 rounded-xl font-semibold text-white transition-colors" style={{ background: '#6C4FBF' }}>
-              Quiero mi guía + comunidad
+            <div className="border-t border-border pt-4 mb-5">
+              <div className="p-2 bg-primary/5 rounded-lg text-center">
+                <p className="text-[13px] font-bold" style={{ color: '#6C4FBF' }}>
+                  Valor total: $63 — tú pagas solo $9.97
+                </p>
+              </div>
+            </div>
+            <button className="w-full py-4 rounded-xl font-bold text-white transition-opacity hover:opacity-90 shadow-md" style={{ background: '#6C4FBF' }}>
+              Quiero mi guía + bonos →
             </button>
+            <p className="text-[11px] text-muted-foreground text-center mt-2.5 font-medium">
+               Acceso inmediato a todo por correo
+            </p>
           </div>
 
-          {/* Plan 3 */}
+          {/* Plan 1 — Order 2 on mobile */}
           <div
-            onClick={() => setSelectedPlan(2)}
-            className={`cursor-pointer rounded-2xl p-5 border-2 transition-all bg-card ${selectedPlan === 2 ? 'border-primary quiz-shadow-lg' : 'border-border'}`}
+            onClick={() => setSelectedPlan(0)}
+            className={`cursor-pointer rounded-2xl p-5 border-2 transition-all bg-card flex-1 order-2 md:order-1 border-border self-center`}
           >
-            <p className="font-bold text-foreground text-lg">Transformación total</p>
-            <div className="flex items-baseline gap-2 mt-2 mb-3">
-              <span className="text-sm text-muted-foreground line-through">$127</span>
-              <span className="text-3xl font-bold" style={{ color: '#6C4FBF' }}>$37</span>
+            <p className="font-bold text-foreground text-lg">Guía esencial</p>
+            <div className="flex items-baseline gap-2 mt-2 mb-1">
+              <span className="text-sm text-muted-foreground line-through decoration-gray-400">$17</span>
+              <span className="text-3xl font-bold text-foreground">$5</span>
             </div>
-            <p className="text-xs text-muted-foreground mb-4">/pago único</p>
-            <div className="space-y-2 mb-5">
+            <p className="text-xs text-muted-foreground mb-4">/pago único · acceso inmediato</p>
+            <div className="space-y-3 mb-6">
               {[
-                'Todo lo anterior (valor $90)',
-                'Comunidad de por vida — sin vencimiento (valor $47)',
-                'Actualizaciones futuras de la guía gratis (valor $27)',
-                'Acceso prioritario a nuevos recursos (valor $19)',
-                'Valor total: $183 — tú pagas solo $37',
+                'Guía PDF principal personalizada (valor $17)',
               ].map((b, i) => (
-                <p key={i} className="text-sm text-foreground flex items-start gap-2">
-                  <span className="text-green-500 mt-0.5">{i < 4 ? '✓' : '→'}</span>{b}
+                <p key={i} className="text-[13px] text-foreground leading-tight flex items-start gap-2 font-medium">
+                  <span className="text-green-500 mt-0.5 flex-shrink-0">✓</span>{b}
                 </p>
               ))}
             </div>
-            <button className="w-full py-3 rounded-xl border-2 font-semibold transition-colors" style={{ borderColor: '#6C4FBF', color: '#6C4FBF', background: 'transparent' }}>
-              Quiero la transformación total
+            <button className="w-full py-3.5 rounded-xl border-2 font-bold transition-all hover:bg-primary/5" style={{ borderColor: '#6C4FBF', color: '#6C4FBF', background: 'transparent' }}>
+              Empezar con lo esencial
             </button>
+            <p className="text-[11px] text-muted-foreground text-center mt-2.5 font-medium">
+               Acceso inmediato por correo
+            </p>
+          </div>
+
+          {/* Plan 3 — Order 3 on mobile */}
+          <div
+            onClick={() => setSelectedPlan(2)}
+            className={`cursor-pointer rounded-2xl p-5 border-2 transition-all bg-card flex-1 order-3 md:order-3 border-border self-center`}
+          >
+            <p className="font-bold text-foreground text-lg">Transformación completa</p>
+            <div className="flex items-baseline gap-2 mt-2 mb-1">
+              <span className="text-sm text-muted-foreground line-through decoration-gray-400">$57</span>
+              <span className="text-3xl font-bold text-foreground">$15.99</span>
+            </div>
+            <p className="text-xs text-muted-foreground mb-4">/pago único · acceso inmediato</p>
+            <div className="space-y-3 mb-6">
+              {[
+                'Todo lo del plan anterior (valor $63)',
+                '🎁 BONO 3: "Guía de límites sin culpa" — 3 pasos para poner límites desde la seguridad (valor $24)',
+                '🎁 BONO 4: "Kit de reconexión interior" — Ejercicios de autocompasión y reconexión emocional (valor $29)',
+              ].map((b, i) => (
+                <p key={i} className="text-[13px] text-foreground leading-tight flex items-start gap-2 font-medium">
+                  <span className="text-green-500 mt-0.5 flex-shrink-0">✓</span>{b}
+                </p>
+              ))}
+            </div>
+            <div className="border-t border-border pt-4 mb-5">
+              <div className="p-2 bg-primary/5 rounded-lg text-center">
+                <p className="text-[13px] font-bold" style={{ color: '#6C4FBF' }}>
+                  Valor total: $116 — tú pagas solo $15.99
+                </p>
+              </div>
+            </div>
+            <button className="w-full py-3.5 rounded-xl border-2 font-bold transition-all hover:bg-primary/5" style={{ borderColor: '#6C4FBF', color: '#6C4FBF', background: 'transparent' }}>
+              Quiero la transformación completa →
+            </button>
+            <p className="text-[11px] text-muted-foreground text-center mt-2.5 font-medium">
+               Acceso inmediato a todo por correo
+            </p>
+          </div>
+        </div>
+
+        {/* Persuasion Elements */}
+        <div className="space-y-4 pt-4">
+          <div className="rounded-2xl p-4 text-center max-w-xl mx-auto shadow-sm" style={{ background: '#FFF8E7', border: '1px solid #F5C842' }}>
+            <p className="text-sm font-medium leading-relaxed" style={{ color: '#856404' }}>
+              ⚡ Los bonos son exclusivos de este lanzamiento. Una vez que cerremos este período especial, los planes volverán a su precio original y los bonos dejarán de estar disponibles.
+            </p>
+          </div>
+          <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-[13px] text-muted-foreground font-medium">
+            <span className="flex items-center gap-1.5">🔒 Pago seguro</span>
+            <span className="flex items-center gap-1.5">📩 Acceso inmediato por correo</span>
+            <span className="flex items-center gap-1.5">🛡️ 30 días de garantía sin preguntas</span>
           </div>
         </div>
       </div>
