@@ -25,6 +25,10 @@ const faqs = [
     q: '¿Qué pasa si la pruebo y no funciona para mí?',
     a: 'Tienes 30 días completos para probarlo sin ningún riesgo. Si en ese tiempo no sientes un cambio real, nos escribes y te devolvemos cada peso. Sin formularios complicados, sin preguntas incómodas, sin procesos largos. La garantía existe porque confiamos en lo que hemos creado.',
   },
+  {
+    q: '¿Cómo puede una guía PDF ayudarme con algo tan profundo como mis patrones emocionales?',
+    a: 'Es una pregunta válida y honesta. Una guía por sí sola no hace el trabajo — tú lo haces. Lo que esta guía hace es darte el mapa que nunca tuviste: entender de dónde vienen tus patrones, por qué se repiten y qué pasos concretos puedes dar para interrumpirlos. No es teoría motivacional. Son herramientas prácticas basadas en psicología cognitiva, aplicadas a TU perfil específico. El PDF es el vehículo — la transformación la produces tú al aplicarlo.',
+  },
 ];
 
 const testimonials = [
@@ -165,8 +169,8 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
 
       {/* SECTION 2 — Headline */}
       <div className="text-center space-y-4">
-        <h1 className="text-[26px] font-bold text-foreground">Tu guía está lista, {name}.</h1>
-        <p className="text-base text-muted-foreground">Basada exactamente en lo que respondiste. No es genérica. Es tuya.</p>
+        <h1 className="text-[28px] font-bold text-foreground text-center">{name}, tu camino para entenderte y sanar empieza hoy.</h1>
+        <p className="text-base text-muted-foreground text-center">Basada exactamente en lo que respondiste. No es genérica. Es tuya.</p>
         <div className="flex flex-wrap justify-center gap-2">
           <span className="px-3 py-1.5 rounded-full text-sm font-medium" style={{ background: '#EDE9FF', color: '#6C4FBF' }}>🎯 {mainDifficulty}</span>
           <span className="px-3 py-1.5 rounded-full text-sm font-medium" style={{ background: '#EDE9FF', color: '#6C4FBF' }}>💫 {mainGoal}</span>
@@ -182,6 +186,25 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
           {String(mins).padStart(2, '0')}:{String(secs).padStart(2, '0')}
         </p>
         <p className="text-xs text-muted-foreground mt-1">Una vez que expire, el precio vuelve al valor original.</p>
+      </div>
+
+      {/* SECTION 6 — Benefits (Moved here as per CORRECCIÓN 3) */}
+      <div>
+        <h2 className="text-xl font-bold text-foreground text-center mb-5">Lo que vas a lograr con tu guía</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {[
+            genderTexts('Entenderte a ti mismo/a de verdad, no en teoría', gender),
+            'Identificar los patrones que te repiten situaciones difíciles',
+            'Reducir la ansiedad sin depender de otros para calmarte',
+            'Poner límites sin culpa y sin perder relaciones',
+            genderTexts('Recuperar la confianza en ti mismo/a paso a paso', gender),
+            'Sentir que estás viviendo tu vida, no la que te tocó',
+          ].map((b, i) => (
+            <p key={i} className="text-[15px] text-foreground flex items-start gap-2">
+              <span style={{ color: '#6C4FBF' }} className="mt-0.5">✓</span>{b}
+            </p>
+          ))}
+        </div>
       </div>
 
       {/* SECTION 4 — Plans */}
@@ -222,7 +245,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
               </div>
             </div>
             <button 
-              className={`w-full py-4 rounded-xl font-bold transition-opacity hover:opacity-90 shadow-md ${selectedPlan === 1 ? 'bg-[#6C4FBF] text-white' : 'border-2 border-[#6C4FBF] text-[#6C4FBF] bg-transparent'}`}
+              className="w-full py-4 rounded-xl font-bold transition-opacity hover:opacity-90 shadow-md bg-[#6C4FBF] text-white"
               onClick={(e) => { e.stopPropagation(); setSelectedPlan(1); alert('Iniciando pago por Plan Guía + Bonos ($9.97)'); }}
             >
               Quiero mi guía + bonos →
@@ -239,7 +262,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
           >
             <p className="font-bold text-foreground text-lg">Guía esencial</p>
             <div className="flex items-baseline gap-2 mt-2 mb-1">
-              <span className="text-sm text-muted-foreground line-through decoration-gray-400">$18.50</span>
+              <span className="text-sm text-muted-foreground line-through decoration-gray-400">$17</span>
               <span className="text-3xl font-bold text-foreground">$5</span>
             </div>
             <p className="text-xs text-muted-foreground mb-4">/pago único · acceso inmediato</p>
@@ -253,7 +276,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
               ))}
             </div>
             <button 
-              className={`w-full py-3.5 rounded-xl font-bold transition-all ${selectedPlan === 0 ? 'bg-[#6C4FBF] text-white' : 'border-2 border-[#6C4FBF] text-[#6C4FBF] bg-transparent'}`}
+              className="w-full py-3.5 rounded-xl font-bold transition-all border-[1.5px] border-[#6C4FBF] text-[#6C4FBF] bg-transparent"
               onClick={(e) => { e.stopPropagation(); setSelectedPlan(0); alert('Iniciando pago por Plan Esencial ($5)'); }}
             >
               Empezar con lo esencial
@@ -268,9 +291,12 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             onClick={() => setSelectedPlan(2)}
             className={`cursor-pointer rounded-2xl p-5 border-2 transition-all flex-1 order-3 md:order-3 flex flex-col ${selectedPlan === 2 ? 'border-[#6C4FBF] bg-[#FAFAFE] scale-[1.02]' : 'border-border bg-card'}`}
           >
+            <div className="mx-auto mb-2 px-3 py-1 text-[12px] font-medium rounded-full whitespace-nowrap" style={{ background: '#F3F0FF', color: '#6C4FBF' }}>
+              Mayor valor
+            </div>
             <p className="font-bold text-foreground text-lg">Transformación completa</p>
             <div className="flex items-baseline gap-2 mt-2 mb-1">
-              <span className="text-sm text-muted-foreground line-through decoration-gray-400">$59.20</span>
+              <span className="text-sm text-muted-foreground line-through decoration-gray-400">$57</span>
               <span className="text-3xl font-bold text-foreground">$15.99</span>
             </div>
             <p className="text-xs text-muted-foreground mb-4">/pago único · acceso inmediato</p>
@@ -293,10 +319,10 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
               </div>
             </div>
             <button 
-              className={`w-full py-3.5 rounded-xl font-bold transition-all ${selectedPlan === 2 ? 'bg-[#6C4FBF] text-white' : 'border-2 border-[#6C4FBF] text-[#6C4FBF] bg-transparent'}`}
+              className="w-full py-3.5 rounded-xl font-bold transition-all border-[1.5px] border-[#6C4FBF] text-[#6C4FBF] bg-transparent"
               onClick={(e) => { e.stopPropagation(); setSelectedPlan(2); alert('Iniciando pago por Plan Transformación ($15.99)'); }}
             >
-               Quiero la transformación →
+               Quiero la transformación completa →
             </button>
             <p className="text-[11px] text-muted-foreground text-center mt-2.5 font-medium">
                Acceso inmediato a todo por correo
@@ -308,7 +334,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
         <div className="space-y-4 pt-4">
           <div className="rounded-2xl p-4 text-center max-w-xl mx-auto shadow-sm" style={{ background: '#FFF8E7', border: '1px solid #F5C842' }}>
             <p className="text-sm font-medium leading-relaxed" style={{ color: '#856404' }}>
-              ⚡ Los bonos son exclusivos de este lanzamiento. Una vez que cerremos este período especial, los planes volverán a su precio original y los bonos dejarán de estar disponibles.
+              ⚡ Lanzamiento limitado — Solo disponible para las primeras 200 personas. Una vez que se agoten los accesos de este período, los bonos desaparecen y los precios vuelven a su valor original.
             </p>
           </div>
           <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-[13px] text-muted-foreground font-medium">
@@ -331,24 +357,6 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
         {ctaLine}
       </div>
 
-      {/* SECTION 6 — Benefits */}
-      <div>
-        <h2 className="text-xl font-bold text-foreground text-center mb-5">Lo que vas a lograr con tu guía</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {[
-            genderTexts('Entenderte a ti mismo/a de verdad, no en teoría', gender),
-            'Identificar los patrones que te repiten situaciones difíciles',
-            'Reducir la ansiedad sin depender de otros para calmarte',
-            'Poner límites sin culpa y sin perder relaciones',
-            genderTexts('Recuperar la confianza en ti mismo/a paso a paso', gender),
-            'Sentir que estás viviendo tu vida, no la que te tocó',
-          ].map((b, i) => (
-            <p key={i} className="text-[15px] text-foreground flex items-start gap-2">
-              <span style={{ color: '#6C4FBF' }} className="mt-0.5">✓</span>{b}
-            </p>
-          ))}
-        </div>
-      </div>
 
       {/* SECTION 7 — Stats */}
       <div className="text-center space-y-3">
@@ -427,9 +435,8 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
         <p className="text-[15px] mb-3" style={{ color: '#166534' }}>
           {genderTexts('Si en 30 días no sientes un cambio real en cómo te entiendes y te relacionas contigo mismo/a, te devolvemos cada peso. Sin preguntas. Sin formularios. Sin procesos complicados. Solo escríbenos y listo.', gender)}
         </p>
-        <p className="text-[13px]" style={{ color: '#16A34A' }}>
-          Más de 50,000 personas ya confiaron en este proceso. Ahora es tu turno.
-        </p>
+        <p className="text-[15px] font-medium" style={{ color: '#166534' }}>Te damos 30 días porque confiamos en lo que esta guía puede hacer por ti.</p>
+        <p className="text-[14px]" style={{ color: '#16A34A' }}>El riesgo es nuestro, no tuyo. Tú solo tienes que empezar.</p>
       </div>
 
       {/* SECTION 11 — Final CTA + Payment */}
