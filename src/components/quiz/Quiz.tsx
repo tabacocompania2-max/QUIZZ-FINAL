@@ -347,36 +347,38 @@ const InteractiveLoading = ({ onComplete, visible }: { onComplete: () => void; v
             {phases.map((p, i) => (
               <div key={i} className="text-left">
                 <div className="flex justify-between items-center mb-2">
-                  <span className={`font-bold text-sm ${i < phase ? 'text-foreground' : i === phase ? 'text-foreground' : 'text-muted-foreground'}`}>
+                  <span className={`font-bold text-sm ${i <= phase ? 'text-foreground' : 'text-muted-foreground'}`}>
                     {p}
                   </span>
-                  {i < phase ? (
-                    <span className="text-green-500 font-bold">✓</span>
+                  {i < phase || (i === phase && progress === 100) ? (
+                    <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center text-white text-[10px] font-bold">✓</div>
                   ) : i === phase ? (
                     <span className="text-xs font-bold text-muted-foreground">{progress}%</span>
                   ) : null}
                 </div>
-                {i === phase && (
+                {i === phase && progress < 100 && (
                   <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
                     <div className="h-full bg-primary transition-all duration-100" style={{ width: `${progress}%` }} />
                   </div>
                 )}
-                {i < phase && <div className="h-[1px] w-full bg-border" />}
+                <div className="h-[1px] w-full bg-border" />
               </div>
             ))}
           </div>
 
-          <div className="bg-card rounded-2xl p-6 border border-border/50 text-left shadow-sm">
-            <div className="flex gap-1 mb-3">
-              {[...Array(5)].map((_, i) => <span key={i} className="text-green-500">★</span>)}
+          {!(phase === 2 && progress === 100) && (
+            <div className="bg-card rounded-2xl p-6 border border-border/50 text-left shadow-sm animate-in fade-in duration-500">
+              <div className="flex gap-1 mb-3">
+                {[...Array(5)].map((_, i) => <span key={i} className="text-green-500 text-xs">★</span>)}
+              </div>
+              <p className="font-bold text-sm mb-2">{testimonial.title}</p>
+              <p className="text-xs text-muted-foreground leading-relaxed italic mb-3">"{testimonial.text}"</p>
+              <p className="text-[10px] font-bold text-muted-foreground text-right">— {testimonial.name}</p>
             </div>
-            <p className="font-bold text-sm mb-2">{testimonial.title}</p>
-            <p className="text-xs text-muted-foreground leading-relaxed italic mb-3">"{testimonial.text}"</p>
-            <p className="text-[10px] font-bold text-muted-foreground text-right">— {testimonial.name}</p>
-          </div>
+          )}
 
           {phase === 2 && progress === 100 && (
-            <div className="mt-12 animate-slide-up">
+            <div className="fixed bottom-10 left-0 right-0 px-6 animate-slide-up">
               <CTA onClick={onComplete} text="Continuar" />
             </div>
           )}
