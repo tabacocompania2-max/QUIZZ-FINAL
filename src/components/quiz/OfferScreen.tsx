@@ -94,6 +94,17 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
     return faqs[i].a!;
   };
 
+  const planData = [
+    { name: 'Guía esencial', price: '$5' },
+    { name: 'Guía + bonos esenciales', price: '$9.97' },
+    { name: 'Transformación completa', price: '$15.99' }
+  ];
+
+  const handleMainCheckout = () => {
+    const plan = planData[selectedPlan];
+    alert(`Redirigiendo a pago seguro de Hotmart...\nPlan: ${plan.name}\nPrecio: ${plan.price}`);
+  };
+
   const ctaLine = (
     <p className="text-xs text-muted-foreground text-center mt-3">
       🔒 Acceso inmediato · ✓ Sin suscripciones · 🛡️ 30 días de garantía
@@ -157,11 +168,10 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
         <h2 className="text-xl font-bold text-foreground text-center">Elige cómo quieres empezar tu proceso</h2>
         <div className="flex flex-col md:flex-row gap-4">
           
-          {/* Plan 2 — Featured (Order 1 on mobile) */}
+          {/* Plan 2 — Featured */}
           <div
             onClick={() => setSelectedPlan(1)}
-            className={`cursor-pointer rounded-2xl p-5 border-2 transition-all relative flex-1 order-1 md:order-2 scale-105 z-10 quiz-shadow-lg`}
-            style={{ borderColor: '#6C4FBF', background: '#FAFAFE' }}
+            className={`cursor-pointer rounded-2xl p-5 border-2 transition-all relative flex-1 order-1 md:order-2 z-10 flex flex-col ${selectedPlan === 1 ? 'border-[#6C4FBF] bg-[#FAFAFE] scale-105 shadow-xl' : 'border-border bg-card opacity-90'}`}
           >
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 text-[11px] font-bold rounded-full text-white whitespace-nowrap shadow-md z-20" style={{ background: '#6C4FBF' }}>
               Lo que más eligen
@@ -172,7 +182,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
               <span className="text-4xl font-bold" style={{ color: '#6C4FBF' }}>$9.97</span>
             </div>
             <p className="text-xs text-muted-foreground mb-4">/pago único · acceso inmediato</p>
-            <div className="space-y-3 mb-6">
+            <div className="space-y-3 mb-6 flex-1">
               {[
                 'Guía PDF principal personalizada (valor $17)',
                 '🎁 BONO 1: "Diario de los 21 días" — PDF con prompts diarios de autorreflexión guiada (valor $27)',
@@ -190,7 +200,10 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
                 </p>
               </div>
             </div>
-            <button className="w-full py-4 rounded-xl font-bold text-white transition-opacity hover:opacity-90 shadow-md" style={{ background: '#6C4FBF' }}>
+            <button 
+              className={`w-full py-4 rounded-xl font-bold transition-opacity hover:opacity-90 shadow-md ${selectedPlan === 1 ? 'bg-[#6C4FBF] text-white' : 'border-2 border-[#6C4FBF] text-[#6C4FBF] bg-transparent'}`}
+              onClick={(e) => { e.stopPropagation(); setSelectedPlan(1); alert('Iniciando pago por Plan Guía + Bonos ($9.97)'); }}
+            >
               Quiero mi guía + bonos →
             </button>
             <p className="text-[11px] text-muted-foreground text-center mt-2.5 font-medium">
@@ -198,18 +211,18 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             </p>
           </div>
 
-          {/* Plan 1 — Order 2 on mobile */}
+          {/* Plan 1 — Essential */}
           <div
             onClick={() => setSelectedPlan(0)}
-            className={`cursor-pointer rounded-2xl p-5 border-2 transition-all bg-card flex-1 order-2 md:order-1 border-border self-center`}
+            className={`cursor-pointer rounded-2xl p-5 border-2 transition-all flex-1 order-2 md:order-1 flex flex-col ${selectedPlan === 0 ? 'border-[#6C4FBF] bg-[#FAFAFE] scale-[1.02]' : 'border-border bg-card'}`}
           >
             <p className="font-bold text-foreground text-lg">Guía esencial</p>
             <div className="flex items-baseline gap-2 mt-2 mb-1">
-              <span className="text-sm text-muted-foreground line-through decoration-gray-400">$17</span>
+              <span className="text-sm text-muted-foreground line-through decoration-gray-400">$18.50</span>
               <span className="text-3xl font-bold text-foreground">$5</span>
             </div>
             <p className="text-xs text-muted-foreground mb-4">/pago único · acceso inmediato</p>
-            <div className="space-y-3 mb-6">
+            <div className="space-y-3 mb-6 flex-1">
               {[
                 'Guía PDF principal personalizada (valor $17)',
               ].map((b, i) => (
@@ -218,7 +231,10 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
                 </p>
               ))}
             </div>
-            <button className="w-full py-3.5 rounded-xl border-2 font-bold transition-all hover:bg-primary/5" style={{ borderColor: '#6C4FBF', color: '#6C4FBF', background: 'transparent' }}>
+            <button 
+              className={`w-full py-3.5 rounded-xl font-bold transition-all ${selectedPlan === 0 ? 'bg-[#6C4FBF] text-white' : 'border-2 border-[#6C4FBF] text-[#6C4FBF] bg-transparent'}`}
+              onClick={(e) => { e.stopPropagation(); setSelectedPlan(0); alert('Iniciando pago por Plan Esencial ($5)'); }}
+            >
               Empezar con lo esencial
             </button>
             <p className="text-[11px] text-muted-foreground text-center mt-2.5 font-medium">
@@ -226,18 +242,18 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             </p>
           </div>
 
-          {/* Plan 3 — Order 3 on mobile */}
+          {/* Plan 3 — Transformation */}
           <div
             onClick={() => setSelectedPlan(2)}
-            className={`cursor-pointer rounded-2xl p-5 border-2 transition-all bg-card flex-1 order-3 md:order-3 border-border self-center`}
+            className={`cursor-pointer rounded-2xl p-5 border-2 transition-all flex-1 order-3 md:order-3 flex flex-col ${selectedPlan === 2 ? 'border-[#6C4FBF] bg-[#FAFAFE] scale-[1.02]' : 'border-border bg-card'}`}
           >
             <p className="font-bold text-foreground text-lg">Transformación completa</p>
             <div className="flex items-baseline gap-2 mt-2 mb-1">
-              <span className="text-sm text-muted-foreground line-through decoration-gray-400">$57</span>
+              <span className="text-sm text-muted-foreground line-through decoration-gray-400">$59.20</span>
               <span className="text-3xl font-bold text-foreground">$15.99</span>
             </div>
             <p className="text-xs text-muted-foreground mb-4">/pago único · acceso inmediato</p>
-            <div className="space-y-3 mb-6">
+            <div className="space-y-3 mb-6 flex-1">
               {[
                 'Todo lo del plan anterior (valor $63)',
                 '🎁 BONO 3: "Guía de límites sin culpa" — 3 pasos para poner límites desde la seguridad (valor $24)',
@@ -255,8 +271,11 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
                 </p>
               </div>
             </div>
-            <button className="w-full py-3.5 rounded-xl border-2 font-bold transition-all hover:bg-primary/5" style={{ borderColor: '#6C4FBF', color: '#6C4FBF', background: 'transparent' }}>
-              Quiero la transformación completa →
+            <button 
+              className={`w-full py-3.5 rounded-xl font-bold transition-all ${selectedPlan === 2 ? 'bg-[#6C4FBF] text-white' : 'border-2 border-[#6C4FBF] text-[#6C4FBF] bg-transparent'}`}
+              onClick={(e) => { e.stopPropagation(); setSelectedPlan(2); alert('Iniciando pago por Plan Transformación ($15.99)'); }}
+            >
+               Quiero la transformación →
             </button>
             <p className="text-[11px] text-muted-foreground text-center mt-2.5 font-medium">
                Acceso inmediato a todo por correo
@@ -281,8 +300,12 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
 
       {/* SECTION 5 — CTA */}
       <div>
-        <button className="w-full py-[18px] rounded-[14px] text-white font-semibold text-lg transition-opacity hover:opacity-90" style={{ background: '#6C4FBF' }}>
-          Quiero mi guía personalizada →
+        <button 
+          onClick={handleMainCheckout}
+          className="w-full py-[18px] rounded-[14px] text-white font-bold text-lg transition-all hover:scale-[1.01] active:scale-[0.99] shadow-xl" 
+          style={{ background: '#6C4FBF' }}
+        >
+          Empezar con mi guía personalizada ({planData[selectedPlan].price}) →
         </button>
         {ctaLine}
       </div>
@@ -390,8 +413,12 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
 
       {/* SECTION 11 — Final CTA + Payment */}
       <div>
-        <button className="w-full py-[18px] rounded-[14px] text-white font-semibold text-lg transition-opacity hover:opacity-90" style={{ background: '#6C4FBF' }}>
-          Quiero mi guía personalizada →
+        <button 
+          onClick={handleMainCheckout}
+          className="w-full py-[18px] rounded-[14px] text-white font-bold text-lg transition-all hover:scale-[1.01] active:scale-[0.99] shadow-xl animate-pulse-slow" 
+          style={{ background: '#6C4FBF' }}
+        >
+          Obtener acceso por {planData[selectedPlan].price} ahora →
         </button>
         {ctaLine}
         <div className="border-t border-border mt-6 pt-4 text-center">
