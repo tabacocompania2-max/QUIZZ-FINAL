@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, ReactNode } from 'react';
 import ScratchCard from './ScratchCard';
 import OfferScreen from './OfferScreen';
 
-const TOTAL = 30;
+const TOTAL = 31;
 
 const painQuestions = [
   {
@@ -999,8 +999,91 @@ export default function Quiz() {
       return <InteractiveLoading onComplete={goNext} visible={visible} />;
     }
 
-    // Screen 28: Scratch card
+    // Screen 28: Results Chart
     if (screen === 28) {
+      return (
+        <Wrapper visible={visible}>
+          <div className="text-center pt-4">
+            <h1 className="text-2xl font-bold text-foreground leading-tight mb-2">
+              Sssss, ¡tu plan ya está listo!
+            </h1>
+            <p className="text-sm text-muted-foreground mb-12">
+              Tu camino hacia el bienestar interior comienza aquí
+            </p>
+
+            <div className="bg-card rounded-[32px] p-8 quiz-shadow border border-border/50 mb-8 relative">
+              <p className="text-sm font-bold text-muted-foreground mb-10 text-center uppercase tracking-widest">Nivel de bienestar interior</p>
+              
+              <div className="relative h-[240px] w-full px-4">
+                <svg viewBox="0 0 400 200" className="w-full h-full overflow-visible">
+                  {/* Grid Lines */}
+                  {[0, 1, 2, 3].map(i => (
+                    <line key={i} x1="0" y1={50 + i * 50} x2="400" y2={50 + i * 50} stroke="currentColor" strokeOpacity="0.05" strokeDasharray="4 4" />
+                  ))}
+                  
+                  {/* Path with animation */}
+                  <path
+                    d="M 20,180 Q 120,170 200,100 T 380,30"
+                    fill="none"
+                    stroke="#A78BFA"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                    className="path-animate"
+                    style={{ 
+                      strokeDasharray: 500, 
+                      strokeDashoffset: visible ? 0 : 500,
+                      transition: 'stroke-dashoffset 2.5s ease-in-out' 
+                    }}
+                  />
+
+                  {/* Points with Sequential Animation */}
+                  {[
+                    { x: 20, y: 180, label: 'Hoy', week: 'Semana 1', color: '#F87171', delay: 0 },
+                    { x: 130, y: 150, label: '', week: 'Semana 2', color: '#FB923C', delay: 700 },
+                    { x: 260, y: 70, label: '', week: 'Semana 3', color: '#FACC15', delay: 1400 },
+                    { x: 380, y: 30, label: 'Nueva realidad', week: 'Semana 4', color: '#22C55E', delay: 2100 }
+                  ].map((p, i) => (
+                    <g key={i} className={`transition-all duration-500 ease-out ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`} style={{ transitionDelay: `${p.delay}ms` }}>
+                      {/* Vertical line to axis */}
+                      <line x1={p.x} y1={p.y} x2={p.x} y2="190" stroke="currentColor" strokeOpacity="0.1" strokeDasharray="2 2" />
+                      
+                      {/* Point shadow */}
+                      <circle cx={p.x} cy={p.y} r="10" fill="white" className="shadow-sm" />
+                      
+                      {/* The Point */}
+                      <circle cx={p.x} cy={p.y} r="6" fill={p.color} className="animate-pulse-slow" style={{ animationDelay: `${p.delay}ms` }} />
+                      
+                      {/* Floating Labels */}
+                      {p.label && (
+                         <foreignObject x={p.x - 40} y={p.y - 45} width="80" height="30">
+                            <div className={`text-[9px] font-bold text-white px-2 py-1 rounded-md text-center whitespace-nowrap shadow-md`} style={{ backgroundColor: p.color }}>
+                              {p.label}
+                            </div>
+                         </foreignObject>
+                      )}
+
+                      {/* Week Label */}
+                      <text x={p.x} y="208" textAnchor="middle" className="fill-muted-foreground text-[10px] font-bold uppercase tracking-tighter">
+                        {p.week}
+                      </text>
+                    </g>
+                  ))}
+                </svg>
+              </div>
+
+              <p className="text-[10px] text-muted-foreground text-center mt-12 leading-relaxed max-w-[280px] mx-auto opacity-70">
+                Este gráfico es una ilustración y los resultados dependen de tu compromiso individual con el método.
+              </p>
+            </div>
+            
+            <CTA onClick={goNext} text="Continuar" />
+          </div>
+        </Wrapper>
+      );
+    }
+
+    // Screen 29: Scratch card
+    if (screen === 29) {
       return (
         <Wrapper visible={visible}>
           <div className="text-center pt-4">
@@ -1027,8 +1110,8 @@ export default function Quiz() {
       );
     }
 
-    // Screen 29: Offer
-    if (screen === 29) {
+    // Screen 30: Offer
+    if (screen === 30) {
       const diag = getDiagnosis();
       const goalAnswer = (answers['dream_0'] as string) || 'Sentirme en paz';
       return (
