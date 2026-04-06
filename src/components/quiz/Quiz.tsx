@@ -1095,7 +1095,7 @@ export default function Quiz() {
                 <div className="flex flex-col items-center justify-center p-6 text-center">
                   <span className="text-4xl mb-2">🎉</span>
                   <p className="text-2xl font-bold text-primary mb-1">¡Sorpresa!</p>
-                  <p className="text-sm text-foreground font-medium">Has desbloqueado un 70% de descuento</p>
+                  <p className="text-sm text-foreground font-medium">Has desbloqueado un 73% de descuento</p>
                 </div>
               </ScratchCard>
             </div>
