@@ -806,14 +806,12 @@ export default function Quiz() {
       const diagnosisImg = gender === 'hombre' ? '/diagnosis_hombre.png' : '/diagnosis_mujer.png';
       
       return (
-        <div className="min-h-screen bg-background pb-12 text-foreground">
-          {renderProgressBar()}
-          <Wrapper visible={visible}>
-            <div className="text-center pt-2 mb-8">
-              <h2 className="text-xl md:text-2xl font-bold text-foreground">
-                Resumen de tu perfil de bienestar
-              </h2>
-            </div>
+        <Wrapper visible={visible}>
+          <div className="text-center pt-2 mb-8">
+            <h2 className="text-xl md:text-2xl font-bold text-foreground">
+              Resumen de tu perfil de bienestar
+            </h2>
+          </div>
 
             {/* Main Result Card */}
             <div className="bg-card rounded-[32px] p-6 shadow-sm border border-border mb-6 relative overflow-hidden">
@@ -919,7 +917,6 @@ export default function Quiz() {
               Continuar
             </button>
           </Wrapper>
-        </div>
       );
     }
 
