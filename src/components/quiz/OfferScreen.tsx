@@ -38,7 +38,7 @@ const testimonials = [
     name: 'Andrés R.',
     country: 'Colombia 🇨🇴',
     img: 'https://randomuser.me/api/portraits/men/32.jpg',
-    text: 'Fui escéptico porque ya había probado apps, libros, videos. Pero esto fue diferente porque partió de MÍ. El diagnóstico fue preciso y las herramientas prácticas me dieron algo concreto para trabajar. En 4 semanas noté un cambio real en cómo reacciono.',
+    text: 'Fui escéptico porque ya había probado programas, libros, videos. Pero esto fue diferente porque partió de MÍ. El diagnóstico fue preciso y las herramientas prácticas me dieron algo concreto para trabajar. En 4 semanas noté un cambio real en cómo reacciono.',
   },
   {
     name: 'Valentina L.',
@@ -381,7 +381,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
         <p className="text-[32px] mb-2">🛡️</p>
         <h4 className="text-xl font-bold mb-2" style={{ color: '#15803D' }}>Garantía total de 30 días</h4>
         <p className="text-[15px] mb-3" style={{ color: '#166534' }}>
-          {genderTexts('Si en 30 días no sientes un cambio real en cómo te entienes y te relacionas contigo mismo/a, te devolvemos cada peso. Sin preguntas. Sin formularios. Sin procesos complicados. Solo escríbenos y listo.', gender)}
+          {genderTexts('Si en 30 días no sientes un cambio real en cómo te entiendes y te relacionas contigo mismo/a, te devolvemos cada peso. Sin preguntas. Sin formularios. Sin procesos complicados. Solo escríbenos y listo.', gender)}
         </p>
         <p className="text-[13px]" style={{ color: '#16A34A' }}>
           Más de 50,000 personas ya confiaron en este proceso. Ahora es tu turno.

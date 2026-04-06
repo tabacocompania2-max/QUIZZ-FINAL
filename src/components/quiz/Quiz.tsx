@@ -298,7 +298,7 @@ const InteractiveLoading = ({ onComplete, visible }: { onComplete: () => void; v
 
         return prev + 1;
       });
-    }, 60);
+    }, 80);
     return () => clearInterval(interval);
   }, [phase, visible, modal]);
 
@@ -326,15 +326,21 @@ const InteractiveLoading = ({ onComplete, visible }: { onComplete: () => void; v
       name: "Ricardo Méndez",
       stars: 5,
       title: "Información reveladora...",
-      text: "Conocí este programa hace poco, pero tengo mucho tiempo con estos temas. Las herramientas para conocerme han sido fundamentales para mi proceso."
+      text: "Conocí este programa hace poco. Las herramientas para conocerme han sido fundamentales para mi proceso."
     },
     {
       name: "Andrés Castillo",
       stars: 5,
       title: "En verdad ha cambiado mi vida",
       text: "Llevo meses utilizando este enfoque. Me ha ayudado a organizar mejor mi tiempo mental y a empezar a alcanzar mis objetivos reales."
+    },
+    {
+      name: "Lucía B.",
+      stars: 5,
+      title: "Recomendado al 100%",
+      text: "Lo mejor es que no es un programa genérico, se siente como si alguien me conociera de verdad."
     }
-  ][phase % 2];
+  ][phase % 3];
 
   return (
     <div className="relative min-h-[600px]">
@@ -920,8 +926,13 @@ export default function Quiz() {
       );
     }
 
-    // Screen 26: Progression chart
+    // Screen 26: Interactive Loading (Triggered after diagnosis summary)
     if (screen === 26) {
+      return <InteractiveLoading onComplete={goNext} visible={visible} />;
+    }
+
+    // Screen 27: Progression Roadmap
+    if (screen === 27) {
       const today = new Date();
       const future = new Date();
       future.setMonth(today.getMonth() + 2);
@@ -992,11 +1003,6 @@ export default function Quiz() {
           </div>
         </Wrapper>
       );
-    }
-
-    // Screen 27: Interactive Loading (New)
-    if (screen === 27) {
-      return <InteractiveLoading onComplete={goNext} visible={visible} />;
     }
 
     // Screen 28: Results Chart
