@@ -119,7 +119,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
         <div className="rounded-2xl p-5 space-y-4" style={{ background: '#F3F4F6', border: '1px solid #E5E7EB' }}>
           <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-white/50 grayscale-[0.3]">
             <img 
-              src={gender === 'hombre' ? '/diagnosis_hombre.png' : gender === 'mujer' ? '/diagnosis_mujer.png' : '/diagnosis_img.png'} 
+              src={gender === 'hombre' ? '/antes_hombre.png' : gender === 'mujer' ? '/antes_mujer.png' : '/antes_mujer.png'} 
               alt="Antes" 
               className="w-full h-full object-cover"
             />
@@ -144,7 +144,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
         <div className="rounded-2xl p-5 space-y-4" style={{ background: '#F5F3FF', border: '1px solid #C084FC' }}>
           <div className="relative w-full aspect-square rounded-xl overflow-hidden shadow-md">
             <img 
-              src={gender === 'hombre' ? '/portrait_latam_6.png' : gender === 'mujer' ? '/portrait_latam_1.png' : '/portrait_center.png'} 
+              src={gender === 'hombre' ? '/despues_hombre.png' : gender === 'mujer' ? '/despues_mujer.png' : '/despues_mujer.png'} 
               alt="Después" 
               className="w-full h-full object-cover"
             />
