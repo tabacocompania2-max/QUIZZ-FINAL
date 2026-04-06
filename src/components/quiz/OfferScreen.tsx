@@ -121,7 +121,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             <img 
               src={gender === 'hombre' ? '/antes_hombre.png' : gender === 'mujer' ? '/antes_mujer.png' : '/antes_mujer.png'} 
               alt="Antes" 
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover scale-[1.12] translate-x-[-2%] translate-y-[-2%] pointer-events-none"
             />
             <div className="absolute inset-0 bg-black/5" />
           </div>
@@ -146,7 +146,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             <img 
               src={gender === 'hombre' ? '/despues_hombre.png' : gender === 'mujer' ? '/despues_mujer.png' : '/despues_mujer.png'} 
               alt="Después" 
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover scale-[1.12] translate-x-[-2%] translate-y-[-2%] pointer-events-none"
             />
           </div>
           <div className="space-y-3">
