@@ -99,9 +99,9 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
   };
 
   const planData = [
-    { name: 'Guía esencial', price: '$5' },
+    { name: 'Guía esencial', price: '$4.97' },
     { name: 'Guía + bonos esenciales', price: '$9.97' },
-    { name: 'Transformación completa', price: '$15.99' }
+    { name: 'Transformación completa', price: '$15.97' }
   ];
 
   const handleMainCheckout = () => {
@@ -262,8 +262,8 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
           >
             <p className="font-bold text-foreground text-lg">Guía esencial</p>
             <div className="flex items-baseline gap-2 mt-2 mb-1">
-              <span className="text-sm text-muted-foreground line-through decoration-gray-400">$17</span>
-              <span className="text-3xl font-bold text-foreground">$5</span>
+              <span className="text-sm text-muted-foreground line-through decoration-gray-400">$18</span>
+              <span className="text-3xl font-bold text-foreground">$4.97</span>
             </div>
             <p className="text-xs text-muted-foreground mb-4">/pago único · acceso inmediato</p>
             <div className="space-y-3 mb-6 flex-1">
@@ -296,8 +296,8 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             </div>
             <p className="font-bold text-foreground text-lg">Transformación completa</p>
             <div className="flex items-baseline gap-2 mt-2 mb-1">
-              <span className="text-sm text-muted-foreground line-through decoration-gray-400">$57</span>
-              <span className="text-3xl font-bold text-foreground">$15.99</span>
+              <span className="text-sm text-muted-foreground line-through decoration-gray-400">$59</span>
+              <span className="text-3xl font-bold text-foreground">$15.97</span>
             </div>
             <p className="text-xs text-muted-foreground mb-4">/pago único · acceso inmediato</p>
             <div className="space-y-3 mb-6 flex-1">
@@ -314,13 +314,13 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             <div className="border-t border-border pt-4 mb-5">
               <div className="p-2 bg-primary/5 rounded-lg text-center">
                 <p className="text-[13px] font-bold" style={{ color: '#6C4FBF' }}>
-                  Valor total: $116 — tú pagas solo $15.99
+                  Valor total: $116 — tú pagas solo $15.97
                 </p>
               </div>
             </div>
             <button 
               className="w-full py-3.5 rounded-xl font-bold transition-all border-[1.5px] border-[#6C4FBF] text-[#6C4FBF] bg-transparent"
-              onClick={(e) => { e.stopPropagation(); setSelectedPlan(2); alert('Iniciando pago por Plan Transformación ($15.99)'); }}
+              onClick={(e) => { e.stopPropagation(); setSelectedPlan(2); alert('Iniciando pago por Plan Transformación ($15.97)'); }}
             >
                Quiero la transformación completa →
             </button>
