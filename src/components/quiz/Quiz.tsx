@@ -1,8 +1,8 @@
-import React, { useState, useCallback, ReactNode } from 'react';
+import React, { useState, useEffect, useCallback, ReactNode } from 'react';
 import ScratchCard from './ScratchCard';
 import OfferScreen from './OfferScreen';
 
-const TOTAL = 29;
+const TOTAL = 30;
 
 const painQuestions = [
   {
@@ -259,6 +259,137 @@ const LoadingScreen = ({ onComplete, visible }: { onComplete: () => void; visibl
         </div>
       </div>
     </Wrapper>
+  );
+};
+
+const InteractiveLoading = ({ onComplete, visible }: { onComplete: () => void; visible: boolean }) => {
+  const [phase, setPhase] = useState(0); // 0, 1, 2
+  const [progress, setProgress] = useState(0);
+  const [modal, setModal] = useState<number | null>(null); // 0, 1, 2
+
+  const phases = [
+    "Establecimiento de objetivos",
+    "Adaptación áreas de crecimiento",
+    "Configuración de contenido"
+  ];
+
+  const modals = [
+    { q: "¿Sueles terminar lo que empiezas?", items: ["No", "Sí"] },
+    { q: "¿Sabías que la autorreflexión diaria acelera el cambio?", items: ["No", "Sí"] },
+    { q: "¿Quieres aprender a construir hábitos sólidos?", items: ["No", "Sí"] }
+  ];
+
+  useEffect(() => {
+    if (!visible) return;
+    
+    const interval = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 100) {
+          if (phase < 2) {
+            setModal(phase);
+            clearInterval(interval);
+            return 100;
+          } else {
+            clearInterval(interval);
+            return 100;
+          }
+        }
+        return prev + 2;
+      });
+    }, 40);
+    return () => clearInterval(interval);
+  }, [phase, visible]);
+
+  const handleModal = () => {
+    setModal(null);
+    if (phase < 2) {
+      setPhase(p => p + 1);
+      setProgress(0);
+    }
+  };
+
+  const testimonial = [
+    {
+      name: "Patrick Naughton",
+      stars: 5,
+      title: "Información reveladora...",
+      text: "Descargué esta app hace poco, pero tengo mucho tiempo con estos temas. Las herramientas para conocerme han sido fundamentales para mi proceso."
+    },
+    {
+      name: "Brian Ross",
+      stars: 5,
+      title: "En verdad ha cambiado mi vida",
+      text: "Llevo meses utilizando este enfoque. Me ha ayudado a organizar mejor mi tiempo mental y a empezar a alcanzar mis objetivos reales."
+    }
+  ][phase % 2];
+
+  return (
+    <div className="relative min-h-[600px]">
+      <Wrapper visible={visible}>
+        <div className="text-center pt-4">
+          <h1 className="text-2xl font-bold mb-1">Creando tu</h1>
+          <h2 className="text-2xl font-bold text-primary mb-12">plan de bienestar personalizado</h2>
+          
+          <div className="space-y-6 mb-12">
+            {phases.map((p, i) => (
+              <div key={i} className="text-left">
+                <div className="flex justify-between items-center mb-2">
+                  <span className={`font-bold text-sm ${i < phase ? 'text-foreground' : i === phase ? 'text-foreground' : 'text-muted-foreground'}`}>
+                    {p}
+                  </span>
+                  {i < phase ? (
+                    <span className="text-green-500 font-bold">✓</span>
+                  ) : i === phase ? (
+                    <span className="text-xs font-bold text-muted-foreground">{progress}%</span>
+                  ) : null}
+                </div>
+                {i === phase && (
+                  <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
+                    <div className="h-full bg-primary transition-all duration-100" style={{ width: `${progress}%` }} />
+                  </div>
+                )}
+                {i < phase && <div className="h-[1px] w-full bg-border" />}
+              </div>
+            ))}
+          </div>
+
+          <div className="bg-card rounded-2xl p-6 border border-border/50 text-left shadow-sm">
+            <div className="flex gap-1 mb-3">
+              {[...Array(5)].map((_, i) => <span key={i} className="text-green-500">★</span>)}
+            </div>
+            <p className="font-bold text-sm mb-2">{testimonial.title}</p>
+            <p className="text-xs text-muted-foreground leading-relaxed italic mb-3">"{testimonial.text}"</p>
+            <p className="text-[10px] font-bold text-muted-foreground text-right">— {testimonial.name}</p>
+          </div>
+
+          {phase === 2 && progress === 100 && (
+            <div className="mt-12 animate-slide-up">
+              <CTA onClick={onComplete} text="Continuar" />
+            </div>
+          )}
+        </div>
+      </Wrapper>
+
+      {/* Commitment Modal */}
+      {modal !== null && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/40 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-white rounded-[32px] p-8 w-full max-w-sm shadow-2xl animate-in zoom-in-95 duration-200">
+            <p className="text-sm text-center text-muted-foreground mb-4">Para continuar, especifica</p>
+            <h3 className="text-xl font-bold text-center text-foreground mb-8">
+              {modals[modal].q}
+            </h3>
+            <div className="grid grid-cols-2 gap-4">
+              <button onClick={handleModal} className="py-4 bg-secondary rounded-2xl font-bold text-foreground hover:bg-secondary/80 transition-colors">
+                No
+              </button>
+              <button onClick={handleModal} className="py-4 bg-secondary rounded-2xl font-bold text-foreground hover:bg-secondary/80 transition-colors">
+                Sí
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
@@ -851,8 +982,13 @@ export default function Quiz() {
       );
     }
 
-    // Screen 27: Scratch card
+    // Screen 27: Interactive Loading (New)
     if (screen === 27) {
+      return <InteractiveLoading onComplete={goNext} visible={visible} />;
+    }
+
+    // Screen 28: Scratch card
+    if (screen === 28) {
       return (
         <Wrapper visible={visible}>
           <div className="text-center pt-4">
@@ -879,8 +1015,8 @@ export default function Quiz() {
       );
     }
 
-    // Screen 28: Offer
-    if (screen === 28) {
+    // Screen 29: Offer
+    if (screen === 29) {
       const diag = getDiagnosis();
       const goalAnswer = (answers['dream_0'] as string) || 'Sentirme en paz';
       return (
