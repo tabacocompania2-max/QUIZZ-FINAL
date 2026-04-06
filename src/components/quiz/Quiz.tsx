@@ -310,13 +310,13 @@ const InteractiveLoading = ({ onComplete, visible }: { onComplete: () => void; v
 
   const testimonial = [
     {
-      name: "Patrick Naughton",
+      name: "Ricardo Méndez",
       stars: 5,
       title: "Información reveladora...",
       text: "Descargué esta app hace poco, pero tengo mucho tiempo con estos temas. Las herramientas para conocerme han sido fundamentales para mi proceso."
     },
     {
-      name: "Brian Ross",
+      name: "Andrés Castillo",
       stars: 5,
       title: "En verdad ha cambiado mi vida",
       text: "Llevo meses utilizando este enfoque. Me ha ayudado a organizar mejor mi tiempo mental y a empezar a alcanzar mis objetivos reales."
