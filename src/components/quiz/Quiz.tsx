@@ -782,45 +782,70 @@ export default function Quiz() {
       const today = new Date();
       const future = new Date();
       future.setMonth(today.getMonth() + 2);
-
-      const formatDate = (d: Date) => d.toLocaleDateString('es-MX', { day: 'numeric', month: 'short' });
+      const months = ['en.', 'feb.', 'mar.', 'abr.', 'may.', 'jun.', 'jul.', 'ago.', 'sep.', 'oct.', 'nov.', 'dic.'];
+      const startMonth = months[today.getMonth()];
+      const endMonth = months[future.getMonth()];
+      const futureYear = future.getFullYear();
 
       return (
         <Wrapper visible={visible}>
           <div className="text-center pt-4">
-            <h2 className="text-xl font-bold text-foreground mb-2">
-              Así proyectamos tu evolución, {name}
+            <h2 className="text-[22px] font-bold text-foreground mb-4 leading-tight">
+              Un plan diseñado para ayudarte en tu recorrido hacia el bienestar
             </h2>
-            <p className="text-sm text-muted-foreground mb-10">En solo 8 semanas podrías ver estos resultados</p>
+            <p className="text-sm text-muted-foreground mb-1 leading-relaxed">
+              Con base en tus respuestas, esperamos que mejores tu bienestar
+            </p>
+            <p className="text-lg font-bold text-primary mb-10">
+              {future.toLocaleDateString('es-MX', { month: 'long', year: 'numeric' })}
+            </p>
             
-            <div className="bg-card rounded-3xl p-6 quiz-shadow border border-border/50 mb-10">
-               <svg viewBox="0 0 300 160" className="w-full">
-                <line x1="40" y1="20" x2="40" y2="130" stroke="hsl(255 25% 90%)" strokeWidth="1" />
-                <line x1="40" y1="130" x2="280" y2="130" stroke="hsl(255 25% 90%)" strokeWidth="1" />
-                <line x1="40" y1="90" x2="280" y2="90" stroke="hsl(255 25% 90%)" strokeWidth="0.5" strokeDasharray="4" />
-                <line x1="40" y1="50" x2="280" y2="50" stroke="hsl(255 25% 90%)" strokeWidth="0.5" strokeDasharray="4" />
-                <defs>
-                  <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="hsl(255 45% 53%)" stopOpacity="0.2" />
-                    <stop offset="100%" stopColor="hsl(255 45% 53%)" stopOpacity="0.02" />
-                  </linearGradient>
-                </defs>
-                <path d="M40,120 C80,115 120,100 160,80 S240,35 280,25 L280,130 L40,130 Z" fill="url(#chartGrad)" />
-                <path d="M40,120 C80,115 120,100 160,80 S240,35 280,25" fill="none" stroke="hsl(255 45% 53%)" strokeWidth="2.5" strokeLinecap="round" />
-                <circle cx="40" cy="120" r="4" fill="hsl(255 45% 53%)" />
-                <circle cx="280" cy="25" r="4" fill="hsl(255 45% 53%)" />
-                <text x="40" y="148" fill="hsl(255 12% 50%)" fontSize="10" textAnchor="middle">Hoy</text>
-                <text x="280" y="148" fill="hsl(255 12% 50%)" fontSize="10" textAnchor="middle">Semana 8</text>
-                <text x="30" y="124" fill="hsl(255 12% 50%)" fontSize="8" textAnchor="end">😔</text>
-                <text x="30" y="30" fill="hsl(255 12% 50%)" fontSize="8" textAnchor="end">✨</text>
-              </svg>
-              <div className="flex justify-between text-xs text-muted-foreground mt-4">
-                <span>{formatDate(today)}</span>
-                <span>{formatDate(future)}</span>
+            <div className="bg-card rounded-[32px] p-8 quiz-shadow border border-border/50 mb-8 relative">
+              <div className="h-[200px] flex items-end justify-between gap-2 relative">
+                {/* Background Columns (The 'Goal' area) */}
+                {[0.3, 0.45, 0.55, 0.65, 0.75, 0.9, 1.0].map((h, i) => (
+                  <div key={i} className="flex-1 flex flex-col items-center group relative h-full">
+                    {/* The bar track */}
+                    <div className="w-full bg-secondary/30 rounded-t-xl absolute inset-0 bottom-0 z-0" />
+                    
+                    {/* The animated bar */}
+                    <div 
+                      className="w-full rounded-t-xl z-10 transition-all duration-[1500ms] ease-out-back relative"
+                      style={{ 
+                        height: visible ? `${h * 100}%` : '0%',
+                        transitionDelay: `${i * 150}ms`,
+                        background: i === 6 
+                          ? 'linear-gradient(to top, #6C4FBF, #A78BFA)' 
+                          : i === 5 
+                            ? 'linear-gradient(to top, #7C3AED, #C084FC)'
+                            : 'linear-gradient(to top, #6C4FBF88, #A78BFA88)'
+                      }}
+                    >
+                      {i === 5 && visible && (
+                        <div className="absolute -top-12 left-1/2 -translate-x-1/2 animate-bounce-slow">
+                          <div className="bg-[#22C55E] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg shadow-lg whitespace-nowrap relative">
+                            Objetivo
+                            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#22C55E] rotate-45" />
+                          </div>
+                          <div className="w-3 h-3 bg-white border-2 border-[#22C55E] rounded-full mx-auto mt-1 shadow-sm" />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="flex justify-between mt-4 px-1">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest">{startMonth} {today.getFullYear()}</span>
+                <span className="text-[11px] font-bold text-primary uppercase tracking-widest">{endMonth} {futureYear}</span>
               </div>
             </div>
+
+            <p className="text-[11px] text-muted-foreground mb-10 italic max-w-[300px] mx-auto leading-relaxed">
+              Este gráfico es una ilustración basada en perfiles similares y los resultados individuales pueden variar.
+            </p>
             
-            <CTA onClick={goNext} />
+            <CTA onClick={goNext} text="Continuar" />
           </div>
         </Wrapper>
       );
