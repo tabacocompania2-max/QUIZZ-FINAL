@@ -280,33 +280,46 @@ const InteractiveLoading = ({ onComplete, visible }: { onComplete: () => void; v
   ];
 
   useEffect(() => {
-    if (!visible) return;
+    if (!visible || modal !== null) return;
     
     const interval = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
-          if (phase < 2) {
-            setModal(phase);
-            clearInterval(interval);
-            return 100;
-          } else {
-            clearInterval(interval);
-            return 100;
-          }
+          clearInterval(interval);
+          return 100;
         }
-        return prev + 2;
+        
+        // Trigger modal at 50%
+        if (prev === 50 && phase < 3) {
+          setModal(phase);
+          clearInterval(interval);
+          return 50; 
+        }
+
+        return prev + 1;
       });
-    }, 40);
+    }, 60);
     return () => clearInterval(interval);
-  }, [phase, visible]);
+  }, [phase, visible, modal]);
 
   const handleModal = () => {
     setModal(null);
-    if (phase < 2) {
-      setPhase(p => p + 1);
-      setProgress(0);
+    if (phase < 3) {
+      // Force progress past 50 to continue
+      setProgress(51);
+      // If we finished the 50% part, once it hits 100%, we move to next phase
     }
   };
+
+  useEffect(() => {
+    if (progress === 100 && phase < 2) {
+      const timeout = setTimeout(() => {
+        setPhase(p => p + 1);
+        setProgress(0);
+      }, 500);
+      return () => clearTimeout(timeout);
+    }
+  }, [progress, phase]);
 
   const testimonial = [
     {
