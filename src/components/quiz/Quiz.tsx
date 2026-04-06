@@ -378,7 +378,7 @@ const InteractiveLoading = ({ onComplete, visible }: { onComplete: () => void; v
           )}
 
           {phase === 2 && progress === 100 && (
-            <div className="fixed bottom-10 left-0 right-0 px-6 animate-slide-up">
+            <div className="mt-16 animate-slide-up">
               <CTA onClick={onComplete} text="Continuar" />
             </div>
           )}
