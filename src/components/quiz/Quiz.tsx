@@ -524,19 +524,19 @@ export default function Quiz() {
             <div className="grid grid-cols-3 gap-3 mb-8">
               <button onClick={() => { setGender('hombre'); goNext(); }} className="flex flex-col items-center gap-3 p-4 rounded-2xl border-2 border-border bg-card hover:border-primary hover:scale-105 transition-all duration-200 quiz-shadow group">
                 <div className="w-20 h-20 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-primary transition-all duration-200">
-                  <img src="/gender-hombre.png" alt="Hombre" className="w-full h-full object-cover object-top" />
+                  <img src="/gender-hombre.png" alt="Hombre" className="w-full h-full object-cover object-top" loading="eager" />
                 </div>
                 <span className="font-medium text-foreground text-sm">Hombre</span>
               </button>
               <button onClick={() => { setGender('mujer'); goNext(); }} className="flex flex-col items-center gap-3 p-4 rounded-2xl border-2 border-border bg-card hover:border-primary hover:scale-105 transition-all duration-200 quiz-shadow group">
                 <div className="w-20 h-20 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-primary transition-all duration-200">
-                  <img src="/gender-mujer.png" alt="Mujer" className="w-full h-full object-cover object-top" />
+                  <img src="/gender-mujer.png" alt="Mujer" className="w-full h-full object-cover object-top" loading="eager" />
                 </div>
                 <span className="font-medium text-foreground text-sm">Mujer</span>
               </button>
               <button onClick={() => { setGender('otro'); goNext(); }} className="flex flex-col items-center gap-3 p-4 rounded-2xl border-2 border-border bg-card hover:border-primary hover:scale-105 transition-all duration-200 quiz-shadow group">
                 <div className="w-20 h-20 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-primary transition-all duration-200">
-                  <img src="/gender-otro.png" alt="Otro" className="w-full h-full object-cover object-top" />
+                  <img src="/gender-otro.png" alt="Otro" className="w-full h-full object-cover object-top" loading="eager" />
                 </div>
                 <span className="font-medium text-foreground text-sm">Otro</span>
               </button>
@@ -588,13 +588,13 @@ export default function Quiz() {
             <div className="my-2 w-full relative bg-white rounded-[32px] overflow-hidden shadow-2xl border border-muted/20" style={{ aspectRatio: '1.2 / 1' }}>
               {/* IMAGE AS EXACT REPRODUCTION BACKGROUND */}
               <div className="absolute inset-0 z-0">
-                <img src="/social_proof_bg.png" alt="Map Background" className="w-full h-full object-cover" />
+                <img src="/social_proof_bg.png" alt="Map Background" className="w-full h-full object-cover" loading="lazy" />
               </div>
 
               {/* CENTRAL MAIN AVATAR (Large pulse) */}
               <div className="absolute left-[46.5%] top-[48.5%] translate-x-[-50%] translate-y-[-50%] z-40">
                  <div className="w-[120px] h-[120px] rounded-full overflow-hidden border-4 border-white shadow-2xl relative z-10 animate-depth-pulse bg-white">
-                    <img src="/portrait_center.png" alt="Featured" className="w-full h-full object-cover" />
+                    <img src="/portrait_center.png" alt="Featured" className="w-full h-full object-cover" loading="lazy" />
                  </div>
                  {/* Glowing Ring already in background, we just add a sbtle glow layer */}
                  <div className="absolute inset-[-15px] rounded-full bg-primary/5 blur-3xl animate-pulse" />

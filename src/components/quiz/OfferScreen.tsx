@@ -126,6 +126,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
               src={gender === 'hombre' ? '/antes_hombre.png' : gender === 'mujer' ? '/antes_mujer.png' : '/antes_mujer.png'} 
               alt="Antes" 
               className="w-full h-full object-cover"
+              loading="eager"
             />
             <div className="absolute inset-0 bg-black/5" />
           </div>
@@ -151,6 +152,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
               src={gender === 'hombre' ? '/despues_hombre.png' : gender === 'mujer' ? '/despues_mujer.png' : '/despues_mujer.png'} 
               alt="Después" 
               className="w-full h-full object-cover"
+              loading="eager"
             />
           </div>
           <div className="space-y-3">
@@ -411,6 +413,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
                   alt={t.name}
                   className="w-14 h-14 rounded-full object-cover"
                   style={{ border: '2px solid #6C4FBF' }}
+                  loading="lazy"
                 />
                 <div>
                   <p className="font-semibold text-foreground text-sm">{t.name}</p>

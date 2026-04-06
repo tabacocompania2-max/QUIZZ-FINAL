@@ -53,6 +53,9 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    min-height: 100dvh;
+    scroll-behavior: smooth;
   }
 }
 
