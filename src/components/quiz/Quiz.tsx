@@ -274,9 +274,9 @@ const InteractiveLoading = ({ onComplete, visible }: { onComplete: () => void; v
   ];
 
   const modals = [
-    { q: "¿Sueles terminar lo que empiezas?", items: ["No", "Sí"] },
-    { q: "¿Sabías que la autorreflexión diaria acelera el cambio?", items: ["No", "Sí"] },
-    { q: "¿Quieres aprender a construir hábitos sólidos?", items: ["No", "Sí"] }
+    { q: "¿Estás listo/a para entenderte de verdad?", items: ["No todavía", "Sí, lo necesito"] },
+    { q: "¿Sabías que la mayoría de patrones emocionales se repiten porque nunca los nombramos?", items: ["No lo sabía", "Sí, lo he sentido"] },
+    { q: "¿Te comprometes a darte esta oportunidad de volver a ti?", items: ["Necesito pensarlo", "Sí, me comprometo"] }
   ];
 
   useEffect(() => {
@@ -400,11 +400,11 @@ const InteractiveLoading = ({ onComplete, visible }: { onComplete: () => void; v
               {modals[modal].q}
             </h3>
             <div className="grid grid-cols-2 gap-4">
-              <button onClick={handleModal} className="py-4 bg-secondary rounded-2xl font-bold text-foreground hover:bg-secondary/80 transition-colors">
-                No
+              <button onClick={handleModal} className="py-4 bg-secondary rounded-2xl font-bold text-foreground hover:bg-secondary/80 transition-colors px-2 text-sm">
+                {modals[modal].items[0]}
               </button>
-              <button onClick={handleModal} className="py-4 bg-secondary rounded-2xl font-bold text-foreground hover:bg-secondary/80 transition-colors">
-                Sí
+              <button onClick={handleModal} className="py-4 bg-secondary rounded-2xl font-bold text-foreground hover:bg-secondary/80 transition-colors px-2 text-sm">
+                {modals[modal].items[1]}
               </button>
             </div>
           </div>
