@@ -146,11 +146,11 @@ const dreamQuestions = [
     ],
   },
   {
-    question: '¿Qué tan seguido dedicas tiempo a tu bienestar emocional?',
+    question: '¿Qué tan cerca sientes que estás de la versión de ti que realmente quieres ser?',
     options: [
-      { emoji: '❌', text: 'Nunca o casi nunca' },
-      { emoji: '🔄', text: 'Ocasionalmente' },
-      { emoji: '✅', text: 'Con frecuencia' },
+      { emoji: '🌑', text: 'Muy lejos, casi no la reconozco' },
+      { emoji: '🌓', text: 'A medio camino, pero algo falta' },
+      { emoji: '🌕', text: 'Cerca, pero hay algo que me detiene' },
     ],
   },
 ];
@@ -516,10 +516,13 @@ export default function Quiz() {
         <Wrapper visible={visible}>
           <div className="text-center pt-8">
             <h1 className="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-4">
-              {genderTexts('¿Sientes que no eres del todo tú mismo/a, aunque lo tengas todo?', gender)}
+              {genderTexts('¿Sientes que te perdiste a ti mismo/a en el camino?', gender)}
             </h1>
-            <p className="text-muted-foreground mb-10 leading-relaxed">
+            <p className="text-muted-foreground mb-6 leading-relaxed">
               Responde 3 minutos de preguntas honestas y recibe una guía personalizada para tu proceso.
+            </p>
+            <p className="text-sm text-primary font-medium text-center mb-6">
+              El método Volver a Ti te ayuda a encontrar el camino de regreso.
             </p>
             <div className="grid grid-cols-3 gap-3 mb-8">
               <button onClick={() => { setGender('hombre'); goNext(); }} className="flex flex-col items-center gap-3 p-4 rounded-2xl border-2 border-border bg-card hover:border-primary hover:scale-105 transition-all duration-200 quiz-shadow group">
@@ -582,7 +585,7 @@ export default function Quiz() {
         <Wrapper visible={visible}>
           <div className="text-center pt-2">
             <h2 className="text-xl font-bold text-foreground mb-4 leading-tight max-w-[280px] mx-auto">
-              Más de 50,000 personas en Latinoamérica ya iniciaron su proceso con nosotros.
+              Más de 50,000 personas en Latinoamérica ya están en su camino de Volver a Ti.
             </h2>
             
             <div className="my-2 w-full relative bg-white rounded-[32px] overflow-hidden shadow-2xl border border-muted/20" style={{ aspectRatio: '1.2 / 1' }}>
@@ -620,7 +623,7 @@ export default function Quiz() {
             </div>
 
             <p className="text-sm text-muted-foreground mb-10 max-w-[280px] mx-auto leading-relaxed italic">
-              "Finalmente entendí que mi proceso es compartido."
+              "Volver a Ti me hizo entender que no estaba solo/a en esto."
             </p>
             
             <CTA onClick={goNext} text="Continuar" />
@@ -652,10 +655,13 @@ export default function Quiz() {
           <div className="text-center pt-8">
             <span className="text-5xl mb-6 block">💛</span>
             <h2 className="text-2xl font-bold text-foreground mb-4">Lo que sientes no es una falla tuya.</h2>
-            <p className="text-muted-foreground leading-relaxed mb-8">
+            <p className="text-muted-foreground leading-relaxed mb-4">
               {genderTexts('El 81% de las personas que hacen este test sienten exactamente lo mismo que tú. No estás solo/a. Y tiene solución.', gender)}
             </p>
-            <CTA onClick={goNext} />
+            <p className="text-sm text-secondary italic text-center mt-4 mb-4">
+              El primer paso para volver a ti es entender que no estás roto/a — solo perdido/a. Y los caminos de regreso siempre existen.
+            </p>
+            <CTA onClick={goNext} text="Entiendo, quiero continuar" />
           </div>
         </Wrapper>
       );
@@ -718,6 +724,9 @@ export default function Quiz() {
       return (
         <Wrapper visible={visible}>
           <div className="text-center pt-4">
+            <h2 className="text-xl font-bold text-foreground text-center mb-4">
+              Volver a Ti está construido sobre bases reales, no promesas vacías.
+            </h2>
             <p className="text-muted-foreground leading-relaxed mb-8 text-sm">
               Tu guía está basada en principios de psicología cognitiva, neurociencia del comportamiento y más de 200 historias reales de personas en Latinoamérica.
             </p>
@@ -815,7 +824,7 @@ export default function Quiz() {
         <Wrapper visible={visible}>
           <div className="text-center pt-2 mb-8">
             <h2 className="text-xl md:text-2xl font-bold text-foreground">
-              Resumen de tu perfil de bienestar
+              {name}, este es tu punto de partida en Volver a Ti
             </h2>
           </div>
 
@@ -945,7 +954,7 @@ export default function Quiz() {
         <Wrapper visible={visible}>
           <div className="text-center pt-4">
             <h2 className="text-[22px] font-bold text-foreground mb-4 leading-tight">
-              Tu Hoja de Ruta Personalizada para Recuperar tu Equilibrio
+              Así se ve tu camino de regreso, {name}
             </h2>
             <p className="text-sm text-muted-foreground mb-1 leading-relaxed">
               Analizando tu perfil, esta es la progresión estimada para tu proceso de transformación
@@ -999,7 +1008,7 @@ export default function Quiz() {
               Esta proyección se genera analizando datos de trayectorias similares exitosas. Los resultados individuales pueden variar.
             </p>
             
-            <CTA onClick={goNext} text="Continuar" />
+            <CTA onClick={goNext} text="Quiero empezar mi proceso →" />
           </div>
         </Wrapper>
       );
@@ -1011,10 +1020,10 @@ export default function Quiz() {
         <Wrapper visible={visible}>
           <div className="text-center pt-4">
             <h1 className="text-2xl font-bold text-foreground leading-tight mb-2">
-              Sssss, ¡tu plan ya está listo!
+              {name}, tu guía Volver a Ti está lista.
             </h1>
             <p className="text-sm text-muted-foreground mb-12">
-              Tu camino hacia el bienestar interior comienza aquí
+              {genderTexts('Tu proceso personal de regreso a ti mismo/a empieza ahora.', gender)}
             </p>
 
             <div className="bg-card rounded-[32px] p-8 quiz-shadow border border-border/50 mb-8 relative">
@@ -1082,7 +1091,7 @@ export default function Quiz() {
               </p>
             </div>
             
-            <CTA onClick={goNext} text="Continuar" />
+            <CTA onClick={goNext} text="Ver mi precio especial →" />
           </div>
         </Wrapper>
       );
@@ -1101,7 +1110,7 @@ export default function Quiz() {
                 <div className="flex flex-col items-center justify-center p-6 text-center">
                   <span className="text-4xl mb-2">🎉</span>
                   <p className="text-2xl font-bold text-primary mb-1">¡Sorpresa!</p>
-                  <p className="text-sm text-foreground font-medium">Has desbloqueado un 73% de descuento</p>
+                  <p className="text-sm text-foreground font-medium">Has desbloqueado un 73% de descuento en tu guía Volver a Ti</p>
                 </div>
               </ScratchCard>
             </div>
