@@ -99,9 +99,9 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
   };
 
   const planData = [
-    { name: 'Volver a Ti — Esencial', price: '$4.97' },
-    { name: 'Volver a Ti — Plus', price: '$9.97' },
-    { name: 'Volver a Ti — Completo', price: '$15.97' }
+    { name: 'Brújula Interior — Esencial', price: '$4.97' },
+    { name: 'Brújula Interior — Plus', price: '$9.97' },
+    { name: 'Brújula Interior — Completo', price: '$15.97' }
   ];
 
   const handleMainCheckout = () => {
@@ -171,7 +171,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
 
       {/* SECTION 2 — Headline */}
       <div className="text-center space-y-4">
-        <h1 className="text-[28px] font-bold text-foreground text-center">{name}, tu proceso Volver a Ti empieza ahora mismo.</h1>
+        <h1 className="text-[28px] font-bold text-foreground text-center">{name}, tu proceso Brújula Interior empieza ahora mismo.</h1>
         <p className="text-base text-muted-foreground text-center">Basada exactamente en lo que respondiste. No es genérica. Es tuya.</p>
         <div className="flex flex-wrap justify-center gap-2">
           <span className="px-3 py-1.5 rounded-full text-sm font-medium" style={{ background: '#EDE9FF', color: '#6C4FBF' }}>🎯 {mainDifficulty}</span>
@@ -192,7 +192,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
 
       {/* SECTION 6 — Benefits (Moved here as per CORRECCIÓN 3) */}
       <div>
-        <h2 className="text-xl font-bold text-foreground text-center mb-5">Lo que vas a lograr con Volver a Ti</h2>
+        <h2 className="text-xl font-bold text-foreground text-center mb-5">Lo que vas a lograr con Brújula Interior</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {[
             genderTexts('Entenderte a ti mismo/a de verdad, no en teoría', gender),
@@ -222,7 +222,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 text-[11px] font-bold rounded-full text-white whitespace-nowrap shadow-md z-20" style={{ background: '#6C4FBF' }}>
               Lo que más eligen
             </div>
-            <p className="font-bold text-foreground text-lg mt-2">Volver a Ti — Plus</p>
+            <p className="font-bold text-foreground text-lg mt-2">Brújula Interior — Plus</p>
             <div className="flex items-baseline gap-2 mt-2 mb-1">
               <span className="text-sm text-muted-foreground line-through decoration-gray-400">$37</span>
               <span className="text-4xl font-bold" style={{ color: '#6C4FBF' }}>$9.97</span>
@@ -248,9 +248,9 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             </div>
             <button 
               className="w-full py-4 rounded-xl font-bold transition-opacity hover:opacity-90 shadow-md bg-[#6C4FBF] text-white"
-              onClick={(e) => { e.stopPropagation(); setSelectedPlan(1); alert('Iniciando pago por Volver a Ti — Plus ($9.97)'); }}
+              onClick={(e) => { e.stopPropagation(); setSelectedPlan(1); alert('Iniciando pago por Brújula Interior — Plus ($9.97)'); }}
             >
-              Quiero Volver a Ti — Plus →
+              Quiero Brújula Interior — Plus →
             </button>
             <p className="text-[11px] text-muted-foreground text-center mt-2.5 font-medium">
                Acceso inmediato a todo por correo
@@ -262,7 +262,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             onClick={() => setSelectedPlan(0)}
             className={`cursor-pointer rounded-2xl p-5 border-2 transition-all flex-1 order-2 md:order-1 flex flex-col ${selectedPlan === 0 ? 'border-[#6C4FBF] bg-[#FAFAFE] scale-[1.02]' : 'border-border bg-card'}`}
           >
-            <p className="font-bold text-foreground text-lg">Volver a Ti — Esencial</p>
+            <p className="font-bold text-foreground text-lg">Brújula Interior — Esencial</p>
             <div className="flex items-baseline gap-2 mt-2 mb-1">
               <span className="text-sm text-muted-foreground line-through decoration-gray-400">$18</span>
               <span className="text-3xl font-bold text-foreground">$4.97</span>
@@ -279,9 +279,9 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             </div>
             <button 
               className="w-full py-3.5 rounded-xl font-bold transition-all border-[1.5px] border-[#6C4FBF] text-[#6C4FBF] bg-transparent"
-              onClick={(e) => { e.stopPropagation(); setSelectedPlan(0); alert('Iniciando pago por Volver a Ti — Esencial ($4.97)'); }}
+              onClick={(e) => { e.stopPropagation(); setSelectedPlan(0); alert('Iniciando pago por Brújula Interior — Esencial ($4.97)'); }}
             >
-              Empezar con Volver a Ti →
+              Empezar con Brújula Interior →
             </button>
             <p className="text-[11px] text-muted-foreground text-center mt-2.5 font-medium">
                Acceso inmediato por correo
@@ -296,7 +296,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             <div className="mx-auto mb-2 px-3 py-1 text-[12px] font-medium rounded-full whitespace-nowrap" style={{ background: '#F3F0FF', color: '#6C4FBF' }}>
               Mayor valor
             </div>
-            <p className="font-bold text-foreground text-lg">Volver a Ti — Completo</p>
+            <p className="font-bold text-foreground text-lg">Brújula Interior — Completo</p>
             <div className="flex items-baseline gap-2 mt-2 mb-1">
               <span className="text-sm text-muted-foreground line-through decoration-gray-400">$59</span>
               <span className="text-3xl font-bold text-foreground">$15.97</span>
@@ -322,9 +322,9 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             </div>
             <button 
               className="w-full py-3.5 rounded-xl font-bold transition-all border-[1.5px] border-[#6C4FBF] text-[#6C4FBF] bg-transparent"
-              onClick={(e) => { e.stopPropagation(); setSelectedPlan(2); alert('Iniciando pago por Volver a Ti — Completo ($15.97)'); }}
+              onClick={(e) => { e.stopPropagation(); setSelectedPlan(2); alert('Iniciando pago por Brújula Interior — Completo ($15.97)'); }}
             >
-               Quiero Volver a Ti — Completo →
+               Quiero Brújula Interior — Completo →
             </button>
             <p className="text-[11px] text-muted-foreground text-center mt-2.5 font-medium">
                Acceso inmediato a todo por correo
@@ -354,9 +354,9 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
           className="w-full py-[18px] rounded-[14px] text-white font-bold text-lg transition-all hover:scale-[1.01] active:scale-[0.99] shadow-xl" 
           style={{ background: '#6C4FBF' }}
         >
-          {selectedPlan === 0 ? 'Empezar con Volver a Ti →' :
-           selectedPlan === 1 ? 'Quiero Volver a Ti — Plus →' :
-           'Quiero Volver a Ti — Completo →'}
+          {selectedPlan === 0 ? 'Empezar con Brújula Interior →' :
+           selectedPlan === 1 ? 'Quiero Brújula Interior — Plus →' :
+           'Quiero Brújula Interior — Completo →'}
         </button>
         {ctaLine}
       </div>
@@ -370,7 +370,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
           {[
             { num: '83%', desc: 'mejoró su bienestar emocional en 6 semanas' },
             { num: '77%', desc: 'notó cambios reales desde la primera semana' },
-            { num: '50,000+', desc: 'personas en LATAM ya iniciaron su proceso Volver a Ti' },
+            { num: '50,000+', desc: 'personas en LATAM ya iniciaron su proceso Brújula Interior' },
           ].map((s, i) => (
             <div key={i} className="bg-card rounded-xl p-4 quiz-shadow text-center">
               <p className="text-[32px] font-bold" style={{ color: '#6C4FBF' }}>{s.num}</p>
@@ -405,7 +405,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
 
       {/* SECTION 9 — Testimonials */}
       <div>
-        <h2 className="text-xl font-bold text-foreground text-center mb-5">Lo que dicen quienes ya empezaron su proceso Volver a Ti</h2>
+        <h2 className="text-xl font-bold text-foreground text-center mb-5">Lo que dicen quienes ya empezaron su proceso Brújula Interior</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {testimonials.map((t, i) => (
             <div key={i} className="bg-card rounded-xl p-5 quiz-shadow">
@@ -438,7 +438,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
         <p className="text-[32px] mb-2">🛡️</p>
         <h4 className="text-xl font-bold mb-2" style={{ color: '#15803D' }}>Garantía total de 30 días</h4>
         <p className="text-sm font-medium text-center mb-3" style={{ color: '#16A34A' }}>
-          Volver a Ti está respaldado por nuestra garantía sin riesgo.
+          Brújula Interior está respaldado por nuestra garantía sin riesgo.
         </p>
         <p className="text-[15px] mb-3" style={{ color: '#166534' }}>
           {genderTexts('Si en 30 días no sientes un cambio real en cómo te entiendes y te relacionas contigo mismo/a, te devolvemos cada peso. Sin preguntas. Sin formularios. Sin procesos complicados. Solo escríbenos y listo.', gender)}
@@ -454,9 +454,9 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
           className="w-full py-[18px] rounded-[14px] text-white font-bold text-lg transition-all hover:scale-[1.01] active:scale-[0.99] shadow-xl animate-pulse-slow" 
           style={{ background: '#6C4FBF' }}
         >
-          {selectedPlan === 0 ? 'Empezar con Volver a Ti →' :
-           selectedPlan === 1 ? 'Quiero Volver a Ti — Plus →' :
-           'Quiero Volver a Ti — Completo →'}
+          {selectedPlan === 0 ? 'Empezar con Brújula Interior →' :
+           selectedPlan === 1 ? 'Quiero Brújula Interior — Plus →' :
+           'Quiero Brújula Interior — Completo →'}
         </button>
         {ctaLine}
         <div className="border-t border-border mt-6 pt-4 text-center">

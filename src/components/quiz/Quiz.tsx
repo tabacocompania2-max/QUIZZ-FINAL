@@ -276,7 +276,7 @@ const InteractiveLoading = ({ onComplete, visible }: { onComplete: () => void; v
   const modals = [
     { q: "¿Estás listo/a para entenderte de verdad?", items: ["No todavía", "Sí, lo necesito"] },
     { q: "¿Sabías que la mayoría de patrones emocionales se repiten porque nunca los nombramos?", items: ["No lo sabía", "Sí, lo he sentido"] },
-    { q: "¿Te comprometes a darte esta oportunidad de volver a ti?", items: ["Necesito pensarlo", "Sí, me comprometo"] }
+    { q: "¿Te comprometes a darte esta oportunidad de Brújula Interior?", items: ["Necesito pensarlo", "Sí, me comprometo"] }
   ];
 
   useEffect(() => {
@@ -522,7 +522,7 @@ export default function Quiz() {
               Responde 3 minutos de preguntas honestas y recibe una guía personalizada para tu proceso.
             </p>
             <p className="text-sm text-primary font-medium text-center mb-6">
-              El método Volver a Ti te ayuda a encontrar el camino de regreso.
+              El método Brújula Interior te ayuda a encontrar tu propio norte.
             </p>
             <div className="grid grid-cols-3 gap-3 mb-8">
               <button onClick={() => { setGender('hombre'); goNext(); }} className="flex flex-col items-center gap-3 p-4 rounded-2xl border-2 border-border bg-card hover:border-primary hover:scale-105 transition-all duration-200 quiz-shadow group">
@@ -585,7 +585,7 @@ export default function Quiz() {
         <Wrapper visible={visible}>
           <div className="text-center pt-2">
             <h2 className="text-xl font-bold text-foreground mb-4 leading-tight max-w-[280px] mx-auto">
-              Más de 50,000 personas en Latinoamérica ya están en su camino de Volver a Ti.
+              Más de 50,000 personas en Latinoamérica ya iniciaron su proceso Brújula Interior.
             </h2>
             
             <div className="my-2 w-full relative bg-white rounded-[32px] overflow-hidden shadow-2xl border border-muted/20" style={{ aspectRatio: '1.2 / 1' }}>
@@ -623,7 +623,7 @@ export default function Quiz() {
             </div>
 
             <p className="text-sm text-muted-foreground mb-10 max-w-[280px] mx-auto leading-relaxed italic">
-              "Volver a Ti me hizo entender que no estaba solo/a en esto."
+              "Brújula Interior me hizo entender que no estaba solo/a en esto."
             </p>
             
             <CTA onClick={goNext} text="Continuar" />
@@ -725,7 +725,7 @@ export default function Quiz() {
         <Wrapper visible={visible}>
           <div className="text-center pt-4">
             <h2 className="text-xl font-bold text-foreground text-center mb-4">
-              Volver a Ti está construido sobre bases reales, no promesas vacías.
+              Brújula Interior está construido sobre bases reales, no promesas vacías.
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-8 text-sm">
               Tu guía está basada en principios de psicología cognitiva, neurociencia del comportamiento y más de 200 historias reales de personas en Latinoamérica.
@@ -824,7 +824,7 @@ export default function Quiz() {
         <Wrapper visible={visible}>
           <div className="text-center pt-2 mb-8">
             <h2 className="text-xl md:text-2xl font-bold text-foreground">
-              {name}, este es tu punto de partida en Volver a Ti
+              {name}, este es tu punto de partida en Brújula Interior
             </h2>
           </div>
 
@@ -1020,7 +1020,7 @@ export default function Quiz() {
         <Wrapper visible={visible}>
           <div className="text-center pt-4">
             <h1 className="text-2xl font-bold text-foreground leading-tight mb-2">
-              {name}, tu guía Volver a Ti está lista.
+              {name}, tu guía Brújula Interior está lista.
             </h1>
             <p className="text-sm text-muted-foreground mb-12">
               {genderTexts('Tu proceso personal de regreso a ti mismo/a empieza ahora.', gender)}
@@ -1110,7 +1110,7 @@ export default function Quiz() {
                 <div className="flex flex-col items-center justify-center p-6 text-center">
                   <span className="text-4xl mb-2">🎉</span>
                   <p className="text-2xl font-bold text-primary mb-1">¡Sorpresa!</p>
-                  <p className="text-sm text-foreground font-medium">Has desbloqueado un 73% de descuento en tu guía Volver a Ti</p>
+                  <p className="text-sm text-foreground font-medium">Has desbloqueado un 73% de descuento en tu guía Brújula Interior</p>
                 </div>
               </ScratchCard>
             </div>
