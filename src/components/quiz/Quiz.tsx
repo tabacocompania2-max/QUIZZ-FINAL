@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, ReactNode } from 'react';
+import { Hand } from 'lucide-react';
 import ScratchCard from './ScratchCard';
 import OfferScreen from './OfferScreen';
 
@@ -459,6 +460,36 @@ export default function Quiz() {
   const [commitment, setCommitment] = useState('');
   const [multiSelect, setMultiSelect] = useState<string[]>([]);
   const [scratched, setScratched] = useState(false);
+  const [hasStartedScratching, setHasStartedScratching] = useState(false);
+  const [diagnosisLevel, setDiagnosisLevel] = useState(0);
+
+  const getDiagnosis = useCallback(() => {
+    const themes: Record<string, number> = {};
+    painQuestions.forEach((q, i) => {
+      const answer = answers[`pain_${i}`];
+      if (answer === q.options[0].text) themes[q.theme] = (themes[q.theme] || 0) + 2;
+      else if (answer === q.options[1].text) themes[q.theme] = (themes[q.theme] || 0) + 1;
+    });
+    const sorted = Object.entries(themes).sort((a, b) => b[1] - a[1]);
+    return {
+      main: sorted[0]?.[0] || 'desconexión',
+      trigger: sorted[1]?.[0] || 'ansiedad',
+      potential: sorted.length <= 3 ? 'muy alto' : 'alto',
+    };
+  }, [answers]);
+
+  useEffect(() => {
+    if (screen === 25) {
+      setDiagnosisLevel(0);
+      const diag = getDiagnosis();
+      // Calculate a target that feels personalized based on answers
+      const target = diag.potential === 'muy alto' ? 88 : 72;
+      const timer = setTimeout(() => {
+        setDiagnosisLevel(target);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [screen, getDiagnosis]);
 
   const goNext = useCallback(() => {
     setVisible(false);
@@ -476,20 +507,6 @@ export default function Quiz() {
 
   const progress = Math.round(((screen + 1) / TOTAL) * 100);
 
-  const getDiagnosis = () => {
-    const themes: Record<string, number> = {};
-    painQuestions.forEach((q, i) => {
-      const answer = answers[`pain_${i}`];
-      if (answer === q.options[0].text) themes[q.theme] = (themes[q.theme] || 0) + 2;
-      else if (answer === q.options[1].text) themes[q.theme] = (themes[q.theme] || 0) + 1;
-    });
-    const sorted = Object.entries(themes).sort((a, b) => b[1] - a[1]);
-    return {
-      main: sorted[0]?.[0] || 'desconexión',
-      trigger: sorted[1]?.[0] || 'ansiedad',
-      potential: sorted.length <= 3 ? 'muy alto' : 'alto',
-    };
-  };
 
   const renderProgressBar = () =>
     screen > 0 && screen < 28 ? (
@@ -846,7 +863,10 @@ export default function Quiz() {
                       alt="Perfil de bienestar" 
                       className="w-full h-full object-contain relative z-10"
                     />
-                    <div className="absolute top-[75%] left-1/2 -translate-x-1/2 z-20 bg-primary text-primary-foreground px-4 py-2 rounded-lg text-xs font-bold shadow-xl whitespace-nowrap">
+                    <div 
+                      className="absolute top-[75%] z-20 bg-primary text-primary-foreground px-4 py-2 rounded-lg text-xs font-bold shadow-xl whitespace-nowrap transition-all duration-[2500ms] ease-out-expo"
+                      style={{ left: `${diagnosisLevel}%`, transform: 'translateX(-50%)' }}
+                    >
                       Tu nivel
                       <div className="absolute -top-1 left-1/2 -translate-x-1/2 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[6px] border-b-primary" />
                     </div>
@@ -863,12 +883,18 @@ export default function Quiz() {
                       <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Análisis General</p>
                     </div>
                   )}
-                  <div className="h-2.5 w-full diagnosis-gauge rounded-full relative mb-2">
-                     {/* Indicator dot */}
-                     <div 
-                      className="absolute top-1/2 -translate-y-1/2 w-5 h-5 bg-white border-2 border-border rounded-full shadow-md z-30 transition-all duration-1000 ease-out"
-                      style={{ left: `${levelPercent}%` }}
-                     />
+                  <div className="relative w-full mb-2">
+                    <div className="h-2.5 w-full bg-muted rounded-full overflow-hidden">
+                       <div 
+                         className="h-full diagnosis-gauge transition-all duration-[2500ms] ease-out-expo"
+                         style={{ width: `${diagnosisLevel}%` }}
+                       />
+                    </div>
+                    {/* Indicator dot */}
+                    <div 
+                     className="absolute top-1/2 -translate-y-1/2 w-5 h-5 bg-white border-2 border-border rounded-full shadow-md z-30 transition-all duration-[2500ms] ease-out-expo -translate-x-1/2"
+                     style={{ left: `${diagnosisLevel}%` }}
+                    />
                   </div>
                   <div className="flex justify-between text-[10px] text-muted-foreground font-medium uppercase tracking-wider">
                     <span>Bajo</span>
@@ -1105,14 +1131,26 @@ export default function Quiz() {
             <h2 className="text-xl font-bold text-foreground mb-2">¡Tienes una sorpresa!</h2>
             <p className="text-sm text-muted-foreground mb-8">Raspa la tarjeta para descubrir tu descuento</p>
             
-            <div className="mb-10 mx-auto max-w-[320px]">
-              <ScratchCard width={320} height={200} onReveal={() => setScratched(true)}>
+            <div className="mb-10 mx-auto max-w-[320px] relative">
+              <ScratchCard 
+                width={320} 
+                height={200} 
+                onReveal={() => setScratched(true)}
+                onInteractionStart={() => setHasStartedScratching(true)}
+              >
                 <div className="flex flex-col items-center justify-center p-6 text-center">
                   <span className="text-4xl mb-2">🎉</span>
                   <p className="text-2xl font-bold text-primary mb-1">¡Sorpresa!</p>
                   <p className="text-sm text-foreground font-medium">Has desbloqueado un 73% de descuento en tu guía Brújula Interior</p>
                 </div>
               </ScratchCard>
+              {!hasStartedScratching && (
+                <div className="absolute inset-0 pointer-events-none z-[60] flex items-center justify-center">
+                  <div className="animate-scratch-hand text-white/50">
+                    <Hand size={64} fill="currentColor" strokeWidth={1} />
+                  </div>
+                </div>
+              )}
             </div>
 
             {scratched && (

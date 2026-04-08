@@ -4,10 +4,11 @@ interface ScratchCardProps {
   width: number;
   height: number;
   onReveal: () => void;
+  onInteractionStart?: () => void;
   children: React.ReactNode;
 }
 
-export default function ScratchCard({ width, height, onReveal, children }: ScratchCardProps) {
+export default function ScratchCard({ width, height, onReveal, onInteractionStart, children }: ScratchCardProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [revealed, setRevealed] = useState(false);
   const isDrawing = useRef(false);
@@ -93,11 +94,11 @@ export default function ScratchCard({ width, height, onReveal, children }: Scrat
           height={height}
           className="absolute inset-0 w-full h-full rounded-2xl cursor-pointer"
           style={{ touchAction: 'none' }}
-          onMouseDown={() => { isDrawing.current = true; }}
+          onMouseDown={() => { isDrawing.current = true; onInteractionStart?.(); }}
           onMouseUp={() => { isDrawing.current = false; }}
           onMouseLeave={() => { isDrawing.current = false; }}
           onMouseMove={handleMove}
-          onTouchStart={() => { isDrawing.current = true; }}
+          onTouchStart={() => { isDrawing.current = true; onInteractionStart?.(); }}
           onTouchEnd={() => { isDrawing.current = false; }}
           onTouchMove={handleMove}
         />
