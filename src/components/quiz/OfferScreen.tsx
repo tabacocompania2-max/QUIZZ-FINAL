@@ -106,13 +106,6 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
 
   const handleMainCheckout = () => {
     const plan = planData[selectedPlan];
-    if (typeof (window as any).fbq === 'function') {
-      (window as any).fbq('track', 'InitiateCheckout', {
-        content_name: plan.name,
-        value: parseFloat(plan.price.replace('$', '')),
-        currency: 'USD'
-      });
-    }
     window.location.href = plan.url;
   };
 

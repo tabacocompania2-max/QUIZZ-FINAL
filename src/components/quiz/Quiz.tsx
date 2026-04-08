@@ -463,36 +463,29 @@ export default function Quiz() {
   const [hasStartedScratching, setHasStartedScratching] = useState(false);
   const [diagnosisLevel, setDiagnosisLevel] = useState(0);
 
-  // META PIXEL TRACKING - Ensuring reliable events in our SPA
+  // META PIXEL TRACKING - Ensure PageView and step tracking in SPA
   useEffect(() => {
-    // Initial PageView with retry logic
-    const trackInitial = () => {
-      if (typeof (window as any).fbq === 'function') {
-        (window as any).fbq('track', 'PageView');
-        // If we are on the first screen, send a custom signal to confirm start
-        if (screen === 0) {
-          (window as any).fbq('trackCustom', 'QuizStarted');
-        }
-      } else {
-        setTimeout(trackInitial, 800); // Retry after delay
-      }
-    };
-    trackInitial();
+    // We maintain a baseline PageView on mount, but the user specifically asked 
+    // for one on gender selection (the real 'start' of the journey).
+    if (typeof (window as any).fbq === 'function') {
+      (window as any).fbq('track', 'PageView');
+    }
   }, []);
 
-  // Track the Offer screen transition
+  const handleGenderSelect = (g: string) => {
+    setGender(g);
+    if (typeof (window as any).fbq === 'function') {
+      (window as any).fbq('track', 'PageView');
+    }
+    goNext();
+  };
+
   useEffect(() => {
     if (screen === 30 && typeof (window as any).fbq === 'function') {
       (window as any).fbq('track', 'ViewContent', {
         content_name: 'Oferta Brújula Interior',
-        content_category: 'Conversión'
+        content_category: 'Guía Personalizada'
       });
-    }
-    // Also send a PageView on important milestones for SPA clarity
-    if (screen === 0 || screen === 25 || screen === 30) {
-       if (typeof (window as any).fbq === 'function') {
-         (window as any).fbq('track', 'PageView');
-       }
     }
   }, [screen]);
 
@@ -592,19 +585,19 @@ export default function Quiz() {
               El método Brújula Interior te ayuda a encontrar tu propio norte.
             </p>
             <div className="grid grid-cols-3 gap-3 mb-8">
-              <button onClick={() => { setGender('hombre'); goNext(); }} className="flex flex-col items-center gap-3 p-4 rounded-2xl border-2 border-border bg-card hover:border-primary hover:scale-105 transition-all duration-200 quiz-shadow group">
+              <button onClick={() => handleGenderSelect('hombre')} className="flex flex-col items-center gap-3 p-4 rounded-2xl border-2 border-border bg-card hover:border-primary hover:scale-105 transition-all duration-200 quiz-shadow group">
                 <div className="w-20 h-20 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-primary transition-all duration-200">
                   <img src="/gender-hombre.png" alt="Hombre" className="w-full h-full object-cover object-top" loading="eager" />
                 </div>
                 <span className="font-medium text-foreground text-sm">Hombre</span>
               </button>
-              <button onClick={() => { setGender('mujer'); goNext(); }} className="flex flex-col items-center gap-3 p-4 rounded-2xl border-2 border-border bg-card hover:border-primary hover:scale-105 transition-all duration-200 quiz-shadow group">
+              <button onClick={() => handleGenderSelect('mujer')} className="flex flex-col items-center gap-3 p-4 rounded-2xl border-2 border-border bg-card hover:border-primary hover:scale-105 transition-all duration-200 quiz-shadow group">
                 <div className="w-20 h-20 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-primary transition-all duration-200">
                   <img src="/gender-mujer.png" alt="Mujer" className="w-full h-full object-cover object-top" loading="eager" />
                 </div>
                 <span className="font-medium text-foreground text-sm">Mujer</span>
               </button>
-              <button onClick={() => { setGender('otro'); goNext(); }} className="flex flex-col items-center gap-3 p-4 rounded-2xl border-2 border-border bg-card hover:border-primary hover:scale-105 transition-all duration-200 quiz-shadow group">
+              <button onClick={() => handleGenderSelect('otro')} className="flex flex-col items-center gap-3 p-4 rounded-2xl border-2 border-border bg-card hover:border-primary hover:scale-105 transition-all duration-200 quiz-shadow group">
                 <div className="w-20 h-20 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-primary transition-all duration-200">
                   <img src="/gender-otro.png" alt="Otro" className="w-full h-full object-cover object-top" loading="eager" />
                 </div>
