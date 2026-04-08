@@ -1,5 +1,11 @@
 import { useState, useEffect } from 'react';
 
+declare global {
+  interface Window {
+    fbq: any;
+  }
+}
+
 interface OfferScreenProps {
   name: string;
   mainDifficulty: string;
@@ -85,6 +91,15 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
 
   useEffect(() => {
     const timer = setInterval(() => setTimeLeft(t => (t > 0 ? t - 1 : 0)), 1000);
+    
+    // Track ViewContent of Offer Screen specifically
+    if (window.fbq) {
+      window.fbq('track', 'ViewContent', {
+        content_name: 'Propuesta Brújula Interior',
+        content_category: 'Offer'
+      });
+    }
+    
     return () => clearInterval(timer);
   }, []);
 
@@ -106,7 +121,20 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
 
   const handleMainCheckout = () => {
     const plan = planData[selectedPlan];
-    window.location.href = plan.url;
+    
+    // TRACK INITIATE CHECKOUT
+    if (window.fbq) {
+      window.fbq('track', 'InitiateCheckout', {
+        content_name: plan.name,
+        value: parseFloat(plan.price.replace('$', '')),
+        currency: 'USD'
+      });
+    }
+
+    // Give a tiny moment for pixel to fire before redirect
+    setTimeout(() => {
+      window.location.href = plan.url;
+    }, 150);
   };
 
   const ctaLine = (
@@ -255,7 +283,17 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             </div>
             <button 
               className="w-full py-4 rounded-xl font-bold transition-opacity hover:opacity-90 shadow-md bg-[#6C4FBF] text-white"
-              onClick={(e) => { e.stopPropagation(); window.location.href = planData[1].url; }}
+              onClick={(e) => { 
+                e.stopPropagation(); 
+                if (window.fbq) {
+                  window.fbq('track', 'InitiateCheckout', {
+                    content_name: planData[1].name,
+                    value: 9.97,
+                    currency: 'USD'
+                  });
+                }
+                setTimeout(() => { window.location.href = planData[1].url; }, 150);
+              }}
             >
               Quiero Brújula Interior — Plus →
             </button>
@@ -293,7 +331,17 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             </div>
             <button 
               className="w-full py-3.5 rounded-xl font-bold transition-all border-[1.5px] border-[#6C4FBF] text-[#6C4FBF] bg-transparent"
-              onClick={(e) => { e.stopPropagation(); window.location.href = planData[0].url; }}
+              onClick={(e) => { 
+                e.stopPropagation(); 
+                if (window.fbq) {
+                  window.fbq('track', 'InitiateCheckout', {
+                    content_name: planData[0].name,
+                    value: 4.97,
+                    currency: 'USD'
+                  });
+                }
+                setTimeout(() => { window.location.href = planData[0].url; }, 150);
+              }}
             >
               Empezar con Brújula Interior →
             </button>
@@ -343,7 +391,17 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             </div>
             <button 
               className="w-full py-3.5 rounded-xl font-bold transition-all border-[1.5px] border-[#6C4FBF] text-[#6C4FBF] bg-transparent"
-              onClick={(e) => { e.stopPropagation(); window.location.href = planData[2].url; }}
+              onClick={(e) => { 
+                e.stopPropagation(); 
+                if (window.fbq) {
+                  window.fbq('track', 'InitiateCheckout', {
+                    content_name: planData[2].name,
+                    value: 15.97,
+                    currency: 'USD'
+                  });
+                }
+                setTimeout(() => { window.location.href = planData[2].url; }, 150);
+              }}
             >
                Quiero Brújula Interior — Completo →
             </button>

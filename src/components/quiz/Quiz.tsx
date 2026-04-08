@@ -463,22 +463,11 @@ export default function Quiz() {
   const [hasStartedScratching, setHasStartedScratching] = useState(false);
   const [diagnosisLevel, setDiagnosisLevel] = useState(0);
 
-  const handleGenderSelect = (g: string) => {
-    setGender(g);
-    if (typeof (window as any).fbq === 'function') {
-      (window as any).fbq('track', 'PageView');
-    }
-    goNext();
-  };
-
   useEffect(() => {
-    if (screen === 30 && typeof (window as any).fbq === 'function') {
-      (window as any).fbq('track', 'ViewContent', {
-        content_name: 'Oferta Brújula Interior',
-        content_category: 'Guía Personalizada'
-      });
+    if (window.fbq) {
+      window.fbq('track', 'PageView');
     }
-  }, [screen]);
+  }, []);
 
   const getDiagnosis = useCallback(() => {
     const themes: Record<string, number> = {};
@@ -576,19 +565,19 @@ export default function Quiz() {
               El método Brújula Interior te ayuda a encontrar tu propio norte.
             </p>
             <div className="grid grid-cols-3 gap-3 mb-8">
-              <button onClick={() => handleGenderSelect('hombre')} className="flex flex-col items-center gap-3 p-4 rounded-2xl border-2 border-border bg-card hover:border-primary hover:scale-105 transition-all duration-200 quiz-shadow group">
+              <button onClick={() => { setGender('hombre'); goNext(); }} className="flex flex-col items-center gap-3 p-4 rounded-2xl border-2 border-border bg-card hover:border-primary hover:scale-105 transition-all duration-200 quiz-shadow group">
                 <div className="w-20 h-20 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-primary transition-all duration-200">
                   <img src="/gender-hombre.png" alt="Hombre" className="w-full h-full object-cover object-top" loading="eager" />
                 </div>
                 <span className="font-medium text-foreground text-sm">Hombre</span>
               </button>
-              <button onClick={() => handleGenderSelect('mujer')} className="flex flex-col items-center gap-3 p-4 rounded-2xl border-2 border-border bg-card hover:border-primary hover:scale-105 transition-all duration-200 quiz-shadow group">
+              <button onClick={() => { setGender('mujer'); goNext(); }} className="flex flex-col items-center gap-3 p-4 rounded-2xl border-2 border-border bg-card hover:border-primary hover:scale-105 transition-all duration-200 quiz-shadow group">
                 <div className="w-20 h-20 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-primary transition-all duration-200">
                   <img src="/gender-mujer.png" alt="Mujer" className="w-full h-full object-cover object-top" loading="eager" />
                 </div>
                 <span className="font-medium text-foreground text-sm">Mujer</span>
               </button>
-              <button onClick={() => handleGenderSelect('otro')} className="flex flex-col items-center gap-3 p-4 rounded-2xl border-2 border-border bg-card hover:border-primary hover:scale-105 transition-all duration-200 quiz-shadow group">
+              <button onClick={() => { setGender('otro'); goNext(); }} className="flex flex-col items-center gap-3 p-4 rounded-2xl border-2 border-border bg-card hover:border-primary hover:scale-105 transition-all duration-200 quiz-shadow group">
                 <div className="w-20 h-20 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-primary transition-all duration-200">
                   <img src="/gender-otro.png" alt="Otro" className="w-full h-full object-cover object-top" loading="eager" />
                 </div>
