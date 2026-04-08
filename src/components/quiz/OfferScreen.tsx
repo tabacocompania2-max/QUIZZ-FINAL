@@ -222,11 +222,11 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 text-[11px] font-bold rounded-full text-white whitespace-nowrap shadow-md z-20" style={{ background: '#6C4FBF' }}>
               Lo que más eligen
             </div>
-            <div className="flex justify-center mb-3">
+            <div className="w-full flex justify-center mb-4">
               <img
                 src="/mockup_plus.png"
                 alt="Brújula Interior Plus"
-                className="w-[110px] h-auto drop-shadow-lg"
+                className="w-full max-w-[260px] sm:max-w-[300px] md:max-w-[280px] lg:max-w-[320px] object-contain drop-shadow-lg hover:scale-[1.03] transition-transform duration-300"
               />
             </div>
             <p className="font-bold text-foreground text-lg mt-2">Brújula Interior — Plus</p>
@@ -269,11 +269,11 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             onClick={() => setSelectedPlan(0)}
             className={`cursor-pointer rounded-2xl p-5 border-2 transition-all flex-1 order-2 md:order-1 flex flex-col ${selectedPlan === 0 ? 'border-[#6C4FBF] bg-[#FAFAFE] scale-[1.02]' : 'border-border bg-card'}`}
           >
-            <div className="flex justify-center mb-3">
+            <div className="w-full flex justify-center mb-4">
               <img
                 src="/mockup_esencial.png"
                 alt="Brújula Interior Esencial"
-                className="w-[90px] h-auto opacity-90"
+                className="w-full max-w-[260px] sm:max-w-[300px] md:max-w-[280px] lg:max-w-[320px] object-contain drop-shadow-lg hover:scale-[1.03] transition-transform duration-300"
               />
             </div>
             <p className="font-bold text-foreground text-lg">Brújula Interior — Esencial</p>
@@ -307,15 +307,15 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             onClick={() => setSelectedPlan(2)}
             className={`cursor-pointer rounded-2xl p-5 border-2 transition-all flex-1 order-3 md:order-3 flex flex-col ${selectedPlan === 2 ? 'border-[#6C4FBF] bg-[#FAFAFE] scale-[1.02]' : 'border-border bg-card'}`}
           >
-            <div className="mx-auto mb-2 px-3 py-1 text-[12px] font-medium rounded-full whitespace-nowrap" style={{ background: '#F3F0FF', color: '#6C4FBF' }}>
-              Mayor valor
-            </div>
-            <div className="flex justify-center mb-3">
+            <div className="w-full flex justify-center mb-4">
               <img
                 src="/mockup_completo.png"
                 alt="Brújula Interior Completo"
-                className="w-[115px] h-auto drop-shadow-xl"
+                className="w-full max-w-[260px] sm:max-w-[300px] md:max-w-[280px] lg:max-w-[320px] object-contain drop-shadow-lg hover:scale-[1.03] transition-transform duration-300"
               />
+            </div>
+            <div className="mx-auto mb-2 px-3 py-1 text-[12px] font-medium rounded-full whitespace-nowrap" style={{ background: '#F3F0FF', color: '#6C4FBF' }}>
+              Mayor valor
             </div>
             <p className="font-bold text-foreground text-lg">Brújula Interior — Completo</p>
             <div className="flex items-baseline gap-2 mt-2 mb-1">
