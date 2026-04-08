@@ -99,14 +99,14 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
   };
 
   const planData = [
-    { name: 'Brújula Interior — Esencial', price: '$4.97' },
-    { name: 'Brújula Interior — Plus', price: '$9.97' },
-    { name: 'Brújula Interior — Completo', price: '$15.97' }
+    { name: 'Brújula Interior — Esencial', price: '$4.97', url: 'https://pay.hotmart.com/X105261489X?checkoutMode=10' },
+    { name: 'Brújula Interior — Plus', price: '$9.97', url: 'https://pay.hotmart.com/J105261889Y?checkoutMode=10' },
+    { name: 'Brújula Interior — Completo', price: '$15.97', url: 'https://pay.hotmart.com/I105262024W?checkoutMode=10' }
   ];
 
   const handleMainCheckout = () => {
     const plan = planData[selectedPlan];
-    alert(`Redirigiendo a pago seguro de Hotmart...\nPlan: ${plan.name}\nPrecio: ${plan.price}`);
+    window.location.href = plan.url;
   };
 
   const ctaLine = (
@@ -255,7 +255,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             </div>
             <button 
               className="w-full py-4 rounded-xl font-bold transition-opacity hover:opacity-90 shadow-md bg-[#6C4FBF] text-white"
-              onClick={(e) => { e.stopPropagation(); setSelectedPlan(1); alert('Iniciando pago por Brújula Interior — Plus ($9.97)'); }}
+              onClick={(e) => { e.stopPropagation(); window.location.href = planData[1].url; }}
             >
               Quiero Brújula Interior — Plus →
             </button>
@@ -293,7 +293,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             </div>
             <button 
               className="w-full py-3.5 rounded-xl font-bold transition-all border-[1.5px] border-[#6C4FBF] text-[#6C4FBF] bg-transparent"
-              onClick={(e) => { e.stopPropagation(); setSelectedPlan(0); alert('Iniciando pago por Brújula Interior — Esencial ($4.97)'); }}
+              onClick={(e) => { e.stopPropagation(); window.location.href = planData[0].url; }}
             >
               Empezar con Brújula Interior →
             </button>
@@ -343,7 +343,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             </div>
             <button 
               className="w-full py-3.5 rounded-xl font-bold transition-all border-[1.5px] border-[#6C4FBF] text-[#6C4FBF] bg-transparent"
-              onClick={(e) => { e.stopPropagation(); setSelectedPlan(2); alert('Iniciando pago por Brújula Interior — Completo ($15.97)'); }}
+              onClick={(e) => { e.stopPropagation(); window.location.href = planData[2].url; }}
             >
                Quiero Brújula Interior — Completo →
             </button>
