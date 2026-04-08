@@ -463,19 +463,36 @@ export default function Quiz() {
   const [hasStartedScratching, setHasStartedScratching] = useState(false);
   const [diagnosisLevel, setDiagnosisLevel] = useState(0);
 
-  // META PIXEL TRACKING - Ensure PageView and step tracking in SPA
+  // META PIXEL TRACKING - Ensuring reliable events in our SPA
   useEffect(() => {
-    if (typeof (window as any).fbq === 'function') {
-      (window as any).fbq('track', 'PageView');
-    }
+    // Initial PageView with retry logic
+    const trackInitial = () => {
+      if (typeof (window as any).fbq === 'function') {
+        (window as any).fbq('track', 'PageView');
+        // If we are on the first screen, send a custom signal to confirm start
+        if (screen === 0) {
+          (window as any).fbq('trackCustom', 'QuizStarted');
+        }
+      } else {
+        setTimeout(trackInitial, 800); // Retry after delay
+      }
+    };
+    trackInitial();
   }, []);
 
+  // Track the Offer screen transition
   useEffect(() => {
     if (screen === 30 && typeof (window as any).fbq === 'function') {
       (window as any).fbq('track', 'ViewContent', {
         content_name: 'Oferta Brújula Interior',
-        content_category: 'Guía Personalizada'
+        content_category: 'Conversión'
       });
+    }
+    // Also send a PageView on important milestones for SPA clarity
+    if (screen === 0 || screen === 25 || screen === 30) {
+       if (typeof (window as any).fbq === 'function') {
+         (window as any).fbq('track', 'PageView');
+       }
     }
   }, [screen]);
 
