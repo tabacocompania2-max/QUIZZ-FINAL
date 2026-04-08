@@ -463,15 +463,6 @@ export default function Quiz() {
   const [hasStartedScratching, setHasStartedScratching] = useState(false);
   const [diagnosisLevel, setDiagnosisLevel] = useState(0);
 
-  // META PIXEL TRACKING - Ensure PageView and step tracking in SPA
-  useEffect(() => {
-    // We maintain a baseline PageView on mount, but the user specifically asked 
-    // for one on gender selection (the real 'start' of the journey).
-    if (typeof (window as any).fbq === 'function') {
-      (window as any).fbq('track', 'PageView');
-    }
-  }, []);
-
   const handleGenderSelect = (g: string) => {
     setGender(g);
     if (typeof (window as any).fbq === 'function') {
