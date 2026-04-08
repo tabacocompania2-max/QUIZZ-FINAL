@@ -482,11 +482,28 @@ export default function Quiz() {
     if (screen === 25) {
       setDiagnosisLevel(0);
       const diag = getDiagnosis();
-      // Calculate a target that feels personalized based on answers
       const target = diag.potential === 'muy alto' ? 88 : 72;
+      
+      let start: number | null = null;
+      const duration = 2000;
+      
+      const animate = (timestamp: number) => {
+        if (!start) start = timestamp;
+        const elapsed = timestamp - start;
+        const t = Math.min(elapsed / duration, 1);
+        // Easing: easeOutQuart for a smooth, high-quality feel
+        const easeOutQuart = 1 - Math.pow(1 - t, 4);
+        setDiagnosisLevel(easeOutQuart * target);
+        
+        if (t < 1) {
+          requestAnimationFrame(animate);
+        }
+      };
+      
       const timer = setTimeout(() => {
-        setDiagnosisLevel(target);
-      }, 500);
+        requestAnimationFrame(animate);
+      }, 400); // Wait for screen transition to settle
+      
       return () => clearTimeout(timer);
     }
   }, [screen, getDiagnosis]);
@@ -833,9 +850,17 @@ export default function Quiz() {
     // Screen 25: Diagnosis
     if (screen === 25) {
       const diag = getDiagnosis();
-      const level = "Alto"; // Forced high for psychological impact as requested
-      const levelPercent = level === "Alto" ? 85 : 55;
       const diagnosisImg = gender === 'hombre' ? '/diagnosis_hombre.png' : '/diagnosis_mujer.png';
+      
+      // Helper for total coherence (Single source of truth based on diagnosisLevel)
+      const getLevelData = (val: number) => {
+        if (val <= 25) return { label: "Bajo", color: "text-emerald-500", bg: "bg-emerald-500/10", info: "Esto significa que mantienes un buen equilibrio general, aunque existen pequeñas áreas de estrés que podrías optimizar." };
+        if (val <= 55) return { label: "Normal", color: "text-blue-500", bg: "bg-blue-500/10", info: "Te encuentras en un punto medio. Aunque manejas tu día a día, hay patrones de desconexión que frenan tu paz mental." };
+        if (val <= 78) return { label: "Medio", color: "text-orange-500", bg: "bg-orange-500/10", info: "Estás experimentando señales claras de agotamiento. Estos niveles indican que tu sistema nervioso está bajo presión constante." };
+        return { label: "Alto", color: "text-primary", bg: "bg-primary/10", info: "Esto significa que estás experimentando niveles de estrés y desconexión significativos que están afectando tu capacidad de disfrutar el presente." };
+      };
+
+      const currentLevel = getLevelData(diagnosisLevel);
       
       return (
         <Wrapper visible={visible}>
@@ -847,10 +872,10 @@ export default function Quiz() {
 
             {/* Main Result Card */}
             <div className="bg-card rounded-[32px] p-6 shadow-sm border border-border mb-6 relative overflow-hidden">
-              <div className="flex justify-between items-center mb-6">
+              <div className="flex justify-between items-center mb-10">
                 <h3 className="font-bold text-foreground text-lg">Nivel de efectos negativos</h3>
-                <span className="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full border border-primary/20">
-                  {level}
+                <span className={`px-3 py-1 ${currentLevel.bg} ${currentLevel.color} text-xs font-bold rounded-full border border-current/20 transition-colors duration-200`}>
+                  Nivel {currentLevel.label}
                 </span>
               </div>
 
@@ -863,18 +888,20 @@ export default function Quiz() {
                       alt="Perfil de bienestar" 
                       className="w-full h-full object-contain relative z-10"
                     />
-                    <div 
-                      className="absolute top-[75%] z-20 bg-primary text-primary-foreground px-4 py-2 rounded-lg text-xs font-bold shadow-xl whitespace-nowrap transition-all duration-[2500ms] ease-out-expo"
-                      style={{ left: `${diagnosisLevel}%`, transform: 'translateX(-50%)' }}
-                    >
-                      Tu nivel
-                      <div className="absolute -top-1 left-1/2 -translate-x-1/2 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[6px] border-b-primary" />
-                    </div>
                   </div>
                 )}
 
-                {/* The Gauge */}
-                <div className="w-full px-2">
+                {/* The Gauge Section */}
+                <div className="w-full px-2 relative pt-8">
+                  {/* Floating "Tu nivel" Label - Anclada al thumb */}
+                  <div 
+                    className="absolute top-[-10px] z-40 bg-primary text-primary-foreground px-4 py-2 rounded-lg text-xs font-bold shadow-xl whitespace-nowrap -translate-x-1/2"
+                    style={{ left: `${diagnosisLevel}%`, transition: 'none' }}
+                  >
+                    Tu nivel
+                    <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-primary" />
+                  </div>
+
                   {gender === 'otro' && (
                     <div className="text-center mb-6">
                       <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary mb-2">
@@ -883,37 +910,39 @@ export default function Quiz() {
                       <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Análisis General</p>
                     </div>
                   )}
-                  <div className="relative w-full mb-2">
-                    <div className="h-2.5 w-full bg-muted rounded-full overflow-hidden">
-                       <div 
-                         className="h-full diagnosis-gauge transition-all duration-[2500ms] ease-out-expo"
-                         style={{ width: `${diagnosisLevel}%` }}
-                       />
-                    </div>
-                    {/* Indicator dot */}
-                    <div 
-                     className="absolute top-1/2 -translate-y-1/2 w-5 h-5 bg-white border-2 border-border rounded-full shadow-md z-30 transition-all duration-[2500ms] ease-out-expo -translate-x-1/2"
-                     style={{ left: `${diagnosisLevel}%` }}
-                    />
+
+                  <div className="h-2.5 w-full bg-muted rounded-full relative mb-2 overflow-hidden">
+                     {/* The fill that grows synchronized */}
+                     <div 
+                       className="h-full diagnosis-gauge"
+                       style={{ width: `${diagnosisLevel}%`, transition: 'none' }}
+                     />
                   </div>
-                  <div className="flex justify-between text-[10px] text-muted-foreground font-medium uppercase tracking-wider">
-                    <span>Bajo</span>
-                    <span>Normal</span>
-                    <span>Medio</span>
-                    <span className="text-primary font-bold">Alto</span>
+                  
+                  {/* Indicator dot (Thumb) */}
+                  <div 
+                   className="absolute top-[45px] w-6 h-6 bg-white border-2 border-border rounded-full shadow-md z-30 -translate-x-1/2"
+                   style={{ left: `${diagnosisLevel}%`, transition: 'none' }}
+                  />
+
+                  <div className="flex justify-between text-[10px] text-muted-foreground font-medium uppercase tracking-wider mt-4">
+                    <span className={diagnosisLevel <= 25 ? "text-emerald-500 font-bold" : ""}>Bajo</span>
+                    <span className={diagnosisLevel > 25 && diagnosisLevel <= 55 ? "text-blue-500 font-bold" : ""}>Normal</span>
+                    <span className={diagnosisLevel > 55 && diagnosisLevel <= 78 ? "text-orange-500 font-bold" : ""}>Medio</span>
+                    <span className={diagnosisLevel > 78 ? "text-primary font-bold" : ""}>Alto</span>
                   </div>
                 </div>
               </div>
 
-              {/* Info Box */}
-              <div className="bg-muted p-4 rounded-2xl flex gap-3 items-start">
-                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 border border-primary/10">
-                  <span className="text-primary font-bold text-xs italic">i</span>
+              {/* Info Box - Guaranteed Coherence */}
+              <div className="bg-muted/50 p-4 rounded-2xl flex gap-3 items-start border border-border/50">
+                <div className={`w-8 h-8 rounded-full ${currentLevel.bg} flex items-center justify-center flex-shrink-0 border border-current/10`}>
+                  <span className={`${currentLevel.color} font-bold text-xs italic`}>i</span>
                 </div>
                 <div>
-                  <h4 className="font-bold text-sm text-foreground mb-1">Nivel {level}</h4>
+                  <h4 className="font-bold text-sm text-foreground mb-1">Análisis de Nivel {currentLevel.label}</h4>
                   <p className="text-xs text-muted-foreground leading-relaxed font-medium">
-                    Esto significa que estás experimentando niveles de estrés y desconexión significativos que están afectando tu capacidad de disfrutar el presente y tu paz mental a largo plazo.
+                    {currentLevel.info}
                   </p>
                 </div>
               </div>
