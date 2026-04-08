@@ -463,6 +463,22 @@ export default function Quiz() {
   const [hasStartedScratching, setHasStartedScratching] = useState(false);
   const [diagnosisLevel, setDiagnosisLevel] = useState(0);
 
+  // META PIXEL TRACKING - Ensure PageView and step tracking in SPA
+  useEffect(() => {
+    if (typeof (window as any).fbq === 'function') {
+      (window as any).fbq('track', 'PageView');
+    }
+  }, []);
+
+  useEffect(() => {
+    if (screen === 30 && typeof (window as any).fbq === 'function') {
+      (window as any).fbq('track', 'ViewContent', {
+        content_name: 'Oferta Brújula Interior',
+        content_category: 'Guía Personalizada'
+      });
+    }
+  }, [screen]);
+
   const getDiagnosis = useCallback(() => {
     const themes: Record<string, number> = {};
     painQuestions.forEach((q, i) => {
