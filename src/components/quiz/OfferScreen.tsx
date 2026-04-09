@@ -69,7 +69,8 @@ const genderTexts = (text: string, gender: string) => {
       .replace(/en ti mismo\/a/g, 'en ti misma')
       .replace(/dispuesto\/a/g, 'dispuesta')
       .replace(/atrapado\/a/g, 'atrapada')
-      .replace(/solo\/a/g, 'sola');
+      .replace(/solo\/a/g, 'sola')
+      .replace(/listo\/a/g, 'lista');
   }
   if (gender === 'hombre') {
     return text
@@ -80,7 +81,8 @@ const genderTexts = (text: string, gender: string) => {
       .replace(/en ti mismo\/a/g, 'en ti mismo')
       .replace(/dispuesto\/a/g, 'dispuesto')
       .replace(/atrapado\/a/g, 'atrapado')
-      .replace(/solo\/a/g, 'solo');
+      .replace(/solo\/a/g, 'solo')
+      .replace(/listo\/a/g, 'listo');
   }
   return text;
 };

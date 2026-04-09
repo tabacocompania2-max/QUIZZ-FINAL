@@ -407,7 +407,7 @@ const InteractiveLoading = ({ onComplete, visible }: { onComplete: () => void; v
           <div className="bg-white rounded-[32px] p-8 w-full max-w-sm shadow-2xl animate-in zoom-in-95 duration-200">
             <p className="text-sm text-center text-muted-foreground mb-4">Para continuar, especifica</p>
             <h3 className="text-xl font-bold text-center text-foreground mb-8">
-              {modals[modal].q}
+              {genderTexts(modals[modal].q, gender)}
             </h3>
             <div className="grid grid-cols-2 gap-4">
               <button onClick={handleModal} className="py-4 bg-secondary rounded-2xl font-bold text-foreground hover:bg-secondary/80 transition-colors px-2 text-sm">
@@ -444,7 +444,7 @@ const genderTexts = (text: string, gender: string) => {
       .replace(/dispuesto\/a/g, 'dispuesta')
       .replace(/atrapado\/a/g, 'atrapada')
       .replace(/solo\/a/g, 'sola')
-      .replace(/mismo\/a/g, 'misma');
+      .replace(/listo\/a/g, 'lista');
   }
   if (gender === 'hombre') {
     return text
@@ -456,7 +456,7 @@ const genderTexts = (text: string, gender: string) => {
       .replace(/dispuesto\/a/g, 'dispuesto')
       .replace(/atrapado\/a/g, 'atrapado')
       .replace(/solo\/a/g, 'solo')
-      .replace(/mismo\/a/g, 'mismo');
+      .replace(/listo\/a/g, 'listo');
   }
   return text;
 };
