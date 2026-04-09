@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback, ReactNode } from 'react';
 import { Hand } from 'lucide-react';
 import ScratchCard from './ScratchCard';
 import OfferScreen from './OfferScreen';
+import { trackEmailCapture, trackOfferReached } from './services/tracking';
 
 const TOTAL = 31;
 
@@ -547,6 +548,22 @@ export default function Quiz() {
     }
   }, [screen, getDiagnosis]);
 
+  useEffect(() => {
+    if (screen === 30) {
+      const diag = getDiagnosis();
+      trackOfferReached({
+        email,
+        nombre: name,
+        gender,
+        age: answers['age'] as string || '',
+        answers,
+        mainDifficulty: themeLabels[diag.main],
+        goal: (answers['dream_0'] as string) || '',
+        commitment
+      });
+    }
+  }, [screen]);
+
   const goNext = useCallback(() => {
     setVisible(false);
     setTimeout(() => {
@@ -853,7 +870,15 @@ export default function Quiz() {
             />
             <p className="text-xs text-muted-foreground mb-6 text-center">Respetamos tu privacidad. Nunca spam.</p>
             {email.includes('@') && email.includes('.') && (
-              <CTA onClick={goNext} text="Ver mi resultado" />
+              <CTA onClick={() => {
+                trackEmailCapture({
+                  email,
+                  gender,
+                  age: answers['age'] as string || '',
+                  answers
+                });
+                goNext();
+              }} text="Ver mi resultado" />
             )}
           </div>
         </Wrapper>
