@@ -462,17 +462,43 @@ const genderTexts = (text: string, gender: string) => {
 };
 
 export default function Quiz() {
-  const [screen, setScreen] = useState(0);
+  const savedState = (() => {
+    try {
+      const saved = localStorage.getItem('brujula_interior_quiz');
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  })();
+
+  const [screen, setScreen] = useState(savedState?.screen || 0);
   const [visible, setVisible] = useState(true);
-  const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
-  const [gender, setGender] = useState('');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [commitment, setCommitment] = useState('');
-  const [multiSelect, setMultiSelect] = useState<string[]>([]);
-  const [scratched, setScratched] = useState(false);
+  const [answers, setAnswers] = useState<Record<string, string | string[]>>(savedState?.answers || {});
+  const [gender, setGender] = useState(savedState?.gender || '');
+  const [name, setName] = useState(savedState?.name || '');
+  const [email, setEmail] = useState(savedState?.email || '');
+  const [commitment, setCommitment] = useState(savedState?.commitment || '');
+  const [multiSelect, setMultiSelect] = useState<string[]>(savedState?.multiSelect || []);
+  const [scratched, setScratched] = useState(savedState?.scratched || false);
   const [hasStartedScratching, setHasStartedScratching] = useState(false);
   const [diagnosisLevel, setDiagnosisLevel] = useState(0);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('brujula_interior_quiz', JSON.stringify({
+        screen,
+        answers,
+        gender,
+        name,
+        email,
+        commitment,
+        multiSelect,
+        scratched
+      }));
+    } catch {
+      // silently fail
+    }
+  }, [screen, answers, gender, name, email, commitment, multiSelect, scratched]);
 
 
 
