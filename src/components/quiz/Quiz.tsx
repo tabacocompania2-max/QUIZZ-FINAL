@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback, ReactNode } from 'react';
 import { Hand } from 'lucide-react';
 import ScratchCard from './ScratchCard';
 import OfferScreen from './OfferScreen';
-import { trackEmailCapture, trackOfferReached } from './services/tracking';
+import { trackEmailCapture, trackOfferReached } from '../../services/tracking';
 
 const TOTAL = 31;
 
