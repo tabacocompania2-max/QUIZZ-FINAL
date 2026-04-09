@@ -193,7 +193,15 @@ const triggerLabels: Record<string, string> = {
   propósito: 'La desconexión entre tus valores y tu vida actual',
 };
 
-const OptionBtn = ({ emoji, text, onClick, selected }: { emoji?: string; text: string; onClick: () => void; selected?: boolean }) => (
+interface OptionBtnProps {
+  emoji?: string;
+  text: string;
+  onClick: () => void;
+  selected?: boolean;
+  key?: React.Key;
+}
+
+const OptionBtn = ({ emoji, text, onClick, selected }: OptionBtnProps) => (
   <button
     onClick={onClick}
     className={`w-full p-4 rounded-xl border-2 text-left transition-all duration-200 hover:border-primary hover:bg-accent ${
