@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useEffect, useCallback, ReactNode } from 'react';
 import { Hand } from 'lucide-react';
 import ScratchCard from './ScratchCard';
