@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback, ReactNode } from 'react';
 import { Hand } from 'lucide-react';
 import ScratchCard from './ScratchCard';
 import OfferScreen from './OfferScreen';
-import { trackEmailCapture, trackOfferReached } from '../../services/tracking';
+import { trackEmailCapture, trackOfferReached, addToBrevo } from '../../services/tracking';
 
 const TOTAL = 31;
 
@@ -899,7 +899,10 @@ export default function Quiz() {
               className="w-full px-4 py-4 rounded-xl border-2 border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors mb-6"
             />
             {name.trim().length >= 2 && (
-              <CTA onClick={goNext} />
+              <CTA onClick={() => {
+                addToBrevo(email, name);
+                goNext();
+              }} />
             )}
           </div>
         </Wrapper>
@@ -1267,6 +1270,7 @@ export default function Quiz() {
           mainGoal={goalAnswer}
           commitment={commitment || '10 min'}
           gender={gender}
+          email={email}
         />
       );
     }

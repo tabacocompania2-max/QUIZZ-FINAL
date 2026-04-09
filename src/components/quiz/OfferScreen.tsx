@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useState, useEffect } from 'react';
+import { trackPlanSelected } from '../../services/tracking';
 
 declare global {
   interface Window {
@@ -13,6 +14,7 @@ interface OfferScreenProps {
   mainGoal: string;
   commitment: string;
   gender: string;
+  email: string;
 }
 
 const faqs = [
@@ -85,7 +87,7 @@ const genderTexts = (text: string, gender: string) => {
   return text;
 };
 
-export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment, gender }: OfferScreenProps) {
+export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment, gender, email }: OfferScreenProps) {
   const [timeLeft, setTimeLeft] = useState(720);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [selectedPlan, setSelectedPlan] = useState(1);
@@ -121,6 +123,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
   ];
 
   const handleMainCheckout = () => {
+    trackPlanSelected(email, planData[selectedPlan].name);
     const plan = planData[selectedPlan];
     window.location.href = plan.url;
   };
