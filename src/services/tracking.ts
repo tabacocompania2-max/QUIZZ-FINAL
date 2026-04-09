@@ -88,3 +88,26 @@ export async function trackPlanSelected(email: string, plan: string) {
     console.error('Sheets error:', error);
   }
 }
+
+const BREVO_API_KEY = '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';
+const BREVO_LIST_ID = 3;
+
+export async function addToBrevo(email: string, nombre: string) {
+  try {
+    await fetch('https://api.brevo.com/v3/contacts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': BREVO_API_KEY
+      },
+      body: JSON.stringify({
+        email: email,
+        attributes: { FIRSTNAME: nombre },
+        listIds: [BREVO_LIST_ID],
+        updateEnabled: true
+      })
+    });
+  } catch (error) {
+    console.error('Brevo error:', error);
+  }
+}
