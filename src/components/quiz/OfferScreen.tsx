@@ -122,20 +122,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
 
   const handleMainCheckout = () => {
     const plan = planData[selectedPlan];
-    
-    // TRACK INITIATE CHECKOUT
-    if (window.fbq) {
-      window.fbq('track', 'InitiateCheckout', {
-        content_name: plan.name,
-        value: parseFloat(plan.price.replace('$', '')),
-        currency: 'USD'
-      });
-    }
-
-    // Give a tiny moment for pixel to fire before redirect
-    setTimeout(() => {
-      window.location.href = plan.url;
-    }, 150);
+    window.location.href = plan.url;
   };
 
   const ctaLine = (
@@ -286,14 +273,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
               className="w-full py-4 rounded-xl font-bold transition-opacity hover:opacity-90 shadow-md bg-[#6C4FBF] text-white"
               onClick={(e) => { 
                 e.stopPropagation(); 
-                if (window.fbq) {
-                  window.fbq('track', 'InitiateCheckout', {
-                    content_name: planData[1].name,
-                    value: 9.97,
-                    currency: 'USD'
-                  });
-                }
-                setTimeout(() => { window.location.href = planData[1].url; }, 150);
+                window.location.href = planData[1].url;
               }}
             >
               Quiero Brújula Interior — Plus →
@@ -334,14 +314,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
               className="w-full py-3.5 rounded-xl font-bold transition-all border-[1.5px] border-[#6C4FBF] text-[#6C4FBF] bg-transparent"
               onClick={(e) => { 
                 e.stopPropagation(); 
-                if (window.fbq) {
-                  window.fbq('track', 'InitiateCheckout', {
-                    content_name: planData[0].name,
-                    value: 4.97,
-                    currency: 'USD'
-                  });
-                }
-                setTimeout(() => { window.location.href = planData[0].url; }, 150);
+                window.location.href = planData[0].url;
               }}
             >
               Empezar con Brújula Interior →
@@ -394,14 +367,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
               className="w-full py-3.5 rounded-xl font-bold transition-all border-[1.5px] border-[#6C4FBF] text-[#6C4FBF] bg-transparent"
               onClick={(e) => { 
                 e.stopPropagation(); 
-                if (window.fbq) {
-                  window.fbq('track', 'InitiateCheckout', {
-                    content_name: planData[2].name,
-                    value: 15.97,
-                    currency: 'USD'
-                  });
-                }
-                setTimeout(() => { window.location.href = planData[2].url; }, 150);
+                window.location.href = planData[2].url;
               }}
             >
                Quiero Brújula Interior — Completo →
