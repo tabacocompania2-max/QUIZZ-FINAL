@@ -252,7 +252,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
             </div>
             <div className="w-full flex justify-center mb-4">
               <img
-                src="/mockup_plus.png"
+                src="/mockup_completo.png"
                 alt="Brújula Interior Plus"
                 className="w-full max-w-[260px] sm:max-w-[300px] md:max-w-[280px] lg:max-w-[320px] object-contain drop-shadow-lg hover:scale-[1.03] transition-transform duration-300"
               />
@@ -357,7 +357,7 @@ export default function OfferScreen({ name, mainDifficulty, mainGoal, commitment
           >
             <div className="w-full flex justify-center mb-4">
               <img
-                src="/mockup_completo.png"
+                src="/mockup_plus.png"
                 alt="Brújula Interior Completo"
                 className="w-full max-w-[260px] sm:max-w-[300px] md:max-w-[280px] lg:max-w-[320px] object-contain drop-shadow-lg hover:scale-[1.03] transition-transform duration-300"
               />
