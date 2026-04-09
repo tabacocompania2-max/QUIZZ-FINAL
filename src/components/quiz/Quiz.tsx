@@ -434,6 +434,7 @@ const genderTexts = (text: string, gender: string) => {
       .replace(/en ti mismo\/a/g, 'en ti misma')
       .replace(/dispuesto\/a/g, 'dispuesta')
       .replace(/atrapado\/a/g, 'atrapada')
+      .replace(/solo\/a/g, 'sola')
       .replace(/mismo\/a/g, 'misma');
   }
   if (gender === 'hombre') {
@@ -445,6 +446,7 @@ const genderTexts = (text: string, gender: string) => {
       .replace(/en ti mismo\/a/g, 'en ti mismo')
       .replace(/dispuesto\/a/g, 'dispuesto')
       .replace(/atrapado\/a/g, 'atrapado')
+      .replace(/solo\/a/g, 'solo')
       .replace(/mismo\/a/g, 'mismo');
   }
   return text;
@@ -663,7 +665,7 @@ export default function Quiz() {
             </div>
 
             <p className="text-sm text-muted-foreground mb-10 max-w-[280px] mx-auto leading-relaxed italic">
-              "Brújula Interior me hizo entender que no estaba solo/a en esto."
+              {genderTexts('"Brújula Interior me hizo entender que no estaba solo/a en esto."', gender)}
             </p>
             
             <CTA onClick={goNext} text="Continuar" />
