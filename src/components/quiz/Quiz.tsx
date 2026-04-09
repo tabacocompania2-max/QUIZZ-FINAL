@@ -272,35 +272,7 @@ const LoadingScreen = ({ onComplete, visible }: { onComplete: () => void; visibl
   );
 };
 
-const genderTexts = (text: string, gender: string) => {
-  if (gender === 'mujer') {
-    return text
-      .replace(/mismo\/a/g, 'misma')
-      .replace(/mismo\/a\?/g, 'misma?')
-      .replace(/contigo mismo\/a/g, 'contigo misma')
-      .replace(/a ti mismo\/a/g, 'a ti misma')
-      .replace(/en ti mismo\/a/g, 'en ti misma')
-      .replace(/dispuesto\/a/g, 'dispuesta')
-      .replace(/atrapado\/a/g, 'atrapada')
-      .replace(/solo\/a/g, 'sola')
-      .replace(/listo\/a/g, 'lista');
-  }
-  if (gender === 'hombre') {
-    return text
-      .replace(/mismo\/a/g, 'mismo')
-      .replace(/mismo\/a\?/g, 'mismo?')
-      .replace(/contigo mismo\/a/g, 'contigo mismo')
-      .replace(/a ti mismo\/a/g, 'a ti mismo')
-      .replace(/en ti mismo\/a/g, 'en ti mismo')
-      .replace(/dispuesto\/a/g, 'dispuesto')
-      .replace(/atrapado\/a/g, 'atrapado')
-      .replace(/solo\/a/g, 'solo')
-      .replace(/listo\/a/g, 'listo');
-  }
-  return text;
-};
-
-const InteractiveLoading = ({ onComplete, visible, gender }: { onComplete: () => void; visible: boolean; gender: string }) => {
+const InteractiveLoading = ({ onComplete, visible }: { onComplete: () => void; visible: boolean }) => {
   const [phase, setPhase] = useState(0); // 0, 1, 2
   const [progress, setProgress] = useState(0);
   const [modal, setModal] = useState<number | null>(null); // 0, 1, 2
@@ -435,7 +407,7 @@ const InteractiveLoading = ({ onComplete, visible, gender }: { onComplete: () =>
           <div className="bg-white rounded-[32px] p-8 w-full max-w-sm shadow-2xl animate-in zoom-in-95 duration-200">
             <p className="text-sm text-center text-muted-foreground mb-4">Para continuar, especifica</p>
             <h3 className="text-xl font-bold text-center text-foreground mb-8">
-              {genderTexts(modals[modal].q, gender)}
+              {modals[modal].q}
             </h3>
             <div className="grid grid-cols-2 gap-4">
               <button onClick={handleModal} className="py-4 bg-secondary rounded-2xl font-bold text-foreground hover:bg-secondary/80 transition-colors px-2 text-sm">
@@ -461,7 +433,33 @@ const CTA = ({ onClick, text = 'Continuar' }: { onClick: () => void; text?: stri
   </button>
 );
 
-
+const genderTexts = (text: string, gender: string) => {
+  if (gender === 'mujer') {
+    return text
+      .replace(/mismo\/a/g, 'misma')
+      .replace(/mismo\/a\?/g, 'misma?')
+      .replace(/contigo mismo\/a/g, 'contigo misma')
+      .replace(/a ti mismo\/a/g, 'a ti misma')
+      .replace(/en ti mismo\/a/g, 'en ti misma')
+      .replace(/dispuesto\/a/g, 'dispuesta')
+      .replace(/atrapado\/a/g, 'atrapada')
+      .replace(/solo\/a/g, 'sola')
+      .replace(/mismo\/a/g, 'misma');
+  }
+  if (gender === 'hombre') {
+    return text
+      .replace(/mismo\/a/g, 'mismo')
+      .replace(/mismo\/a\?/g, 'mismo?')
+      .replace(/contigo mismo\/a/g, 'contigo mismo')
+      .replace(/a ti mismo\/a/g, 'a ti mismo')
+      .replace(/en ti mismo\/a/g, 'en ti mismo')
+      .replace(/dispuesto\/a/g, 'dispuesto')
+      .replace(/atrapado\/a/g, 'atrapado')
+      .replace(/solo\/a/g, 'solo')
+      .replace(/mismo\/a/g, 'mismo');
+  }
+  return text;
+};
 
 export default function Quiz() {
   const [screen, setScreen] = useState(0);
@@ -476,11 +474,7 @@ export default function Quiz() {
   const [hasStartedScratching, setHasStartedScratching] = useState(false);
   const [diagnosisLevel, setDiagnosisLevel] = useState(0);
 
-  useEffect(() => {
-    if (window.fbq) {
-      window.fbq('track', 'PageView');
-    }
-  }, []);
+
 
   const getDiagnosis = useCallback(() => {
     const themes: Record<string, number> = {};
@@ -1011,7 +1005,7 @@ export default function Quiz() {
 
     // Screen 26: Interactive Loading (Triggered after diagnosis summary)
     if (screen === 26) {
-      return <InteractiveLoading onComplete={goNext} visible={visible} gender={gender} />;
+      return <InteractiveLoading onComplete={goNext} visible={visible} />;
     }
 
     // Screen 27: Progression Roadmap
