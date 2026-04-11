@@ -89,7 +89,7 @@ export async function trackPlanSelected(email: string, plan: string) {
   }
 }
 
-const BREVO_API_KEY = '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';
+const BREVO_API_KEY = import.meta.env.VITE_BREVO_API_KEY;
 const BREVO_LIST_ID = 3;
 
 export async function addToBrevo(email: string, nombre: string) {

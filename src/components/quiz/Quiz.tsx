@@ -486,6 +486,7 @@ export default function Quiz() {
   const [diagnosisLevel, setDiagnosisLevel] = useState(0);
   const [diagnosisText, setDiagnosisText] = React.useState<string>('Analizando tus respuestas...');
   const [diagnosisLoading, setDiagnosisLoading] = React.useState<boolean>(true);
+  const diagnosisCalledRef = React.useRef<boolean>(false);
 
   useEffect(() => {
     try {
@@ -552,7 +553,8 @@ export default function Quiz() {
   }, [screen, getDiagnosis]);
 
   React.useEffect(() => {
-    if (screen === 25) {
+    if (screen === 25 && !diagnosisCalledRef.current) {
+      diagnosisCalledRef.current = true;
       setDiagnosisLoading(true);
       generatePersonalizedDiagnosis(name, gender, answers)
         .then(text => {
