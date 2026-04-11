@@ -78,7 +78,7 @@ Escribe SOLO el diagnóstico, nada más.`;
   try {
     const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -92,12 +92,18 @@ Escribe SOLO el diagnóstico, nada más.`;
       }
     );
 
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error?.message || `API Error: ${response.status}`);
+    }
+
     const data = await response.json();
     const text = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
     if (!text) throw new Error('Empty response');
     return text;
   } catch (error) {
-    console.error('Diagnosis API error:', error);
-    return `${name}, tus respuestas revelan un patrón claro de desconexión interior y búsqueda de paz. Lo que sientes tiene un origen y una solución. Este es tu punto de partida.`;
+    console.error('Diagnosis API detail:', error);
+    // Generic but warm fallback
+    return `${name}, tus respuestas revelan un patrón de búsqueda de paz interior y reconexión emocional. Este es el momento ideal para empezar a soltar lo que te pesa y volver a tu centro con herramientas claras.`;
   }
 }
