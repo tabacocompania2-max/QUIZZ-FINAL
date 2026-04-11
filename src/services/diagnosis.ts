@@ -76,34 +76,34 @@ ${dreamSummary}
 Escribe SOLO el diagnóstico, nada más.`;
 
   try {
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: {
-            maxOutputTokens: 150,
-            temperature: 0.7,
-          },
-        }),
-      }
-    );
+    const apiKey = import.meta.env.VITE_MISTRAL_API_KEY;
+    const response = await fetch('https://api.mistral.ai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: 'mistral-small-latest',
+        messages: [
+          { role: 'user', content: prompt }
+        ],
+        max_tokens: 150,
+        temperature: 0.7
+      })
+    });
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.error?.message || `API Error: ${response.status}`);
+      throw new Error(errorData.message || `Mistral Error: ${response.status}`);
     }
 
     const data = await response.json();
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+    const text = data.choices?.[0]?.message?.content?.trim();
     if (!text) throw new Error('Empty response');
     return text;
   } catch (error) {
     console.error('Diagnosis API detail:', error);
-    // Generic but warm fallback
     return `${name}, tus respuestas revelan un patrón de búsqueda de paz interior y reconexión emocional. Este es el momento ideal para empezar a soltar lo que te pesa y volver a tu centro con herramientas claras.`;
   }
 }
