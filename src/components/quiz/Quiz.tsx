@@ -4,6 +4,7 @@ import { Hand } from 'lucide-react';
 import ScratchCard from './ScratchCard';
 import OfferScreen from './OfferScreen';
 import { trackEmailCapture, trackOfferReached, addToBrevo } from '../../services/tracking';
+import { generatePersonalizedDiagnosis } from './services/diagnosis';
 
 const TOTAL = 31;
 
@@ -483,6 +484,8 @@ export default function Quiz() {
   const [scratched, setScratched] = useState(savedState?.scratched || false);
   const [hasStartedScratching, setHasStartedScratching] = useState(false);
   const [diagnosisLevel, setDiagnosisLevel] = useState(0);
+  const [diagnosisText, setDiagnosisText] = React.useState<string>('Analizando tus respuestas...');
+  const [diagnosisLoading, setDiagnosisLoading] = React.useState<boolean>(true);
 
   useEffect(() => {
     try {
@@ -547,6 +550,17 @@ export default function Quiz() {
       return () => clearTimeout(timer);
     }
   }, [screen, getDiagnosis]);
+
+  React.useEffect(() => {
+    if (screen === 25) {
+      setDiagnosisLoading(true);
+      generatePersonalizedDiagnosis(name, gender, answers)
+        .then(text => {
+          setDiagnosisText(text);
+          setDiagnosisLoading(false);
+        });
+    }
+  }, [screen, name, gender, answers]);
 
   useEffect(() => {
     if (screen === 30) {
@@ -1008,9 +1022,15 @@ export default function Quiz() {
                 </div>
                 <div>
                   <h4 className="font-bold text-sm text-foreground mb-1">Análisis de Nivel {currentLevel.label}</h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed font-medium">
-                    {currentLevel.info}
-                  </p>
+                  {diagnosisLoading ? (
+                    <p className="text-xs text-muted-foreground leading-relaxed font-medium animate-pulse">
+                      Analizando tus respuestas...
+                    </p>
+                  ) : (
+                    <p className="text-xs text-muted-foreground leading-relaxed font-medium">
+                      {diagnosisText}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
