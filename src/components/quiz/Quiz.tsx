@@ -484,8 +484,8 @@ export default function Quiz() {
   const [scratched, setScratched] = useState(savedState?.scratched || false);
   const [hasStartedScratching, setHasStartedScratching] = useState(false);
   const [diagnosisLevel, setDiagnosisLevel] = useState(0);
-  const [diagnosisText, setDiagnosisText] = React.useState<string>('Analizando tus respuestas...');
-  const [diagnosisLoading, setDiagnosisLoading] = React.useState<boolean>(true);
+  const [diagnosisText, setDiagnosisText] = React.useState<string>(savedState?.diagnosisText || 'Analizando tus respuestas...');
+  const [diagnosisLoading, setDiagnosisLoading] = React.useState<boolean>(!savedState?.diagnosisText);
   const diagnosisCalledRef = React.useRef<boolean>(false);
 
   useEffect(() => {
@@ -498,7 +498,8 @@ export default function Quiz() {
         email,
         commitment,
         multiSelect,
-        scratched
+        scratched,
+        diagnosisText
       }));
     } catch {
       // silently fail
@@ -553,7 +554,7 @@ export default function Quiz() {
   }, [screen, getDiagnosis]);
 
   React.useEffect(() => {
-    if (screen === 25 && !diagnosisCalledRef.current) {
+    if (screen === 25 && !diagnosisCalledRef.current && diagnosisText === 'Analizando tus respuestas...') {
       diagnosisCalledRef.current = true;
       setDiagnosisLoading(true);
       generatePersonalizedDiagnosis(name, gender, answers)
@@ -561,8 +562,10 @@ export default function Quiz() {
           setDiagnosisText(text);
           setDiagnosisLoading(false);
         });
+    } else if (screen === 25 && diagnosisText !== 'Analizando tus respuestas...') {
+      setDiagnosisLoading(false);
     }
-  }, [screen, name, gender, answers]);
+  }, [screen, name, gender, answers, diagnosisText]);
 
   useEffect(() => {
     if (screen === 30) {
