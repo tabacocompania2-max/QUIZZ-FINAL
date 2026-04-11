@@ -4,7 +4,7 @@ import { Hand } from 'lucide-react';
 import ScratchCard from './ScratchCard';
 import OfferScreen from './OfferScreen';
 import { trackEmailCapture, trackOfferReached, addToBrevo } from '../../services/tracking';
-import { generatePersonalizedDiagnosis } from './services/diagnosis';
+import { generatePersonalizedDiagnosis } from '../../services/diagnosis';
 
 const TOTAL = 31;
 
